@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Header from './components/header/Header';
+import AllGames from './pages/all-games/AllGames';
 
-function App() {
+
+const App = () => {
+  const themeState = useSelector(state => state.theme);
+  useEffect(() => {
+  });
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={themeState}>
+      <div className='h-screen bg-l-bg dark:bg-d-bg'>
+        <Header></Header>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<AllGames></AllGames>}></Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
     </div>
-  );
+  )
 }
 
 export default App;
