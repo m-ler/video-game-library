@@ -17,7 +17,7 @@ const App = () => {
 
   return (
     <div className={themeState}>
-      <div className='h-screen bg-l-bg dark:bg-d-bg'>
+      <div className='h-screen bg-bg-gradient dark:bg-bg-gradient-dark min-w-[320px] flex flex-col w-full'>
         <Header></Header>
         <BrowserRouter>
           <Routes>
