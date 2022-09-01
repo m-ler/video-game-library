@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import GameCard from "../../components/cards/GameCard";
 import { useSelector } from 'react-redux';
 import { RevolvingDot } from "react-loader-spinner";
-import { Virtuoso } from "react-virtuoso";
 
 const getGameList = async (page) => {
     const apiKey = 'a2bb4511c7b2410895f09afa44233447';
@@ -57,6 +56,7 @@ const AllGames = () => {
         <main ref={listContainerElement} className='px-[40px] pb-[20px] max-w-[1920px] w-full grow mx-auto flex flex-col gap-y-[20px] overflow-auto'>
                 
             <h1 className='text-neu1-10 dark:text-neu1-1 text-4xl font-Lato font-black' >All games</h1>
+
 
             <div className='grid grid-cols-card-grid gap-[20px]'>
                 {
