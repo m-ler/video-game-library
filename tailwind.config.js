@@ -31,9 +31,10 @@ module.exports = {
       'neu2-8': '#504A40',
       'neu2-9': '#423D33',
       'neu2-10': '#27241D',
-    },
-    gridTemplateColumns: {
-      'card-grid': 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))'
+
+      'metascore-high': '#12a623',
+      'metascore-mid': '#f5b520',
+      'metascore-low': '#d4311c',
     },
     backgroundImage: {
       'bg-gradient': 'radial-gradient(circle at 20% -10%, #DDECFF 0%, transparent 40%), radial-gradient(circle at 90% 150%, #DDECFF 0%, #E4E7EB 50%)',
