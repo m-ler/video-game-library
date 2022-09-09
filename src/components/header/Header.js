@@ -6,10 +6,9 @@ import APIButton from './APIButton';
 const Header = () => {
 
     return (
-        <header className='flex items-center gap-x-[25px] bg-l-sec-c dark:bg-d-sec-c px-[20px] py-[20px] max-w-[1920px] mx-auto flex-wrap gap-y-[15px] w-full'>
+        <header className='flex items-center gap-x-[25px] px-[20px] py-[20px] max-w-[1920px] mx-auto flex-wrap gap-y-[15px] w-full'>
             <div className='flex items-center gap-x-[10px]'>
-                <Logo className='min-w-[2rem] w-8 h-9 text-l-on-bg dark:text-d-on-bg'></Logo>
-                <h1 className='text-neu1-9 dark:text-neu1-2 font-Poppins font-bold uppercase text-[18px]'>Video Game Library</h1>
+                <Logo className='min-w-[58px] w-8 h-9 fill-neu1-10 dark:fill-neu1-1'></Logo>
             </div>
             <div className='flex gap-x-[10px] grow'>
                 <div className='border border-neu1-4 dark:border-neu1-6  p-2.5 h-9 gap-x-2.5 rounded-full flex items-center px-5  max-w-[400px] grow'>

@@ -43,12 +43,10 @@ const VirtualizedGrid = (props) => {
 
     const getVisibleElementsIndices = () => {
         const headerHeight = header.current?.getBoundingClientRect()?.height ?? 0;
-        //const footerHeight = footer.current?.getBoundingClientRect()?.height ?? 0;
         const viewportHeight = gridParentElement.current?.getBoundingClientRect()?.height ?? 0;
 
         topIndexThreshold.current = (((scrollTop - headerHeight) / (props.rowHeight + props.gapY)) * columnCount) - (props.buffer * columnCount);
         bottomIndexThreshold.current = ((((scrollTop - headerHeight) + viewportHeight) / (props.rowHeight + props.gapY)) * columnCount) + (props.buffer * columnCount);
-        //console.log(bottomIndexThreshold.current - topIndexThreshold.current)
     };
 
     const getVisibleElements = () => {
@@ -65,7 +63,8 @@ const VirtualizedGrid = (props) => {
                 left: (columnWidth + props.gapX) * ((i % columnCount)),
                 width: columnWidth,
                 height: props.rowHeight,
-                maxHeight: props.rowHeight
+                maxHeight: props.rowHeight,
+                zIndex: props.total - i
             }
             visibleElements.push(<div style={style} key={i}>{props.childElement(i)}</div>)
         };

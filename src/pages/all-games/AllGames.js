@@ -24,7 +24,7 @@ const AllGames = () => {
     const [loadedContent, setLoadedContent] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [fetching, setFetching] = useState(false);
-    const [requestSuccesful, setRequestSuccesful] = useState(false);
+    const [requestSuccesful, setRequestSuccesful] = useState(true);
 
     const observer = useRef();
     const listContainerElement = useRef();
@@ -66,7 +66,7 @@ const AllGames = () => {
     const getFooter = () => {
         return (
             !requestSuccesful ?
-                <div><h1 className="text-[48px] font-Montserrat text-center font-bold dark:text-white">SOMETHING WENT WRONG</h1></div> :
+                <div><h1 className="text-[48px] font-system text-center font-extrabold dark:text-white">SOMETHING WENT WRONG</h1></div> :
                 fetching ?
                     <div className="flex justify-center w-full border-t-[1px] border-neu1-2 dark:border-neu1-9 py-[15px]">
                         <ColorRing visible={true} height="80" width="80" wrapperClass="blocks-wrapper" colors={['#0F74E7', '#00CDDB', '#FF74AD', '#0F74E7', '#FF74AD']} />
@@ -89,7 +89,7 @@ const AllGames = () => {
                 total={loadedContent.length}
                 buffer={1}//
                 scrollContainer={listContainerElement.current}
-                header={<h1 className='text-neu1-10 dark:text-neu1-1 text-4xl font-Montserrat font-semibold mb-[25px]' >ALL GAMES</h1>}
+                header={<h1 className='text-neu1-9 dark:text-neu1-2  font-system text-[60px] font-bold mb-[25px] ' >All Games</h1>}
                 footer={getFooter()}
             ></VirtualizedGrid>
         </main>
