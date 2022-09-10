@@ -4,12 +4,8 @@ import { SiNintendoswitch, SiIos, SiSega } from 'react-icons/si';
 import { DiAndroid } from 'react-icons/di';
 import GameCardDetail from './GameCardDetail';
 import { useState } from 'react';
-
-const getCompressedImageURL = (imgURL) => {
-    imgURL = imgURL.split('/media/');
-    imgURL.splice(1, 0, '/media/crop/600/400/');
-    return imgURL.join('');
-};
+import getCompressedImageURL from '../../utils/getCompressedImageURL';
+import GameCardSlideshow from './GameCardSlideshow';
 
 const platformIconDictionary = {
     'PC': <FaWindows></FaWindows>,
@@ -49,7 +45,11 @@ const GameCard = (props) => {
         <div data-rol='game-card' onMouseOver={() => setHovering(true)} onMouseOut={() => setHovering(false)} data-game-id={props.game.id} style={props.style}
             className={`flex flex-col bg-neu1-1 dark:bg-neu1-9 ${hovering ? 'shadow-lg' : 'shadow-md'}  rounded-xl p-[20px] gap-y-[15px] animate-[fadeIn_0.3s_ease-out] relative`}
         >
-            <img loading="lazy" src={getCompressedImageURL(props.game.background_image)} className='backdrop-brightness-200 max-h-[200px] min-h-[200px] object-cover rounded-lg cursor-pointer bg-neu1-1 dark:bg-neu1-10'></img>
+            {
+                hovering ?
+                    <GameCardSlideshow game={props.game}></GameCardSlideshow> :
+                    <img loading="lazy" src={getCompressedImageURL(props.game.background_image)} className='max-h-[200px] min-h-[200px] object-cover rounded-lg cursor-pointer bg-neu1-1 dark:bg-neu1-10'></img>
+            }
             <div className="flex flex-col gap-y-[5px]">
                 <a href='/' className={`text-neu1-9 dark:text-neu1-2 font-Roboto font-bold text-[20px] text-ellipsis overflow-hidden block ${hovering ? '' : 'whitespace-nowrap'} hover:underline`}>{props.game.name}</a>
                 <div className='grid grid-cols-[1fr_30px] gap-y-[5px] grid-rows-[1fr_1fr] gap-x-[15px] items-center'>
