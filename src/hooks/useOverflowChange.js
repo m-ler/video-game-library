@@ -1,14 +1,22 @@
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useRef } from "react";
 
 const useOverflowChange = (callback, ref) => {
-    useLayoutEffect(() => {
-        const trigger = () => {
-            const hasOverflow = ref.current.scrollHeight > ref.current.clientHeight;
-            !!callback && callback(hasOverflow);
-        };
 
-        new ResizeObserver(trigger).observe(ref.current);
+    const trigger = () => {
+        const hasOverflow = ref.current.scrollHeight > ref.current.clientHeight;
+        !!callback && callback(hasOverflow);
+    };
+
+    const observer = useRef(new ResizeObserver(trigger));
+    
+    useLayoutEffect(() => {
         !!ref.current && trigger();
+        observer.current.observe(ref.current);
+
+        return () => {
+            observer.current.disconnect()
+        }
+
     }, [ref]);
 };
 

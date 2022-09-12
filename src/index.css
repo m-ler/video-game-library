@@ -5,7 +5,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    overflow: hidden;
+body{ 
+    overflow: hidden; 
 }
 
+ 

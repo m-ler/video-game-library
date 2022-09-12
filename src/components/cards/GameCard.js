@@ -4,8 +4,9 @@ import { SiNintendoswitch, SiIos, SiSega } from 'react-icons/si';
 import { DiAndroid } from 'react-icons/di';
 import GameCardDetail from './GameCardDetail';
 import { useState } from 'react';
-import getCompressedImageURL from '../../utils/getCompressedImageURL';
+import { getMidCompressedImageURL } from '../../utils/compressedImageURLS';
 import GameCardSlideshow from './GameCardSlideshow';
+import { Link } from "react-router-dom";
 
 const platformIconDictionary = {
     'PC': <FaWindows></FaWindows>,
@@ -45,13 +46,11 @@ const GameCard = (props) => {
         <div data-rol='game-card' onMouseOver={() => setHovering(true)} onMouseOut={() => setHovering(false)} data-game-id={props.game.id} style={props.style}
             className={`flex flex-col bg-neu1-1 dark:bg-neu1-9 ${hovering ? 'shadow-lg' : 'shadow-md'}  rounded-xl p-[20px] gap-y-[15px] animate-[fadeIn_0.3s_ease-out] relative`}
         >
-            {
-                hovering ?
-                    <GameCardSlideshow game={props.game}></GameCardSlideshow> :
-                    <img loading="lazy" src={getCompressedImageURL(props.game.background_image)} className='max-h-[200px] min-h-[200px] object-cover rounded-lg cursor-pointer bg-neu1-1 dark:bg-neu1-10'></img>
-            }
+            <GameCardSlideshow game={props.game} style={{ display: hovering ? 'block' : 'none' }}></GameCardSlideshow>
+            <img loading="lazy" src={getMidCompressedImageURL(props.game.background_image)} className={`max-h-[200px] min-h-[200px] object-cover rounded-lg cursor-pointer bg-neu1-1 dark:bg-neu1-10 ${hovering ? 'hidden' : 'block'}`}></img>
+
             <div className="flex flex-col gap-y-[5px]">
-                <a href='/' className={`text-neu1-9 dark:text-neu1-2 font-Roboto font-bold text-[20px] text-ellipsis overflow-hidden block ${hovering ? '' : 'whitespace-nowrap'} hover:underline`}>{props.game.name}</a>
+                <Link to={`game/${props.game.id}`} className={`text-neu1-9 dark:text-neu1-2 font-Roboto font-bold text-[20px] text-ellipsis overflow-hidden block ${hovering ? '' : 'whitespace-nowrap'} hover:underline`}>{props.game.name}</Link>
                 <div className='grid grid-cols-[1fr_30px] gap-y-[5px] grid-rows-[1fr_1fr] gap-x-[15px] items-center'>
                     <span
                         className="flex gap-[10px] overflow-hidden text-neu1-6 dark:text-neu1-4 font-OpenSans font-medium text-[16px] relative after:content-[''] 

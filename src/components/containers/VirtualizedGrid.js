@@ -21,6 +21,10 @@ const VirtualizedGrid = (props) => {
         });
 
         resizeObserver.current.observe(ghostGrid.current);
+
+        return () => {
+            resizeObserver.current.disconnect()
+        };
     }, []);
 
     useEffect(() => {

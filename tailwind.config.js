@@ -48,6 +48,7 @@ module.exports = {
         OpenSans: ["'Open Sans'"],
         Montserrat: ['Montserrat'],
         Lato: ['Lato'],
+        System: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen-Sans', 'Ubuntu', 'Cantarell', 'Helvetica Neue', 'sans-serif'],
       }, 
       keyframes: {
         wiggle: {
@@ -86,9 +87,6 @@ module.exports = {
         'inBack': 'cubic-bezier(0.36, 0, 0.66, -0.56)',
         'outBack': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
         'inOutBack': 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
-      },
-      fontFamily: {
-        'system': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen-Sans', 'Ubuntu', 'Cantarell', 'Helvetica Neue', 'sans-serif'],
       },
     },
   },

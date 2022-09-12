@@ -1,22 +1,22 @@
 import { useState } from "react";
-import getCompressedImageURL from "../../utils/getCompressedImageURL";
+import { getMidCompressedImageURL } from "../../utils/compressedImageURLS";
 
 
 
 const GameCardSlideshow = (props) => {
-    
+
     const [hoverIndex, setHoverIndex] = useState(0);
 
     const getGameImages = (imageList) => {
         const style = `object-cover absolute w-full h-full flex rounded-[12px]`;
-        const images = imageList.map((x, i) => <img loading="lazy" key={i} src={getCompressedImageURL(x.image)} style={{display: hoverIndex === i ? 'block' : 'none'}} className={style}></img>);
+        const images = imageList.map((x, i) => <img loading="lazy" key={i} src={getMidCompressedImageURL(x.image)} style={{ display: hoverIndex === i ? 'block' : 'none' }} className={style}></img>);
         return images;
     };
 
     const imageList = getGameImages(props.game.short_screenshots);
 
     return (
-        <div className="max-h-[200px] min-h-[200px] relative rounded-[10px] overflow-hidden ">
+        <div className="max-h-[200px] min-h-[200px] relative rounded-[10px] overflow-hidden" style={props.style}>
             {imageList}
             <div className="absolute w-full h-full flex justify-between
              before:content-[''] before:z-10 before:absolute before:top-[0px] before:left-[0px] before:right-[0px] before:bottom-[0px]  before:bg-[linear-gradient(to_top,_black_0%,_transparent_100px)] before:opacity-80 before:pointer-events-none">

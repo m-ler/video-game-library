@@ -6,7 +6,9 @@ import {
   Route,
 } from "react-router-dom";
 import Header from './components/header/Header';
-import AllGames from './pages/all-games/AllGames';
+import AllGamesPage from './pages/all-games/AllGamesPage';
+import GamePage from './pages/game/GamePage';
+
 
 
 const App = () => {
@@ -18,10 +20,11 @@ const App = () => {
   return (
     <div className={themeState}>
       <div className='h-screen bg-bg-gradient dark:bg-bg-gradient-dark min-w-[320px] flex flex-col w-full'>
-        <Header></Header>
         <BrowserRouter>
+          <Header></Header>
           <Routes>
-            <Route path="/" element={<AllGames></AllGames>}></Route>
+            <Route path="/" element={<AllGamesPage></AllGamesPage>}></Route>
+            <Route path="game/:gameId" element={<GamePage></GamePage>}></Route>
           </Routes>
         </BrowserRouter>
       </div>
