@@ -1,66 +1,17 @@
-import { useEffect } from "react";
+import { cloneElement, useEffect } from "react";
 import { useSelector } from 'react-redux';
 import { ColorRing } from "react-loader-spinner";
 import { getGameDetail, getGameDetailScreenshots } from "../../utils/apiRequests";
 import useApiRequest from "../../hooks/useApiRequest";
 import { Link, useParams } from 'react-router-dom';
 import { getHighCompressedImageURL } from "../../utils/compressedImageURLS";
+import MetacriticIcon from "../../assets/icons/MetacriticIcon";
+import getMetascoreColor from "../../utils/getMetascoreColor";
+import { FaExternalLinkAlt } from 'react-icons/fa';
+import platformIcons from "../../utils/platformIcons";
+import platformColors from "../../utils/platformColors";
 
 const getPlatformColor = (platformName) => {
-    const platformColors = {
-        'PC': '#000000',
-        'PlayStation 5': '#003791',
-        'Nintendo Switch': '#e60012',
-        'PlayStation 4': '#003791',
-        'Xbox One': '#107C10',
-        'Xbox Series S/X': '#107C10',
-        'iOS': '#000000',
-        'Android': '#78C257',
-        'Nintendo 3DS': '#e60012',
-        'Nintendo DS': '#e60012',
-        'Nintendo DSi': '#e60012',
-        'macOS': '#000000',
-        'Linux': '#003366',
-        'Xbox 360': '#8CC63F',
-        'Xbox': '#8CC63F',
-        'PlayStation 3': '#003791',
-        'PlayStation 2': '#003791',
-        'PlayStation': '#003791',
-        'PS Vita': '#003791',
-        'PSP': '#003791',
-        'Wii U': '#009ac7',
-        'Wii': '#009ac7',
-        'GameCube': '#2F1B66',
-        'Nintendo 64': '#0A1EAA',
-        'Game Boy Advance': '#2F1B66',
-        'Game Boy Color': '#2F1B66',
-        'Game Boy': '#306230',
-        'SNES': '#4f43ae',
-        'NES': '#e60012',
-        'Classic Macintosh': '#000000',
-        'Apple II': '#000000',
-        'Commodore / Amiga': '#0070E8',
-        'Atari 7800': '#F30A09',
-        'Atari 5200': '#F30A09',
-        'Atari 2600': '#F30A09',
-        'Atari Flashback': '#F30A09',
-        'Atari 8-bit': '#F30A09',
-        'Atari ST': '#F30A09',
-        'Atari Lynx': '#F30A09',
-        'Atari XEGS': '#F30A09',
-        'Genesis': '#17569b',
-        'SEGA Saturn': '#17569b',
-        'SEGA CD': '#17569b',
-        'SEGA 32X': '#17569b',
-        'SEGA Master System': '#17569b',
-        'Dreamcast': '#17569b',
-        '3DO': '#000000',
-        'Jaguar': '#000000',
-        'Game Gear': '#17569b',
-        'Neo Geo': '#00A2E7',
-        'Web': '#000000',
-    };
-
     return platformColors[platformName] || '#000000';
 };
 
@@ -69,11 +20,33 @@ const getImagePreview = (url, key) => {
 };
 
 const getPlatformChip = (plaformName, key) => {
-    return <Link to='/' className="px-[20px] py-[8px] rounded" style={{ backgroundColor: getPlatformColor(plaformName) }} key={key}><span className="font-OpenSans text-white font-semibold text-[14px]">{plaformName}</span></Link>
+    const platformIcon = platformIcons[plaformName] || null;
+    return (
+        <Link to='/' className="px-[20px] py-[8px] rounded flex items-center gap-x-[10px] hover:scale-105 hover:drop-shadow-lg duration-100 "
+            style={{ backgroundColor: getPlatformColor(plaformName) }} key={key}
+        >
+            {platformIcon && cloneElement(platformIcon, { className: "text-white" })}
+            <span className="font-OpenSans text-white font-semibold text-[14px]">{plaformName}</span>
+        </Link>
+    )
 };
 
 const getGenreChip = (genreName, key) => {
-    return <Link to='/' className="px-[15px] py-[6px] rounded-md bg-neu1-5  dark:bg-neu1-8" key={key}><span className="font-OpenSans text-neu1-2 font-semibold text-[14px]">{genreName}</span></Link>
+    return (
+        <Link to='/' className="px-[15px] py-[6px] rounded-md bg-neu1-3 dark:bg-neu1-8 hover:bg-accent1 dark:hover:bg-accent1 group duration-100" key={key}>
+            <span className="font-OpenSans text-neu1-7 dark:text-neu1-3 font-bold text-[14px] group-hover:text-neu1-2">{genreName}</span>
+        </Link>
+
+    )
+};
+
+const getDeveloperChip = (devName, key) => {
+    return (
+        <Link to='/' className="px-[15px] py-[6px] rounded-md bg-neu1-3 dark:bg-neu1-8 hover:bg-accent1 dark:hover:bg-accent1 group duration-100" key={key}>
+            <span className="font-OpenSans text-neu1-7 dark:text-neu1-3 font-bold text-[14px] group-hover:text-neu1-2">{devName}</span>
+        </Link>
+
+    )
 };
 
 const GamePage = () => {
@@ -104,7 +77,7 @@ const GamePage = () => {
                 <section className="z-[2] relative mx-auto max-w-[1000px] flex flex-wrap justify-between gap-[20px] border-b border-neu1-3 dark:border-neu1-7 pb-[20px]">
                     <div className="min-w-[min(100%,400px)] max-w-[490px] mx-auto">
                         <h1 className="text-neu1-9 dark:text-neu1-1 font-System text-[48px] font-black mb-[25px] leading-[50px]">{gameRequest.data.name}</h1>
-                        <div className="bg-neu1-1/20 dark:bg-neu1-10/20 p-[15px] rounded-md backdrop-blur-xl shadow-lg">
+                        <div className="bg-neu1-1/20 dark:bg-neu1-10/20 p-[15px] rounded-md backdrop-blur-xl shadow-lg max-h-[433px] overflow-auto">
                             <h3 className="text-neu1-9 dark:text-neu1-2 font-Lato font-black text-[20px] mb-[10px]">Description</h3>
                             <p className="text-neu1-7 dark:text-neu1-3 font-Roboto font-medium text-[14px]">{gameRequest.data.description_raw}</p>
                         </div>
@@ -120,30 +93,58 @@ const GamePage = () => {
                 </section>
 
                 {
-                    !!gameRequest.data.platforms ?
-                        <section className="z-[2] relative mx-auto max-w-[1000px] py-[20px] border-b border-neu1-3 dark:border-neu1-7 flex flex-col">
-                            <h3 className="text-[28px] font-Lato font-black text-neu1-8 dark:text-neu1-2 block">Platforms</h3>
-                            <div className="mt-[20px] flex flex-wrap gap-[10px]">
-                                {
-                                    gameRequest.data.platforms.map((platform, index) => getPlatformChip(platform.platform.name, index))
-                                }
-                            </div>
-                        </section> : ''
+                    (!!gameRequest.data.platforms && gameRequest.data.platforms.length > 0) &&
+                    <section className="z-[2] relative mx-auto max-w-[1000px] py-[20px] border-b border-neu1-3 dark:border-neu1-7 flex flex-col">
+                        <h3 className="text-[28px] font-Lato font-black text-neu1-8 dark:text-neu1-2 block">Platforms</h3>
+                        <div className="mt-[20px] flex flex-wrap gap-[10px]">
+                            {
+                                gameRequest.data.platforms.map((platform, index) => getPlatformChip(platform.platform.name, index))
+                            }
+                        </div>
+                    </section>
                 }
 
                 {
-                    !!gameRequest.data.genres ?
-                        <section className="z-[2] relative mx-auto max-w-[1000px] py-[20px] border-b border-neu1-3 dark:border-neu1-7 flex flex-col">
-                            <h3 className="text-[28px] font-Lato font-black text-neu1-8 dark:text-neu1-2 block">Genres</h3>
-                            <div className="mt-[20px] flex flex-wrap gap-[10px]">
-                                {
-                                    gameRequest.data.genres.map((genre, index) => getGenreChip(genre.name, index))
-                                }
-                            </div>
-                        </section> : ''
+                    (!!gameRequest.data.genres && gameRequest.data.genres.length > 0) &&
+                    <section className="z-[2] relative mx-auto max-w-[1000px] py-[20px] border-b border-neu1-3 dark:border-neu1-7 flex flex-col">
+                        <h3 className="text-[28px] font-Lato font-black text-neu1-8 dark:text-neu1-2 block">Genres</h3>
+                        <div className="mt-[15px] flex flex-wrap gap-[10px]">
+                            {
+                                gameRequest.data.genres.map((genre, index) => getGenreChip(genre.name, index))
+                            }
+                        </div>
+                    </section>
                 }
 
+                {
+                    (!!gameRequest.data.developers && gameRequest.data.developers.length > 0) &&
+                    <section className="z-[2] relative mx-auto max-w-[1000px] py-[20px] border-b border-neu1-3 dark:border-neu1-7 flex flex-col">
+                        <h3 className="text-[28px] font-Lato font-black text-neu1-8 dark:text-neu1-2 block">Developers</h3>
+                        <div className="mt-[15px] flex flex-wrap gap-[10px]">
+                            {
+                                gameRequest.data.developers.map((dev, index) => getDeveloperChip(dev.name, index))
+                            }
+                        </div>
+                    </section>
+                }
 
+                {
+                    !!gameRequest.data.metacritic &&
+                    <div className="mx-auto max-w-min bg-neu1-1 dark:bg-neu1-9 mt-[20px] rounded flex flex-col p-[15px] gap-x-[15px] items-center">
+
+                        <div className="flex items-center justify-center gap-x-[10px]">
+                            <span className={`flex items-center text-center ${getMetascoreColor(gameRequest.data.metacritic)} text-white font-System font-black text-[20px] p-[7px] max-h-[40px] max-w-[40px] rounded`}>{gameRequest.data.metacritic}</span>
+                            <MetacriticIcon width={150} color={theme === 'dark' ? "white" : "black"}></MetacriticIcon>
+                        </div>
+                        {
+                            !!gameRequest.data.metacritic_url &&
+                            <a target='blank' href={gameRequest.data.metacritic_url} className='flex items-center gap-x-[10px] text-neu1-8 dark:text-neu1-2 hover:underline font-Raleway text-[12px] font-bold ml-auto'>
+                                Read reviews
+                                <FaExternalLinkAlt className="max-w-[10px]"></FaExternalLinkAlt>
+                            </a>
+                        }
+                    </div>
+                }
             </main>
     );
 };

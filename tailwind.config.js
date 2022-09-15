@@ -48,6 +48,7 @@ module.exports = {
         OpenSans: ["'Open Sans'"],
         Montserrat: ['Montserrat'],
         Lato: ['Lato'],
+        Raleway: ['Raleway'], 
         System: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen-Sans', 'Ubuntu', 'Cantarell', 'Helvetica Neue', 'sans-serif'],
       }, 
       keyframes: {
