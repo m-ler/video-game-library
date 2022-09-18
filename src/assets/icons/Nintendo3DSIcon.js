@@ -3,8 +3,6 @@ export default (props) => {
 
     return (
         <svg
-            width={props.width}
-            height={props.height}
             viewBox="1406.621 0 1093.379 305"
             xmlSpace="preserve"
             {...props}
