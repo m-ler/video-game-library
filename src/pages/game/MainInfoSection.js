@@ -4,6 +4,7 @@ import FullScreenImageSlideshow from "./FullScreenImageSlideshow";
 
 export default (props) => {
   const [showSlideshow, setShowSlideshow] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(0);
 
   const getImagePreview = (url, key) => {
     return (
@@ -11,7 +12,10 @@ export default (props) => {
         className="cursor-pointer w-full rounded-md"
         key={key}
         src={getHighCompressedImageURL(url)}
-        onClick={() => setShowSlideshow(true)}
+        onClick={() => {
+          setSelectedImage(key);
+          setShowSlideshow(true);
+        }}
       ></img>
     );
   };
@@ -49,8 +53,20 @@ export default (props) => {
 
       {showSlideshow && (
         <FullScreenImageSlideshow
-          images={props.screenshots.map(x => x.image)}
+          images={[
+            ...props.screenshots,
+            ...props.screenshots,
+            ...props.screenshots,
+
+            ...props.screenshots,
+
+            ...props.screenshots,
+            ...props.screenshots,
+
+            ...props.screenshots,
+          ].map((x) => x.image)}
           onHide={() => setShowSlideshow(false)}
+          selectedIndex={selectedImage}
         ></FullScreenImageSlideshow>
       )}
     </section>

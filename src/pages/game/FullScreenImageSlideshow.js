@@ -1,9 +1,13 @@
+import { useState } from "react";
 import { Modal } from "react-overlays";
 import {
   MdKeyboardArrowLeft,
   MdKeyboardArrowRight,
   MdClose,
 } from "react-icons/md";
+import { scrollHorizontally } from "../../utils/mouseUtils";
+import { useEffect } from "react";
+import { useRef } from "react";
 
 const getBackdrop = () => {
   return (
@@ -12,7 +16,11 @@ const getBackdrop = () => {
 };
 
 const FullScreenImageSlideshow = (props) => {
-  console.log(props);
+  const [selectedIndex, setSelectedIndex] = useState(props.selectedIndex || 0);
+  const imageSelectorElement = useRef();
+
+
+
   return (
     <Modal
       className="w-screen h-screen fixed top-[0] left-[0] animate-[appear1_0.2s_ease-out]"
@@ -31,16 +39,35 @@ const FullScreenImageSlideshow = (props) => {
         </button>
         <div className="w-full m-auto flex flex-col max-h-[100%] gap-y-[20px] py-[50px] px-[10px] md:px-[50px]">
           <div className="flex grow overflow-hidden">
-            <img src={props.images[0]} className="mx-auto object-contain"></img>
+            <img
+              src={props.images[selectedIndex]}
+              className="mx-auto object-contain"
+            ></img>
           </div>
-          <div className="w-full bg-white/20 min-h-[100px] hidden md:flex">
-            <button>
-              <MdKeyboardArrowLeft className="text-white"></MdKeyboardArrowLeft>
-            </button>
-            <div></div>
-            <button>
-              <MdKeyboardArrowRight className="text-white"></MdKeyboardArrowRight>
-            </button>
+          <div
+            className="max-w-full w-min mx-auto bg-white/0 min-h-[100px] max-h-[100px] overflow-auto no-scrollbar hidden md:flex p-[10px] gap-x-[10px]"
+            ref={imageSelectorElement}
+            onWheel={scrollHorizontally}
+          >
+            {!!props.images &&
+              props.images.map((img, index) => (
+                <img
+                  src={img}
+                  key={index}
+                  className={`object-scale-down max-w-[150px] cursor-pointer ${
+                    selectedIndex === index
+                      ? "border border-white"
+                      : "opacity-50"
+                  }`}
+                  onClick={(e) => {
+                    e.target.scrollIntoView({
+                      behavior: "smooth",
+                      inline: "center",
+                    });
+                    setSelectedIndex(index);
+                  }}
+                ></img>
+              ))}
           </div>
           <div className="w-full bg-white/20 min-h-[50px] flex md:hidden">
             <button>

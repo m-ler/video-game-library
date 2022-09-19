@@ -31,6 +31,7 @@ export default {
     'macOS': <FaApple></FaApple>,
     'Linux': <FaLinux></FaLinux>,
     'Xbox 360': <FaXbox></FaXbox>,
+    'Xbox': <FaXbox></FaXbox>,
     'PlayStation 3': <FaPlaystation></FaPlaystation>,
     'PlayStation 2': <FaPlaystation></FaPlaystation>,
     'PlayStation': <FaPlaystation></FaPlaystation>,
