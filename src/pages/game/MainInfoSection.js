@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getHighCompressedImageURL } from "../../utils/compressedImageURLS";
+import { getMidCompressedImageURL } from "../../utils/compressedImageURLS";
 import FullScreenImageSlideshow from "./FullScreenImageSlideshow";
 
 export default (props) => {
@@ -9,9 +9,9 @@ export default (props) => {
   const getImagePreview = (url, key) => {
     return (
       <img
-        className="cursor-pointer w-full rounded-md"
+        className="cursor-zoom-in w-full rounded-md"
         key={key}
-        src={getHighCompressedImageURL(url)}
+        src={getMidCompressedImageURL(url)}
         onClick={() => {
           setSelectedImage(key);
           setShowSlideshow(true);
@@ -53,18 +53,7 @@ export default (props) => {
 
       {showSlideshow && (
         <FullScreenImageSlideshow
-          images={[
-            ...props.screenshots,
-            ...props.screenshots,
-            ...props.screenshots,
-
-            ...props.screenshots,
-
-            ...props.screenshots,
-            ...props.screenshots,
-
-            ...props.screenshots,
-          ].map((x) => x.image)}
+          images={props.screenshots.map((x) => x.image)}
           onHide={() => setShowSlideshow(false)}
           selectedIndex={selectedImage}
         ></FullScreenImageSlideshow>
