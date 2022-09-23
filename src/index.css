@@ -1,8 +1,8 @@
 @import url(./assets/fonts.css);
 @import url(./assets/scrollbar.css);
 
-@tailwind base;
 @tailwind components;
+@tailwind base;
 @tailwind utilities;
 
 body {

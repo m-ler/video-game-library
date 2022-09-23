@@ -41,6 +41,14 @@ module.exports = {
         "radial-gradient(circle at 20% -10%, #DDECFF 0%, transparent 40%), radial-gradient(circle at 90% 150%, #DDECFF 0%, #E4E7EB 50%)",
       "bg-gradient-dark":
         "radial-gradient(circle at 20% -20%, #111F33 0%, transparent 40%), radial-gradient(circle at 100% 150%, #111F33 0%, #1F2933 50%)",
+      "gradient-to-t": "linear-gradient(to top, var(--tw-gradient-stops))",
+      "gradient-to-tr": "linear-gradient(to top right, var(--tw-gradient-stops))",
+      "gradient-to-r": "linear-gradient(to right, var(--tw-gradient-stops))",
+      "gradient-to-br": "linear-gradient(to bottom right, var(--tw-gradient-stops))",
+      "gradient-to-b": "linear-gradient(to bottom, var(--tw-gradient-stops))",
+      "gradient-to-bl": "linear-gradient(to bottom left, var(--tw-gradient-stops))",
+      "gradient-to-l": "linear-gradient(to left, var(--tw-gradient-stops))",
+      "gradient-to-tl": "linear-gradient(to top left, var(--tw-gradient-stops))",
     },
     extend: {
       colors,
