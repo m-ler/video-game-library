@@ -1,6 +1,6 @@
 import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeTheme } from '../../features/theme/themeSlice';
+import { toggleTheme } from '../../features/theme/themeSlice';
 import { Tooltip } from 'react-tippy';
 
 const ThemeButton = () => {
@@ -8,7 +8,7 @@ const ThemeButton = () => {
     const dispatch = useDispatch();
 
     const handleOnClick = e => {
-        dispatch(changeTheme(themeState === "dark" ? "light" : "dark"));
+        dispatch(toggleTheme(themeState === "dark" ? "light" : "dark"));
     };
 
     return (
@@ -18,7 +18,7 @@ const ThemeButton = () => {
                 <MdOutlineLightMode size={'1.3rem'} className={`text-white dark:text-d-on-ter ${themeState == 'light' ? 'hidden' : ''}`}></MdOutlineLightMode>
             </button>
         </Tooltip>
-    )
+    ) 
 
 };
 
