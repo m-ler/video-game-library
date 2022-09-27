@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import GameCard from "../../components/cards/GameCard";
 import { useSelector } from "react-redux";
 import { ColorRing } from "react-loader-spinner";
