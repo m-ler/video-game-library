@@ -79,7 +79,7 @@ const AllGamesPage = () => {
   return (
     <main
       ref={listContainerElement}
-      className="px-[20px] max-w-[1920px] w-full grow mx-auto flex flex-col gap-y-[20px] overflow-auto max-h-full"
+      className="px-[20px] max-w-[1920px] w-full grow mx-auto flex flex-col gap-y-[20px] overflow-auto max-h-full z-0"
     >
       <VirtualizedGrid
         name="AllGames"
