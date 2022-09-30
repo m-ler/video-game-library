@@ -1,25 +1,35 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { useRef } from "react";
+import { debounce } from "lodash";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { MdSearch } from "react-icons/md";
 import withOverlay from "../../hoc/overlays/withOverlay";
-import SearchWindow from "./SearchWindow";
+import SearchWindow from "./SearchWindow/SearchWindow";
 
 const SearchBar = () => {
   const searchBarElement = useRef();
   const [showSearchWindow, setShowSearchWindow] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [SearchWindowWithOverlay, setSearchWindowWithOverlay] = useState();
 
   useEffect(() => {
     setSearchWindowWithOverlay(() =>
-      withOverlay(SearchWindow, { elementTarget: searchBarElement.current, position: "bottom-left", anchor: "top-left" })
+      withOverlay(SearchWindow, {
+        elementTarget: searchBarElement.current,
+        position: "bottom-left",
+        anchor: "top-left",
+        margin: { x: 0, y: 15 },
+        sameWidth: true,
+      })
     );
-  }, [searchBarElement]);
+  }, [searchBarElement, showSearchWindow]);
+
+  const handleOnInput = e => { 
+    setSearchQuery(e.target.value);
+  };
 
   return (
     <div
-      className="border border-neu1-4 dark:border-neu1-6  p-2.5 h-9 gap-x-2.5 rounded-full flex items-center px-5  max-w-[400px] grow"
+      className="border border-neu1-4 dark:border-neu1-6  p-2.5 h-9 gap-x-2.5 rounded-full flex items-center px-5  max-w-[800px] grow"
       ref={searchBarElement}
     >
       <MdSearch size={"24px"} className="text-neu1-7 dark:text-text2-dark "></MdSearch>
@@ -31,8 +41,11 @@ const SearchBar = () => {
         spellCheck="false"
         onFocus={() => setShowSearchWindow(true)}
         //onBlur={() => setShowSearchWindow(false)}
+        onInput={useMemo(() => debounce(e => handleOnInput(e), 500), [])}
       ></input>
-      {!!SearchWindowWithOverlay && <SearchWindowWithOverlay></SearchWindowWithOverlay>}
+      {!!SearchWindowWithOverlay && showSearchWindow && (
+        <SearchWindowWithOverlay show={showSearchWindow} setShow={setShowSearchWindow} searchQuery={searchQuery}></SearchWindowWithOverlay>
+      )}
     </div>
   );
 };
