@@ -26,17 +26,28 @@ const GamePage = () => {
   const [gameScreenshots, setGameScreenshots] = useState();
   const mainContainerElement = useRef();
 
-  useEffect(() => {
+  const getGameData = () => {
     const cachedGameData = JSON.parse(localStorage.getItem(localStorageGameDataKey));
     const cachedGameScreenshots = JSON.parse(localStorage.getItem(localStorageGameScreenshotsKey));
 
     !!cachedGameData ? setGameData(cachedGameData) : gameRequest.makeRequest();
     !!cachedGameScreenshots ? setGameScreenshots(cachedGameScreenshots) : screenshotsRequest.makeRequest();
+  };
+
+  useEffect(() => {
+    getGameData();
   }, []);
 
   useEffect(() => {
+    getGameData();
+  }, [gameId]);
+
+  useEffect(() => {
+    !!gameData && (document.title = gameData.name);
+  }, [gameData]);
+
+  useEffect(() => {
     if (!!gameRequest.data) {
-      document.title = gameRequest.data.name;
       localStorage.setItem(localStorageGameDataKey, JSON.stringify(gameRequest.data));
       setGameData(gameRequest.data);
     }

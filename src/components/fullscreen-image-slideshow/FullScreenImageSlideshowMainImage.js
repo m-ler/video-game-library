@@ -10,7 +10,7 @@ const FullScreenImageSlideshowMainImage = (props) => {
       >
         <MdKeyboardArrowLeft className="text-white opacity-0  group-hover:opacity-100 pl-1.5" size={40}></MdKeyboardArrowLeft>
       </span>
-      <img src={props.image} className="mx-auto object-contain"></img>
+      <img src={props.image} className="mx-auto object-contain select-none"></img>
       <span
         tabIndex={-1}
         className="absolute top-[0] right-[0] h-full block cursor-pointer w-[25%] bg-gradient-to-l hover:from-black/50 duration-300 group outline-0 flex items-center"

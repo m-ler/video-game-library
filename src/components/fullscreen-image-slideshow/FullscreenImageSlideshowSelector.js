@@ -27,7 +27,7 @@ const FullscreenImageSlideshowSelector = props => {
           <img
             src={img}
             key={index}
-            className={`object-scale-down max-w-[150px] cursor-pointer ${
+            className={`object-scale-down max-w-[150px] cursor-pointer select-none ${
               props.selectedIndex === index ? "border-b border-b-[3px] border-neu1-3" : "opacity-50"
             }`}
             onClick={() => props.onSelectImage(index)}

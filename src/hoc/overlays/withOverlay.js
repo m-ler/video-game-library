@@ -48,6 +48,8 @@ const getAnchorPosition = (position, margin) => {
  */
 
 const withOverlay = (Component, config) => {
+  if (!config.elementTarget) return () => {};
+
   return props => {
     const [overlayPosition, setOverlayPosition] = useState("display: none;");
     const [anchorPosition, setAnchorPosition] = useState("top: 0px; left: 0px;");
@@ -64,7 +66,7 @@ const withOverlay = (Component, config) => {
     };
 
     const onDocumentClick = e => {
-      const clickedOutside = !overlayElement.current.contains(e.target) && !config.elementTarget.contains(e.target);
+      const clickedOutside = props.show && !overlayElement.current.contains(e.target) && !config.elementTarget.contains(e.target);
       clickedOutside && props.setShow(false);
     };
 
@@ -90,9 +92,9 @@ const withOverlay = (Component, config) => {
     }, [overlayPosition]);
 
     return createPortal(
-      <div className={`overflow-visible max-w-[0px] max-h-[0px] absolute z-50 ${props.show ? "" : "hidden"}`} ref={overlayElement}>
+      <div className={`overflow-visible max-w-[0px] max-h-[0px] absolute z-50`} ref={overlayElement}>
         <div className="absolute" ref={anchorElement}>
-          <Component {...props}></Component>
+          {props.show && <Component {...props}></Component>}
         </div>
       </div>,
       document.querySelector("#app") || document.body

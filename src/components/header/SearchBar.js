@@ -9,22 +9,19 @@ const SearchBar = () => {
   const [showSearchWindow, setShowSearchWindow] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [SearchWindowWithOverlay, setSearchWindowWithOverlay] = useState();
+  const SearchWindowWithOverlay = useMemo(() =>
+    withOverlay(SearchWindow, {
+      elementTarget: searchBarElement.current,
+      position: "bottom-left",
+      anchor: "top-left",
+      margin: { x: 0, y: 15 },
+      sameWidth: true,
+    }), [searchBarElement.current]
+  );
 
-  useEffect(() => {
-    setSearchWindowWithOverlay(() =>
-      withOverlay(SearchWindow, {
-        elementTarget: searchBarElement.current,
-        position: "bottom-left",
-        anchor: "top-left",
-        margin: { x: 0, y: 15 },
-        sameWidth: true,
-      })
-    );
-  }, [searchBarElement, showSearchWindow]);
-
-  const handleOnInput = e => { 
+  const handleOnInput = e => {
     setSearchQuery(e.target.value);
+    //setShowSearchWindow(true);
   };
 
   return (
@@ -35,17 +32,20 @@ const SearchBar = () => {
       <MdSearch size={"24px"} className="text-neu1-7 dark:text-text2-dark "></MdSearch>
       <input
         type="text"
-        placeholder="Search"
+        placeholder="Search games"
         className="bg-transparent outline-0 text-neu1-10 dark:text-neu1-1 text-sm placeholder:font-normal placeholder:text-l-on-sec-c/40 dark:placeholder:text-d-on-sec-c/40 w-full font-OpenSans font-semibold"
         autoComplete="off"
         spellCheck="false"
         onFocus={() => setShowSearchWindow(true)}
-        //onBlur={() => setShowSearchWindow(false)}
         onInput={useMemo(() => debounce(e => handleOnInput(e), 500), [])}
       ></input>
-      {!!SearchWindowWithOverlay && showSearchWindow && (
-        <SearchWindowWithOverlay show={showSearchWindow} setShow={setShowSearchWindow} searchQuery={searchQuery}></SearchWindowWithOverlay>
-      )}
+
+      <SearchWindowWithOverlay
+        show={showSearchWindow}
+        setShow={setShowSearchWindow}
+        searchQuery={searchQuery}
+        itemOnClick={() => setShowSearchWindow(false)}
+      ></SearchWindowWithOverlay>
     </div>
   );
 };
