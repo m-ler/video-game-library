@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { TailSpin } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import useApiRequest from "../../../hooks/useApiRequest";
@@ -34,7 +33,10 @@ const SearchWindow = props => {
         />
       </div>
     ) : (
-      <SearchWindowGames itemOnClick={props.itemOnClick} games={gameSearchRequest.data?.results || []}></SearchWindowGames>
+      <SearchWindowGames
+        itemOnClick={props.itemOnClick}
+        games={gameSearchRequest.data?.results || []}
+      ></SearchWindowGames>
     );
   };
 

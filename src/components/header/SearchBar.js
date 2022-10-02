@@ -21,7 +21,6 @@ const SearchBar = () => {
 
   const handleOnInput = e => {
     setSearchQuery(e.target.value);
-    //setShowSearchWindow(true);
   };
 
   return (
@@ -37,7 +36,7 @@ const SearchBar = () => {
         autoComplete="off"
         spellCheck="false"
         onFocus={() => setShowSearchWindow(true)}
-        onInput={useMemo(() => debounce(e => handleOnInput(e), 500), [])}
+        onInput={useMemo(() => debounce(e => handleOnInput(e), 350), [])}
       ></input>
 
       <SearchWindowWithOverlay
