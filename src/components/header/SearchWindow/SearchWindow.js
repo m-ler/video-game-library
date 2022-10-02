@@ -33,15 +33,15 @@ const SearchWindow = props => {
         />
       </div>
     ) : (
-      <SearchWindowGames
-        itemOnClick={props.itemOnClick}
-        games={gameSearchRequest.data?.results || []}
-      ></SearchWindowGames>
+      <SearchWindowGames resultOnSelect={props.resultOnSelect} games={gameSearchRequest.data?.results || []}></SearchWindowGames>
     );
   };
 
   return (
-    <div className="backdrop-blur-xl bg-neu1-1/95 dark:bg-neu1-10/95 border border-neu1-5 rounded-[10px] p-[20px] w-[max(100%,260px)] block drop-shadow-xl origin-top animate-[fadeIn_0.15s]">
+    <div
+      className="backdrop-blur-xl bg-neu1-1/95 dark:bg-neu1-10/95 border border-neu1-5 rounded-[10px] p-[20px] w-[max(100%,260px)] block drop-shadow-xl 
+    origin-top animate-[fadeIn_0.15s] max-h-[80vh] overflow-auto"
+    >
       {getView()}
     </div>
   );

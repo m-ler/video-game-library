@@ -25,6 +25,7 @@ const GamePage = () => {
   const [gameData, setGameData] = useState();
   const [gameScreenshots, setGameScreenshots] = useState();
   const mainContainerElement = useRef();
+  const backgroundElement = useRef();
 
   const getGameData = () => {
     const cachedGameData = JSON.parse(localStorage.getItem(localStorageGameDataKey));
@@ -69,6 +70,12 @@ const GamePage = () => {
     []
   );
 
+  const backgroundOnLoad = e => {
+    const minimumResolution = 1800;
+    const backgroundResolution = e.target.naturalWidth + e.target.naturalHeight;
+    backgroundElement.current.classList.toggle("after:invisible", backgroundResolution > minimumResolution);
+  };
+
   return gameRequest.loading || screenshotsRequest.loading || !gameData ? (
     <GamePageSkeleton></GamePageSkeleton>
   ) : (
@@ -78,11 +85,14 @@ const GamePage = () => {
       ref={mainContainerElement}
     >
       <div
-        className={`z-[0] absolute top-[0px] left-[0px] right-[0px] min-h-[600px] bg-no-repeat bg-cover`}
+        ref={backgroundElement}
+        className={`z-[0] absolute top-[0px] left-[0px] right-[0px] min-h-[600px] bg-no-repeat bg-cover after:content=['']  after:absolute after:top-[0] after:left-[0] after:bottom-[0]
+         after:right-[0] after:backdrop-blur-[10px] after:block after:invisible`}
         style={{
           backgroundImage: `url("${gameData.background_image}")`,
         }}
       ></div>
+      <img className="hidden" src={gameData.background_image} onLoad={backgroundOnLoad}></img>
       <div
         className="z-[1] absolute top-[0px] left-[0px] right-[0px] min-h-[600px]"
         style={{

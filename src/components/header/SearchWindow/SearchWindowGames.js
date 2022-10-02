@@ -5,7 +5,12 @@ import { getHighCompressedImageURL } from "../../../utils/compressedImageURLS";
 
 const SearchWindowGames = props => {
   const [focusedResultIndex, setFocusedResultIndex] = useState(null);
+  const focusedResultElement = useRef();
   const resultsContainer = useRef();
+
+  useEffect(() => {
+    focusedResultElement.current = resultsContainer.current.children[focusedResultIndex] || null;
+  }, [focusedResultIndex]);
 
   const getGameListItem = (gameObj, index, onClick) => {
     return (
@@ -22,7 +27,7 @@ const SearchWindowGames = props => {
         <div className="flex flex-col grow">
           <Link
             to={`game/${gameObj.id}`}
-            onClick={() => !!onClick && onClick()}
+            onClick={() => !!onClick && onClick(gameObj.name)}
             className="text-neu1-7 dark:text-neu1-3 text-[16px] font-Lato font-semibold hover:underline"
           >
             {gameObj.name}
@@ -35,12 +40,21 @@ const SearchWindowGames = props => {
     );
   };
 
+  const keyDownCallbacks = {
+    "Enter": () => !!focusedResultElement.current && focusedResultElement.current.querySelector("a").click(),
+    "ArrowUp": e => {
+      e.preventDefault();
+      selectResult(false);
+    },
+    "ArrowDown": e => {
+      e.preventDefault();
+      selectResult(true);
+    },
+  };
+
   const handleKeyDown = e => {
     const resultsAvaliable = !!resultsContainer.current && resultsContainer.current.childElementCount > 0;
-    if ((!resultsAvaliable || e.key !== "ArrowUp") && e.key !== "ArrowDown") return;
-    e.preventDefault();
-    e.key === "ArrowUp" && selectResult(false);
-    e.key === "ArrowDown" && selectResult(true);
+    resultsAvaliable && keyDownCallbacks[e.key] && keyDownCallbacks[e.key](e);
   };
 
   const selectResult = nextResult => {
@@ -62,6 +76,6 @@ const SearchWindowGames = props => {
     };
   }, []);
 
-  return <div ref={resultsContainer}>{props.games.map((game, index) => getGameListItem(game, index, props.itemOnClick))}</div>;
+  return <div ref={resultsContainer}>{props.games.map((game, index) => getGameListItem(game, index, props.resultOnSelect))}</div>;
 };
 export default SearchWindowGames;

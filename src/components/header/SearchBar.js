@@ -6,6 +6,7 @@ import SearchWindow from "./SearchWindow/SearchWindow";
 
 const SearchBar = () => {
   const searchBarElement = useRef();
+  const searchInputElement = useRef();
   const [showSearchWindow, setShowSearchWindow] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -21,6 +22,7 @@ const SearchBar = () => {
 
   const handleOnInput = e => {
     setSearchQuery(e.target.value);
+    setShowSearchWindow(true);
   };
 
   return (
@@ -36,14 +38,18 @@ const SearchBar = () => {
         autoComplete="off"
         spellCheck="false"
         onFocus={() => setShowSearchWindow(true)}
-        onInput={useMemo(() => debounce(e => handleOnInput(e), 350), [])}
+        onInput={useMemo(() => debounce(e => handleOnInput(e), 300), [])}
+        ref={searchInputElement}
       ></input>
 
       <SearchWindowWithOverlay
         show={showSearchWindow}
         setShow={setShowSearchWindow}
         searchQuery={searchQuery}
-        itemOnClick={() => setShowSearchWindow(false)}
+        resultOnSelect={(selectedResult) => {
+          searchInputElement.current.value = selectedResult;
+          setShowSearchWindow(false)}
+        }
       ></SearchWindowWithOverlay>
     </div>
   );
