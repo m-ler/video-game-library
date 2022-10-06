@@ -1,7 +1,8 @@
 import { debounce } from "lodash";
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo } from "react";
 import { MdSearch } from "react-icons/md";
 import withOverlay from "../../hoc/overlays/withOverlay";
+import regularExpressions from "../../utils/regularExpressions";
 import SearchWindow from "./SearchWindow/SearchWindow";
 
 const SearchBar = () => {
@@ -10,19 +11,22 @@ const SearchBar = () => {
   const [showSearchWindow, setShowSearchWindow] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const SearchWindowWithOverlay = useMemo(() =>
-    withOverlay(SearchWindow, {
-      elementTarget: searchBarElement.current,
-      position: "bottom-left",
-      anchor: "top-left",
-      margin: { x: 0, y: 15 },
-      sameWidth: true,
-    }), [searchBarElement.current]
+  const SearchWindowWithOverlay = useMemo(
+    () =>
+      withOverlay(SearchWindow, {
+        elementTarget: searchBarElement.current,
+        position: "bottom-left",
+        anchor: "top-left",
+        margin: { x: 0, y: 15 },
+        sameWidth: true,
+      }),
+    [searchBarElement.current]
   );
 
   const handleOnInput = e => {
     setSearchQuery(e.target.value);
-    setShowSearchWindow(true);
+    console.log(regularExpressions.isEmpty.test(e.target.value));
+    setShowSearchWindow(!regularExpressions.isEmpty.test(e.target.value));
   };
 
   return (
@@ -46,10 +50,10 @@ const SearchBar = () => {
         show={showSearchWindow}
         setShow={setShowSearchWindow}
         searchQuery={searchQuery}
-        resultOnSelect={(selectedResult) => {
+        resultOnSelect={selectedResult => {
           searchInputElement.current.value = selectedResult;
-          setShowSearchWindow(false)}
-        }
+          setShowSearchWindow(false);
+        }}
       ></SearchWindowWithOverlay>
     </div>
   );

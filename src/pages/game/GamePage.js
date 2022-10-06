@@ -96,7 +96,7 @@ const GamePage = () => {
       <div
         className="z-[1] absolute top-[0px] left-[0px] right-[0px] min-h-[600px]"
         style={{
-          background: theme == "dark" ? "linear-gradient(rgba(31,41,51,.65), #1F2933)" : "linear-gradient(rgba(229,231,235,.65), #e5e7eb)",
+          background: theme == "dark" ? "linear-gradient(rgba(31,41,51,.65), #1F2933)" : "linear-gradient(rgba(229,231,235,.85), #e5e7eb)",
         }}
       ></div>
 

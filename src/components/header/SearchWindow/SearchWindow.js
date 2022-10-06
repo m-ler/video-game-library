@@ -3,6 +3,7 @@ import { TailSpin } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import useApiRequest from "../../../hooks/useApiRequest";
 import { getGameSearchList } from "../../../utils/apiRequests";
+import regularExpressions from "../../../utils/regularExpressions";
 import SearchWindowGames from "./SearchWindowGames";
 
 const SearchWindow = props => {
@@ -10,7 +11,8 @@ const SearchWindow = props => {
   const gameSearchRequest = useApiRequest(() => getGameSearchList(props.searchQuery));
   const previousQuery = useRef("");
 
-  const queryChanged = () => props.searchQuery.replace(/\s/g, "") !== previousQuery.current.replace(/\s/g, "");
+  const queryChanged = () =>
+    props.searchQuery.replace(regularExpressions.allSpaces, "") !== previousQuery.current.replace(regularExpressions.allSpaces, "");
 
   useEffect(() => {
     if (props.searchQuery === "" || !props.searchQuery || gameSearchRequest.loading || !queryChanged()) return;
