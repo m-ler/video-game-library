@@ -8,10 +8,10 @@ import IconButton from "../elements/buttons/IconButton";
 
 const Header = () => {
   return (
-    <header className="flex items-center gap-x-[25px] px-[20px] py-[20px] max-w-[1920px] mx-auto flex-wrap gap-y-[15px] w-full">
+    <header className="flex items-center gap-x-[25px] px-[20px] py-[20px] w-full flex-wrap gap-y-[15px] w-full border-b border-b-neu1-9">
       <IconButton
         onClick={() => {
-          const navDrawer = document.querySelector("#nav-drawer"); 
+          const navDrawer = document.querySelector("#nav-drawer");
           if (!navDrawer) return;
           ["hidden"].map(c => navDrawer.classList.toggle(c));
         }}
@@ -23,12 +23,13 @@ const Header = () => {
           <Logo className="min-w-[58px] w-8 h-9 fill-neu1-10 dark:fill-neu1-1"></Logo>
         </Link>
       </div>
-      <div className="flex gap-x-[10px] grow">
+      <div className="mx-auto  grow">
         <SearchBar></SearchBar>
-        <div className="ml-auto flex gap-x-[10px]">
-          <APIButton></APIButton>
-          <ThemeButton></ThemeButton>
-        </div>
+      </div>
+
+      <div className="flex gap-x-[10px]">
+        <APIButton></APIButton>
+        <ThemeButton></ThemeButton>
       </div>
     </header>
   );

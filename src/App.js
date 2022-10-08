@@ -15,7 +15,7 @@ const App = () => {
       <div className="h-screen bg-bg-gradient dark:bg-bg-gradient-dark min-w-[320px] flex flex-col w-full">
         <BrowserRouter>
           <Header></Header>
-          <section className="grow w-full flex max-w-[1920px] mx-auto overflow-hidden">
+          <section className="grow w-full flex overflow-hidden">
             <NavigationDrawer></NavigationDrawer>
             <Routes>
               <Route path="/" element={<AllGamesPage></AllGamesPage>}></Route>

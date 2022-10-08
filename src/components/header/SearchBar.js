@@ -31,7 +31,7 @@ const SearchBar = () => {
 
   return (
     <div
-      className="border border-neu1-4 dark:border-neu1-6  p-2.5 h-9 gap-x-2.5 rounded-full flex items-center px-5  max-w-[800px] grow"
+      className="border border-neu1-4 dark:border-neu1-6  p-2.5 h-9 gap-x-2.5 rounded-full flex items-center px-5 mx-auto max-w-[800px] w-full"
       ref={searchBarElement}
     >
       <MdSearch size={"24px"} className="text-neu1-7 dark:text-text2-dark "></MdSearch>
