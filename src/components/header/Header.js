@@ -8,7 +8,7 @@ import IconButton from "../elements/buttons/IconButton";
 
 const Header = () => {
   return (
-    <header className="flex items-center gap-x-[25px] px-[20px] py-[20px] w-full flex-wrap gap-y-[15px] w-full border-b border-b-neu1-9">
+    <header className="flex items-center gap-x-[25px] px-[20px] py-[20px] w-full flex-wrap gap-y-[15px] w-full border-b border-b-neu1-3 dark:border-b-neu1-9">
       <IconButton
         onClick={() => {
           const navDrawer = document.querySelector("#nav-drawer");

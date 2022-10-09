@@ -6,6 +6,7 @@ import VirtualizedGrid from "../../components/containers/VirtualizedGrid";
 import { getGameList } from "../../utils/apiRequests";
 import useApiRequest from "../../hooks/useApiRequest";
 import useSessionStorage from "../../hooks/useSessionStorage";
+import GamesOrderButton from "./GamesOrderButton";
 
 const AllGamesPage = () => {
   const requestsEnabledState = useSelector(state => state.request);
@@ -54,6 +55,15 @@ const AllGamesPage = () => {
     document.title = "All games";
   }, []);
 
+  const getHeader = () => {
+    return (
+      <section className="mb-[25px]">
+        <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black mb-[5px]">All Games</h1>
+        <GamesOrderButton></GamesOrderButton>
+      </section>
+    );
+  };
+
   const getFooter = () => {
     return gamesRequest.error ? (
       <div>
@@ -93,7 +103,7 @@ const AllGamesPage = () => {
         scrollContainer={listContainerElement.current}
         onScroll={scrollElement => setContentScroll(scrollElement?.scrollTop || 0)}
         initialScroll={contentScroll}
-        header={<h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black mb-[25px]">All Games</h1>}
+        header={getHeader()}
         footer={getFooter()}
       ></VirtualizedGrid>
     </main>

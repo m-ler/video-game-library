@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export const requestSlice = createSlice({
     name: "doRequests",
-    initialState: localStorage.getItem("doRequests") === 'true' ?? false,
+    initialState: localStorage.getItem("doRequests") === 'true' ?? true,
     reducers: {
         toggleDoRequest: (state, action) => {
             localStorage.setItem("doRequests", action.payload.toString());
@@ -12,4 +12,4 @@ export const requestSlice = createSlice({
 });
 
 export const { toggleDoRequest } = requestSlice.actions;
-export default requestSlice.reducer;
+export default requestSlice.reducer; 

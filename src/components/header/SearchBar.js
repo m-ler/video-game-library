@@ -19,6 +19,7 @@ const SearchBar = () => {
         anchor: "top-left",
         margin: { x: 0, y: 15 },
         sameWidth: true,
+        autoClose: true
       }),
     [searchBarElement.current]
   );

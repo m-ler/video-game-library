@@ -56,6 +56,7 @@ const withOverlay = (Component, config) => {
     const overlayElement = useRef();
     const anchorElement = useRef();
     const targetResizeObserver = useRef();
+    const targetIntersectionObserver = useRef();
 
     const updateOverlayRect = () => {
       const targetRect = config.elementTarget.getBoundingClientRect();
@@ -67,21 +68,25 @@ const withOverlay = (Component, config) => {
 
     const onDocumentClick = e => {
       const clickedOutside = props.show && !overlayElement.current.contains(e.target) && !config.elementTarget.contains(e.target);
-      clickedOutside && props.setShow(false);
+      clickedOutside && config.autoClose && props.setShow(false);
     };
 
-    useEffect(() => {
-      targetResizeObserver.current = new ResizeObserver(() => {
-        updateOverlayRect();
-      });
 
+    useEffect(() => {
+      targetResizeObserver.current = new ResizeObserver(updateOverlayRect);
+
+      window.addEventListener("resize", updateOverlayRect, true);
+      document.addEventListener("scroll", updateOverlayRect, true);
+      document.addEventListener("click", onDocumentClick);
+      
       targetResizeObserver.current.observe(config.elementTarget);
       updateOverlayRect();
 
-      document.addEventListener("click", onDocumentClick);
       return () => {
         targetResizeObserver.current.disconnect();
         document.removeEventListener("click", onDocumentClick);
+        document.removeEventListener("scroll", updateOverlayRect);
+        window.removeEventListener("resize", updateOverlayRect);
       };
     }, []);
 
