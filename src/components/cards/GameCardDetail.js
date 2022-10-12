@@ -1,21 +1,25 @@
 const getGenres = genresList => {
-  return genresList
-    .map((genre, index) => (
-      <a className="hover:underline" href="/" key={index}>
-        {genre.name}
-      </a>
-    ))
-    .reduce((prev, curr) => [prev, ", ", curr]);
+  return genresList.length > 0
+    ? genresList
+        .map((genre, index) => (
+          <a className="hover:underline" href="/" key={index}>
+            {genre.name}
+          </a>
+        ))
+        .reduce((prev, curr) => [prev, ", ", curr])
+    : "";
 };
 
 const getAllPlatforms = platformList => {
-  return platformList
-    .map((platform, index) => (
-      <a className="hover:underline" href="/" key={index}>
-        {platform.platform.name}
-      </a>
-    ))
-    .reduce((prev, curr) => [prev, ", ", curr]);
+  return platformList.length > 0
+    ? platformList
+        .map((platform, index) => (
+          <a className="hover:underline" href="/" key={index}>
+            {platform.platform.name}
+          </a>
+        ))
+        .reduce((prev, curr) => [prev, ", ", curr])
+    : "";
 };
 
 const GameCardDetail = props => {

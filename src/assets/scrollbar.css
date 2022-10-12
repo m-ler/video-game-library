@@ -17,6 +17,10 @@
   background: #a39e93;
 }
 
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 .dark *::-webkit-scrollbar-thumb {
   background: #7b8794;
   border-radius: 10px;

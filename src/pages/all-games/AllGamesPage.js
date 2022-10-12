@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import GameCard from "../../components/cards/GameCard";
 import { useSelector } from "react-redux";
 import { ColorRing } from "react-loader-spinner";
@@ -6,16 +6,17 @@ import VirtualizedGrid from "../../components/containers/VirtualizedGrid";
 import { getGameList } from "../../utils/apiRequests";
 import useApiRequest from "../../hooks/useApiRequest";
 import useSessionStorage from "../../hooks/useSessionStorage";
-import GamesOrderButton from "./GamesOrderButton";
+import GamesOrderDropdown from "./GamesOrderDropdown";
 
 const AllGamesPage = () => {
   const requestsEnabledState = useSelector(state => state.request);
+  const gamesFilters = useSelector(state => state.gamesFilters);
 
-  const [loadedContent, setLoadedContent] = useSessionStorage("AllGamesContent", []);
-  const [currentPage, setCurrentPage] = useSessionStorage("AllGamesCurrentPage", 1);
-  const [contentScroll, setContentScroll] = useSessionStorage("AllGamesScroll", 0);
+  const [loadedContent, setLoadedContent] = useState([]);
+  const currentPage = useRef(1);
+  //const [contentScroll, setContentScroll] = useState(0);
 
-  const gamesRequest = useApiRequest(() => getGameList(currentPage));
+  const gamesRequest = useApiRequest(() => getGameList(currentPage.current, gamesFilters.OrderBy));
 
   const firstRender = useRef(true);
   const observer = useRef();
@@ -27,7 +28,10 @@ const AllGamesPage = () => {
     !!observer.current && observer.current.disconnect();
     observer.current = new IntersectionObserver(
       entries => {
-        entries[0].isIntersecting && !firstRender.current && setCurrentPage(currentPage + 1);
+        if (entries[0].isIntersecting) {
+          currentPage.current += 1;
+          currentPage.current > 1 && gamesRequest.makeRequest();
+        }
       },
       { threshold: 1 }
     );
@@ -36,20 +40,18 @@ const AllGamesPage = () => {
   };
 
   useEffect(() => {
-    if (gamesRequest.loading) return;
-    if (!firstRender.current || !loadedContent.length > 0) {
-      gamesRequest.makeRequest();
-    }
-    firstRender.current = false;
-  }, [currentPage]);
-
-  useEffect(() => {
     !!gamesRequest.data && setLoadedContent([...new Set([...loadedContent, ...gamesRequest.data.results])]);
   }, [gamesRequest.data]);
 
   useEffect(() => {
-    setTimeout(updateIntersectionObserver, 1000);
+    updateIntersectionObserver();
   }, [gamesRequest.loading, requestsEnabledState]);
+
+  useEffect(() => {
+    setLoadedContent([]);
+    gamesRequest.makeRequest();
+    currentPage.current = 0;
+  }, [gamesFilters]);
 
   useEffect(() => {
     document.title = "All games";
@@ -59,7 +61,7 @@ const AllGamesPage = () => {
     return (
       <section className="mb-[25px]">
         <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black mb-[5px]">All Games</h1>
-        <GamesOrderButton></GamesOrderButton>
+        <GamesOrderDropdown></GamesOrderDropdown>
       </section>
     );
   };
@@ -99,10 +101,10 @@ const AllGamesPage = () => {
         gapY={20}
         childElement={gridElement}
         total={loadedContent.length}
-        buffer={1} //
+        buffer={1}
         scrollContainer={listContainerElement.current}
-        onScroll={scrollElement => setContentScroll(scrollElement?.scrollTop || 0)}
-        initialScroll={contentScroll}
+        //onScroll={scrollElement => setContentScroll(scrollElement?.scrollTop || 0)}
+        initialScroll={0}
         header={getHeader()}
         footer={getFooter()}
       ></VirtualizedGrid>

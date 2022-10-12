@@ -39,7 +39,7 @@ const VirtualizedGrid = props => {
 
   const handleScroll = () => {
     setScrollTop(gridParentElement.current?.scrollTop ?? 0);
-    props.onScroll(gridParentElement.current);
+    !!props.onScroll && props.onScroll(gridParentElement.current);
   };
 
   const updateLayout = () => {
@@ -111,7 +111,7 @@ const VirtualizedGrid = props => {
       >
         {getGhostGridContent()}
       </div>
-      <div style={{ minHeight: getHeight() || 0 }} className="relative w-full overflow-hidden">
+      <div style={{ minHeight: getHeight() || 0 }} className="relative w-full overflow-hidden z-0">
         {getVisibleElements()}
       </div>
       <div ref={footer} className="box-border">

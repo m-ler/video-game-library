@@ -1,38 +1,38 @@
 import { useState } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
-export default (requestFunction) => {
-    const requestsEnabledState = useSelector(state => state.request);
+export default requestFunction => {
+  const requestsEnabledState = useSelector(state => state.request);
 
-    const [data, setData] = useState(null);
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [offline, setOffline] = useState(false);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [offline, setOffline] = useState(false);
 
-    const makeRequest = async () => {
+  const makeRequest = async () => {
+    if (loading) return;
+    if (!requestsEnabledState) {
+      setOffline(true);
+      return;
+    }
 
-        if (!requestsEnabledState) {
-            setOffline(true);
-            return;
-        }
+    setLoading(true);
+    try {
+      const result = await requestFunction();
+      setData(result);
+    } catch (err) {
+      setError(err.message || "Unexpected Error!");
+    } finally {
+      setOffline(false);
+      setLoading(false);
+    }
+  };
 
-        setLoading(true);
-        try {
-            const result = await requestFunction();
-            setData(result);
-        } catch (err) {
-            setError(err.message || "Unexpected Error!");
-        } finally {
-            setOffline(false);
-            setLoading(false);
-        }
-    };
-
-    return {
-        data,
-        error,
-        loading,
-        offline,
-        makeRequest
-    };
+  return {
+    data,
+    error,
+    loading,
+    offline,
+    makeRequest,
+  };
 };
