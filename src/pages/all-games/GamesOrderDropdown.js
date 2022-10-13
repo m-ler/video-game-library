@@ -25,7 +25,7 @@ const GamesOrderDropdown = () => {
   }, []);
 
   return (
-    <div className="relative z-10 w-fit" ref={dropdownRef}>
+    <div className="relative z-[10] w-fit" ref={dropdownRef}>
       <button
         className={`flex items-center gap-x-[10px] px-[12px] py-[8px] rounded-md ${
           showDropdown ? "bg-accent1" : "bg-neu1-1 dark:bg-neu1-9"
@@ -36,14 +36,16 @@ const GamesOrderDropdown = () => {
         <span
           className={`font-Raleway font-medium text-[13px] ${showDropdown ? "text-neu1-3" : "text-neu1-6"} dark:text-neu1-3 select-none`}
         >
-          Order by:{" "}
+          {"Order by: "}
         </span>
         <span
           className={`font-System font-bold text-[14px] ${showDropdown ? "text-neu1-1" : "text-neu1-10"}  dark:text-neu1-1 select-none`}
         >
           {OrderByOptions.find(x => x.value === gamesFilters.OrderBy).name}
         </span>
-        <IoIosArrowDown className={`dark:text-neu1-1 duration-200 ${showDropdown ? "rotate-180 text-neu1-1" : "text-neu1-10"}`}></IoIosArrowDown>
+        <IoIosArrowDown
+          className={`dark:text-neu1-1 duration-200 ${showDropdown ? "rotate-180 text-neu1-1" : "text-neu1-10"}`}
+        ></IoIosArrowDown>
       </button>
       <GamesOrderByDropdownMenu
         className={`${!showDropdown ? "opacity-0 scale-y-0" : ""}`}

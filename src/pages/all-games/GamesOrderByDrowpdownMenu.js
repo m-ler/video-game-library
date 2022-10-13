@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { setOrderBy } from "../../features/filter/gamesFiltersSlice";
-import OrderByOptions from "../../data/orderByOptions";
+import orderByOptions from "../../data/orderByOptions";
 
 const GamesOrderByDropdownMenu = props => {
   const dispatch = useDispatch();
@@ -26,10 +26,10 @@ const GamesOrderByDropdownMenu = props => {
 
   return (
     <ul
-      className={`bg-neu1-1 dark:bg-neu1-10 border border-neu1-4 dark:border-neu1-5 py-[20px] w-full absolute top-[calc(100%+10px)] left-[0px] z-10 rounded-lg drop-shadow-lg duration-200 
+      className={`bg-neu1-1 dark:bg-neu1-10 border border-neu1-4 dark:border-neu1-5 py-[15px] w-full absolute top-[calc(100%+10px)] left-[0px] z-10 rounded-lg drop-shadow-lg duration-200 
       origin-top ${props.className}`}
     >
-      {OrderByOptions.map((item, index) => getMenuElement(item, index))}
+      {orderByOptions.map((item, index) => getMenuElement(item, index))}
     </ul>
   );
 };

@@ -18,6 +18,11 @@ export const getGameDetailScreenshots = async gameId => {
 };
 
 export const getGameSearchList = async query => {
-  const response = await fetch(`${BASE_URL}games?page_size=10&search=${query}&page=1&key=${RAWG_KEY}`);
+  const response = await fetch(`${BASE_URL}games?page_size=10&search=${query}&search_precise=true&page=1&key=${RAWG_KEY}`);
+  return await response.json();
+};
+
+export const getParentPlatformList = async () => {
+  const response = await fetch(`${BASE_URL}platforms/lists/parents?key=${RAWG_KEY}`);
   return await response.json();
 };

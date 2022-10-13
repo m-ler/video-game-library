@@ -19,6 +19,7 @@ const App = () => {
             <NavigationDrawer></NavigationDrawer>
             <Routes>
               <Route path="/" element={<AllGamesPage></AllGamesPage>}></Route>
+              <Route path="/games/:platform" element={<AllGamesPage></AllGamesPage>}></Route>
               <Route path="game/:gameId" element={<GamePage></GamePage>}></Route>
             </Routes>
           </section>

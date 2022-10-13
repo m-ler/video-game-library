@@ -3,20 +3,24 @@ import GameCard from "../../components/cards/GameCard";
 import { useSelector } from "react-redux";
 import { ColorRing } from "react-loader-spinner";
 import VirtualizedGrid from "../../components/containers/VirtualizedGrid";
-import { getGameList } from "../../utils/apiRequests";
+import { getGameList, getParentPlatformList } from "../../utils/apiRequests";
 import useApiRequest from "../../hooks/useApiRequest";
 import useSessionStorage from "../../hooks/useSessionStorage";
 import GamesOrderDropdown from "./GamesOrderDropdown";
+import GamesPlatformFilterDrowdown from "./GamesPlatformFilterDrowdown";
+import { useParams } from "react-router-dom";
 
 const AllGamesPage = () => {
   const requestsEnabledState = useSelector(state => state.request);
   const gamesFilters = useSelector(state => state.gamesFilters);
+  const platformParam = useParams()["platform"];
 
   const [loadedContent, setLoadedContent] = useState([]);
   const currentPage = useRef(1);
   //const [contentScroll, setContentScroll] = useState(0);
 
   const gamesRequest = useApiRequest(() => getGameList(currentPage.current, gamesFilters.OrderBy));
+  const platformListRequest = useApiRequest(getParentPlatformList);
 
   const firstRender = useRef(true);
   const observer = useRef();
@@ -53,15 +57,21 @@ const AllGamesPage = () => {
     currentPage.current = 0;
   }, [gamesFilters]);
 
+  useEffect(() => {}, [platformParam]);
+
   useEffect(() => {
     document.title = "All games";
   }, []);
 
   const getHeader = () => {
+    const title = gamesFilters.Platform === "All" ? "All Games" : `Games for ${gamesFilters.Platform}`;
     return (
       <section className="mb-[25px]">
-        <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black mb-[5px]">All Games</h1>
-        <GamesOrderDropdown></GamesOrderDropdown>
+        <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black mb-[5px]">{title}</h1>
+        <div className="flex flex-wrap gap-[15px]">
+          <GamesOrderDropdown></GamesOrderDropdown>
+          <GamesPlatformFilterDrowdown></GamesPlatformFilterDrowdown>
+        </div>
       </section>
     );
   };

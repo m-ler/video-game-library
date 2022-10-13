@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   OrderBy: "-added",
+  Platform: "All",
 };
 
 export const gamesFiltersSlice = createSlice({
@@ -9,10 +10,14 @@ export const gamesFiltersSlice = createSlice({
   initialState,
   reducers: {
     setOrderBy: (state, action) => {
-      state.OrderBy = action.payload; 
+      state.OrderBy = action.payload;
+    },
+    setPlatform: (state, action) => {
+      console.log(action.payload)
+      state.Platform = action.payload;
     },
   },
 });
 
-export const { setOrderBy } = gamesFiltersSlice.actions;
+export const { setOrderBy, setPlatform } = gamesFiltersSlice.actions;
 export default gamesFiltersSlice.reducer;
