@@ -10,7 +10,6 @@ export default requestFunction => {
   const [offline, setOffline] = useState(false);
 
   const makeRequest = async () => {
-    if (loading) return;
     if (!requestsEnabledState) {
       setOffline(true);
       return;

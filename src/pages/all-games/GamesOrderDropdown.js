@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { useSelector } from "react-redux";
 import GamesOrderByDropdownMenu from "./GamesOrderByDrowpdownMenu";
-import OrderByOptions from "../../data/orderByOptions";
+import orderByOptions from "../../data/orderByOptions";
 
 const GamesOrderDropdown = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -41,7 +41,7 @@ const GamesOrderDropdown = () => {
         <span
           className={`font-System font-bold text-[14px] ${showDropdown ? "text-neu1-1" : "text-neu1-10"}  dark:text-neu1-1 select-none`}
         >
-          {OrderByOptions.find(x => x.value === gamesFilters.OrderBy).name}
+          {(orderByOptions.find(x => x.value === gamesFilters.OrderBy) || orderByOptions.find(x => x.value === "-added")).name}
         </span>
         <IoIosArrowDown
           className={`dark:text-neu1-1 duration-200 ${showDropdown ? "rotate-180 text-neu1-1" : "text-neu1-10"}`}

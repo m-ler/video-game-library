@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import AllGamesPage from "./pages/all-games/AllGamesPage";
@@ -8,7 +7,6 @@ import NavigationDrawer from "./components/navigation-drawer/NavigationDrawer";
 
 const App = () => {
   const themeState = useSelector(state => state.theme);
-  useEffect(() => {});
 
   return (
     <div id="app" className={themeState}>

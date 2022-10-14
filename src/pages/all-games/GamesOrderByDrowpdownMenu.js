@@ -1,13 +1,16 @@
 import { useDispatch } from "react-redux";
 import { setOrderBy } from "../../features/filter/gamesFiltersSlice";
 import orderByOptions from "../../data/orderByOptions";
+import { useSearchParams } from "react-router-dom";
 
 const GamesOrderByDropdownMenu = props => {
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const onOptionClick = item => {
     props.onOptionClick(item);
-    dispatch(setOrderBy(item.value));
+    setSearchParams({ order: item.value });
+    //dispatch(setOrderBy(item.value));
   };
 
   const getMenuElement = (item, index) => {

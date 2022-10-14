@@ -1,40 +1,44 @@
 import { useEffect, useRef, useState } from "react";
 import GameCard from "../../components/cards/GameCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ColorRing } from "react-loader-spinner";
 import VirtualizedGrid from "../../components/containers/VirtualizedGrid";
-import { getGameList, getParentPlatformList } from "../../utils/apiRequests";
+import { getGameList } from "../../utils/apiRequests";
 import useApiRequest from "../../hooks/useApiRequest";
-import useSessionStorage from "../../hooks/useSessionStorage";
 import GamesOrderDropdown from "./GamesOrderDropdown";
 import GamesPlatformFilterDrowdown from "./GamesPlatformFilterDrowdown";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
+import { platformList, flattenPlatformList } from "../../data/platformList";
+import { setOrderBy, setPlatform } from "../../features/filter/gamesFiltersSlice";
 
 const AllGamesPage = () => {
+  const dispatch = useDispatch();
   const requestsEnabledState = useSelector(state => state.request);
   const gamesFilters = useSelector(state => state.gamesFilters);
   const platformParam = useParams()["platform"];
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageTitle = useRef("All Games");
 
   const [loadedContent, setLoadedContent] = useState([]);
-  const currentPage = useRef(1);
+  const currentPage = useRef(0);
   //const [contentScroll, setContentScroll] = useState(0);
 
-  const gamesRequest = useApiRequest(() => getGameList(currentPage.current, gamesFilters.OrderBy));
-  const platformListRequest = useApiRequest(getParentPlatformList);
+  const gamesRequest = useApiRequest(() => getGameList(currentPage.current, gamesFilters.OrderBy, gamesFilters.Platform));
 
-  const firstRender = useRef(true);
   const observer = useRef();
   const listContainerElement = useRef();
   const visor = useRef();
 
   const updateIntersectionObserver = () => {
-    if (gamesRequest.loading) return;
+    //if (gamesRequest.loading) return;
+    console.log("updated interseciton");
     !!observer.current && observer.current.disconnect();
     observer.current = new IntersectionObserver(
       entries => {
-        if (entries[0].isIntersecting) {
+        console.log(entries[0].isIntersecting && requestsEnabledState);
+        if (entries[0].isIntersecting && requestsEnabledState) {
           currentPage.current += 1;
-          currentPage.current > 1 && gamesRequest.makeRequest();
+          gamesRequest.makeRequest();
         }
       },
       { threshold: 1 }
@@ -44,7 +48,7 @@ const AllGamesPage = () => {
   };
 
   useEffect(() => {
-    !!gamesRequest.data && setLoadedContent([...new Set([...loadedContent, ...gamesRequest.data.results])]);
+    !!gamesRequest.data && setLoadedContent([...new Set([...loadedContent, ...(gamesRequest.data.results || [])])]);
   }, [gamesRequest.data]);
 
   useEffect(() => {
@@ -52,22 +56,23 @@ const AllGamesPage = () => {
   }, [gamesRequest.loading, requestsEnabledState]);
 
   useEffect(() => {
-    setLoadedContent([]);
-    gamesRequest.makeRequest();
-    currentPage.current = 0;
+    setTimeout(updateIntersectionObserver, 100);
+    pageTitle.current = gamesFilters.Platform.name === "All" ? "All Games" : `Games for ${gamesFilters.Platform.name}`;
+    document.title = pageTitle.current;
   }, [gamesFilters]);
 
-  useEffect(() => {}, [platformParam]);
-
   useEffect(() => {
-    document.title = "All games";
-  }, []);
+    const selectedPlatform = flattenPlatformList.find(x => x.slug === platformParam) || platformList.find(x => x.slug === "all");
+    currentPage.current = 0;
+    setLoadedContent([]);
+    dispatch(setOrderBy(searchParams.get("order") || "-added"));
+    dispatch(setPlatform(selectedPlatform));
+  }, [platformParam, searchParams]);
 
   const getHeader = () => {
-    const title = gamesFilters.Platform === "All" ? "All Games" : `Games for ${gamesFilters.Platform}`;
     return (
       <section className="mb-[25px]">
-        <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black mb-[5px]">{title}</h1>
+        <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black my-[30px] leading-[70px]">{pageTitle.current}</h1>
         <div className="flex flex-wrap gap-[15px]">
           <GamesOrderDropdown></GamesOrderDropdown>
           <GamesPlatformFilterDrowdown></GamesPlatformFilterDrowdown>
@@ -92,7 +97,7 @@ const AllGamesPage = () => {
         />
       </div>
     ) : (
-      <div ref={visor} className="block w-full h-[150px] mb-[10px]"></div>
+      <div ref={visor} className="INTERSECTION block w-full h-[150px] mb-[10px]"></div>
     );
   };
 

@@ -19,14 +19,13 @@ const SearchBar = () => {
         anchor: "top-left",
         margin: { x: 0, y: 15 },
         sameWidth: true,
-        autoClose: true
+        autoClose: true,
       }),
     [searchBarElement.current]
   );
 
   const handleOnInput = e => {
     setSearchQuery(e.target.value);
-    console.log(regularExpressions.isEmpty.test(e.target.value));
     setShowSearchWindow(!regularExpressions.isEmpty.test(e.target.value));
   };
 
@@ -42,7 +41,7 @@ const SearchBar = () => {
         className="bg-transparent outline-0 text-neu1-10 dark:text-neu1-1 text-sm placeholder:font-normal placeholder:text-l-on-sec-c/40 dark:placeholder:text-d-on-sec-c/40 w-full font-OpenSans font-semibold"
         autoComplete="off"
         spellCheck="false"
-        onFocus={() => setShowSearchWindow(true)}
+        onFocus={e => !regularExpressions.isEmpty.test(e.currentTarget.value) && setShowSearchWindow(true)}
         onInput={useMemo(() => debounce(e => handleOnInput(e), 300), [])}
         ref={searchInputElement}
       ></input>

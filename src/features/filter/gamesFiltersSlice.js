@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { platformList } from "../../data/platformList";
 
 const initialState = {
   OrderBy: "-added",
-  Platform: "All",
+  Platform: platformList.find(x => x.slug === "all"),
 };
 
 export const gamesFiltersSlice = createSlice({
@@ -13,7 +14,6 @@ export const gamesFiltersSlice = createSlice({
       state.OrderBy = action.payload;
     },
     setPlatform: (state, action) => {
-      console.log(action.payload)
       state.Platform = action.payload;
     },
   },

@@ -67,9 +67,9 @@ const withOverlay = (Component, config) => {
     };
 
     const onDocumentClick = e => {
-      const clickedOutside = props.show && !overlayElement.current.contains(e.target) && !config.elementTarget.contains(e.target);
-      clickedOutside && config.autoClose && props.setShow(false);
-    };
+      const clickedOutside = !overlayElement.current.contains(e.target) && !config.elementTarget.contains(e.target);
+      clickedOutside && config.autoClose && props.setShow(false); 
+    }; 
 
 
     useEffect(() => {

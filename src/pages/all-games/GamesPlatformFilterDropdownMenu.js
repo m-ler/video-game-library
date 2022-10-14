@@ -1,15 +1,11 @@
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import platformsFilterOptions from "../../data/platformsFilterOptions";
-import { setPlatform } from "../../features/filter/gamesFiltersSlice";
+import { Link, useLocation } from "react-router-dom";
 
 const GamesPlatformFilterDropdownMenu = props => {
-  const dispatch = useDispatch();
+  const { search } = useLocation();
 
   const onOptionClick = item => {
     !!props.onOptionClick && props.onOptionClick(item);
-    dispatch(setPlatform(item.name));
   };
 
   const getMenuElement = (item, index) => {
@@ -19,8 +15,8 @@ const GamesPlatformFilterDropdownMenu = props => {
         <Link
           onClick={e => e.currentTarget === e.target && onOptionClick(item)}
           className={`text-[14px] block px-[20px] flex items-center gap-x-[10p] justify-between py-[5px] duration-200 cursor-pointer text-neu1-7 dark:text-neu1-3 font-System hover:bg-accent1 
-          hover:font-bold hover:text-neu1-3 ${false ? "bg-accent1 font-bold text-neu1- 3" : "font-medium"}`}
-          to={`/games/${item.slug}`}
+          hover:text-neu1-3 ${false ? "bg-accent1 font-bold text-neu1- 3" : "font-medium"}`}
+          to={`/games/${item.slug}${search}`}
         >
           {item.name}
           {hasPlatforms && <MdKeyboardArrowRight size={18} className="block text-neu1-5 group-hover:text-accent3"></MdKeyboardArrowRight>}
