@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import GamesOrderByDropdownMenu from "./GamesOrderByDrowpdownMenu";
 import orderByOptions from "../../data/orderByOptions";
 
-const GamesOrderDropdown = () => {
+const GamesOrderDropdown = props => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const gamesFilters = useSelector(state => state.gamesFilters);
@@ -29,9 +29,10 @@ const GamesOrderDropdown = () => {
       <button
         className={`flex items-center gap-x-[10px] px-[12px] py-[8px] rounded-md ${
           showDropdown ? "bg-accent1" : "bg-neu1-1 dark:bg-neu1-9"
-        }  cursor-pointer w-fit duration-200`}
+        }  w-fit duration-200 ${!!props.disabled ? "opacity-50" : "opacity-100"}`}
         onClick={() => setShowDropdown(!showDropdown)}
         tabIndex="0"
+        disabled={!!props.disabled}
       >
         <span
           className={`font-Raleway font-medium text-[13px] ${showDropdown ? "text-neu1-3" : "text-neu1-6"} dark:text-neu1-3 select-none`}

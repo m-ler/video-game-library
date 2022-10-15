@@ -3,7 +3,7 @@ import { platformList } from "../../data/platformList";
 
 const initialState = {
   OrderBy: "-added",
-  Platform: platformList.find(x => x.slug === "all"),
+  Platform: null//platformList.find(x => x.slug === "all"),
 };
 
 export const gamesFiltersSlice = createSlice({

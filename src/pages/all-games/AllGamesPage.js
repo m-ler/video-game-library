@@ -10,6 +10,7 @@ import GamesPlatformFilterDrowdown from "./GamesPlatformFilterDrowdown";
 import { useParams, useSearchParams } from "react-router-dom";
 import { platformList, flattenPlatformList } from "../../data/platformList";
 import { setOrderBy, setPlatform } from "../../features/filter/gamesFiltersSlice";
+import { useLayoutEffect } from "react";
 
 const AllGamesPage = () => {
   const dispatch = useDispatch();
@@ -17,27 +18,26 @@ const AllGamesPage = () => {
   const gamesFilters = useSelector(state => state.gamesFilters);
   const platformParam = useParams()["platform"];
   const [searchParams, setSearchParams] = useSearchParams();
-  const pageTitle = useRef("All Games");
+  const didMountRef = useRef(false);
+  const [pageTitle, setPageTitle] = useState("");
 
   const [loadedContent, setLoadedContent] = useState([]);
-  const currentPage = useRef(0);
+  const currentPageRef = useRef(0);
   //const [contentScroll, setContentScroll] = useState(0);
 
-  const gamesRequest = useApiRequest(() => getGameList(currentPage.current, gamesFilters.OrderBy, gamesFilters.Platform));
+  const gamesRequest = useApiRequest(() => getGameList(currentPageRef.current, gamesFilters.OrderBy, gamesFilters.Platform));
 
   const observer = useRef();
   const listContainerElement = useRef();
   const visor = useRef();
 
   const updateIntersectionObserver = () => {
-    //if (gamesRequest.loading) return;
-    console.log("updated interseciton");
+    if (gamesRequest.loading && !didMountRef.current && gamesFilters.Platform !== null) return;
     !!observer.current && observer.current.disconnect();
     observer.current = new IntersectionObserver(
       entries => {
-        console.log(entries[0].isIntersecting && requestsEnabledState);
-        if (entries[0].isIntersecting && requestsEnabledState) {
-          currentPage.current += 1;
+        if (entries[0].isIntersecting && requestsEnabledState && currentPageRef.current >= 1) {
+          currentPageRef.current += 1;
           gamesRequest.makeRequest();
         }
       },
@@ -45,6 +45,12 @@ const AllGamesPage = () => {
     );
 
     !!visor.current && observer.current.observe(visor.current);
+  };
+
+  const updateGamesFilters = () => {
+    const selectedPlatform = flattenPlatformList.find(x => x.slug === platformParam) || platformList.find(x => x.slug === "all");
+    dispatch(setOrderBy(searchParams.get("order") || "-added"));
+    dispatch(setPlatform(selectedPlatform));
   };
 
   useEffect(() => {
@@ -55,27 +61,37 @@ const AllGamesPage = () => {
     updateIntersectionObserver();
   }, [gamesRequest.loading, requestsEnabledState]);
 
-  useEffect(() => {
-    setTimeout(updateIntersectionObserver, 100);
-    pageTitle.current = gamesFilters.Platform.name === "All" ? "All Games" : `Games for ${gamesFilters.Platform.name}`;
-    document.title = pageTitle.current;
-  }, [gamesFilters]);
+  useLayoutEffect(() => {
+    if (!didMountRef.current && gamesFilters.Platform === null) return;
+
+    const newTitle = gamesFilters.Platform.name === "All" ? "All Games" : `Games for ${gamesFilters.Platform.name}`;
+    setPageTitle(newTitle);
+    document.title = newTitle;
+    setLoadedContent([]);
+    currentPageRef.current = 0;
+    updateIntersectionObserver();
+
+    currentPageRef.current = 1;
+    gamesRequest.makeRequest();
+  }, [gamesFilters.OrderBy, gamesFilters.Platform]);
 
   useEffect(() => {
-    const selectedPlatform = flattenPlatformList.find(x => x.slug === platformParam) || platformList.find(x => x.slug === "all");
-    currentPage.current = 0;
-    setLoadedContent([]);
-    dispatch(setOrderBy(searchParams.get("order") || "-added"));
-    dispatch(setPlatform(selectedPlatform));
+    if (gamesFilters.Platform === null) return;
+    updateGamesFilters();
   }, [platformParam, searchParams]);
+
+  useEffect(() => {
+    updateGamesFilters();
+    didMountRef.current = true;
+  }, []);
 
   const getHeader = () => {
     return (
       <section className="mb-[25px]">
-        <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black my-[30px] leading-[70px]">{pageTitle.current}</h1>
+        <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black my-[30px] leading-[70px]">{pageTitle}</h1>
         <div className="flex flex-wrap gap-[15px]">
-          <GamesOrderDropdown></GamesOrderDropdown>
-          <GamesPlatformFilterDrowdown></GamesPlatformFilterDrowdown>
+          <GamesOrderDropdown disabled={gamesRequest.loading}></GamesOrderDropdown>
+          <GamesPlatformFilterDrowdown disabled={gamesRequest.loading}></GamesPlatformFilterDrowdown>
         </div>
       </section>
     );
@@ -97,7 +113,7 @@ const AllGamesPage = () => {
         />
       </div>
     ) : (
-      <div ref={visor} className="INTERSECTION block w-full h-[150px] mb-[10px]"></div>
+      <div ref={visor} className="block w-full h-[150px] mb-[10px]"></div>
     );
   };
 

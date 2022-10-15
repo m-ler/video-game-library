@@ -4,11 +4,10 @@ import GamesPlatformFilterDropdownMenu from "./GamesPlatformFilterDropdownMenu";
 import { platformList, flattenPlatformList } from "../../data/platformList";
 import { useSelector } from "react-redux";
 
-const GamesPlatformFilterDrowdown = () => {
+const GamesPlatformFilterDrowdown = props => {
   const [showDropdown, setShowDropdown] = useState();
   const gamesFilters = useSelector(state => state.gamesFilters);
   const dropdownRef = useRef();
-
 
   const onDocumentClick = e => {
     if (!dropdownRef.current) return;
@@ -24,14 +23,15 @@ const GamesPlatformFilterDrowdown = () => {
     };
   }, []);
 
-  return (
+  return gamesFilters.Platform !== null ? (
     <div className="relative z-[9] w-fit" ref={dropdownRef}>
       <button
         className={`flex items-center gap-x-[10px] px-[12px] py-[8px] rounded-md ${
           showDropdown ? "bg-accent1" : "bg-neu1-1 dark:bg-neu1-9"
-        }  cursor-pointer w-fit duration-200`}
+        }  w-fit duration-200 ${!!props.disabled ? "opacity-50" : "opacity-100"}`}
         onClick={() => setShowDropdown(!showDropdown)}
         tabIndex="0"
+        disabled={!!props.disabled}
       >
         <span
           className={`font-Raleway font-medium text-[13px] ${showDropdown ? "text-neu1-3" : "text-neu1-6"} dark:text-neu1-3 select-none`}
@@ -51,8 +51,11 @@ const GamesPlatformFilterDrowdown = () => {
         className={`${!showDropdown ? "opacity-0 scale-y-0" : ""}`}
         onOptionClick={() => setShowDropdown(false)}
         platformList={platformList}
+        selectedOption={gamesFilters.Platform.slug}
       ></GamesPlatformFilterDropdownMenu>
     </div>
+  ) : (
+    ""
   );
 };
 
