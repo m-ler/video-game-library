@@ -7,25 +7,34 @@ import { getGameList } from "../../utils/apiRequests";
 import useApiRequest from "../../hooks/useApiRequest";
 import GamesOrderDropdown from "./GamesOrderDropdown";
 import GamesPlatformFilterDrowdown from "./GamesPlatformFilterDrowdown";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { platformList, flattenPlatformList } from "../../data/platformList";
 import { useLayoutEffect } from "react";
 import orderByOptions from "../../data/orderByOptions";
+import gamesPageCategories from "../../data/gamesPageCategories";
 
 const GamesPage = () => {
+  const locationPath = useLocation().pathname;
+  const gamesPageCategory = gamesPageCategories.find(x => x.route.split("/:")[0] === locationPath) || null;
   const requestsEnabledState = useSelector(state => state.request);
   const routeParams = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const didMountRef = useRef(false);
   const selectedOrder = orderByOptions.find(x => x.value === searchParams.get("order")) || orderByOptions.find(x => x.value === "-added");
-  const selectedPlatform = flattenPlatformList.find(x => x.slug === routeParams.platform) || platformList.find(x => x.slug === "all");
-  const pageTitle = selectedPlatform.name === "All" ? `All Games` : `Games for ${selectedPlatform.name}`;
+  const selectedPlatform = flattenPlatformList.find(x => x.slug === searchParams.get("platform")) || platformList.find(x => x.slug === "all");
+  const pageTitle = !!gamesPageCategory ? gamesPageCategory.title : `Games for ${selectedPlatform.name}`;
 
   const [loadedContent, setLoadedContent] = useState([]);
   const currentPageRef = useRef(0);
   //const [contentScroll, setContentScroll] = useState(0);
 
-  const gamesRequest = useApiRequest(() => getGameList(currentPageRef.current, selectedOrder, selectedPlatform));
+  const gamesRequest = useApiRequest(() =>
+    getGameList(currentPageRef.current, {
+      order: selectedOrder.value,
+      platform: selectedPlatform,
+      category: gamesPageCategory?.category || "",
+    })
+  );
 
   const observer = useRef();
   const listContainerElement = useRef();
@@ -66,6 +75,7 @@ const GamesPage = () => {
     return (
       <section className="mb-[25px]">
         <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black my-[30px] leading-[70px]">{pageTitle}</h1>
+        
         <div className="flex flex-wrap gap-[15px]">
           <GamesOrderDropdown selectedOrder={selectedOrder}></GamesOrderDropdown>
           <GamesPlatformFilterDrowdown selectedPlatform={selectedPlatform}></GamesPlatformFilterDrowdown>

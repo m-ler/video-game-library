@@ -7,11 +7,11 @@ const NavigationDrawer = () => {
   const location = useLocation();
 
   const getNavElement = (linkItem, index) => {
-    const routeSelected = linkItem.routes.some(link => location.pathname === link);
+    const routeSelected = !!linkItem.linkIsSelected && !!linkItem.linkIsSelected(location.pathname, location.search);
     return (
       <Link
         key={index}
-        to={linkItem.routes[0] || "/"}
+        to={linkItem.route}
         className={`group flex items-center gap-x-[7px] duration-200 py-[7px] rounded-tr-lg rounded-br-lg hover:px-[10px] hover:bg-neu1-3 dark:hover:bg-neu1-9 ${
           routeSelected ? "bg-neu1-3 dark:bg-neu1-9 px-[10px] border-l-[4px] border-l-accent3" : ""
         }`}

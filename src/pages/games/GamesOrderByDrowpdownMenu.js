@@ -6,7 +6,8 @@ const GamesOrderByDropdownMenu = props => {
 
   const onOptionClick = item => {
     props.onOptionClick(item);
-    setSearchParams({ order: item.value });
+    searchParams.set("order", item.value);
+    setSearchParams(searchParams);
   };
 
   const getMenuElement = (item, index) => {

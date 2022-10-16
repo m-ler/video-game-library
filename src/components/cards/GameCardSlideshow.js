@@ -8,7 +8,7 @@ const GameCardSlideshow = (props) => {
     const [hoverIndex, setHoverIndex] = useState(0);
 
     const getGameImages = (imageList) => {
-        const style = `object-cover absolute w-full h-full flex rounded-[12px]`;
+        const style = `object-cover absolute w-full h-full flex`;
         const images = imageList.map((x, i) => <img loading="lazy" key={i} src={getMidCompressedImageURL(x.image)} style={{ display: hoverIndex === i ? 'block' : 'none' }} className={style}></img>);
         return images;
     };
@@ -16,7 +16,7 @@ const GameCardSlideshow = (props) => {
     const imageList = getGameImages(props.game.short_screenshots);
 
     return (
-        <div className="max-h-[200px] min-h-[200px] relative rounded-[10px] overflow-hidden" style={props.style}>
+        <div className="max-h-[200px] min-h-[200px] relative rounded-tl-lg rounded-tr-lg overflow-hidden" style={props.style}>
             {imageList}
             <div className="absolute w-full h-full flex justify-between
              before:content-[''] before:z-10 before:absolute before:top-[0px] before:left-[0px] before:right-[0px] before:bottom-[0px]  before:bg-[linear-gradient(to_top,_black_0%,_transparent_100px)] before:opacity-80 before:pointer-events-none">

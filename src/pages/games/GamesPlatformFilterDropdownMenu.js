@@ -1,11 +1,13 @@
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const GamesPlatformFilterDropdownMenu = props => {
-  const { search } = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const onOptionClick = item => {
     !!props.onOptionClick && props.onOptionClick(item);
+    searchParams.set("platform", item.slug);
+    setSearchParams(searchParams);
   };
 
   const getMenuElement = (item, index) => {
@@ -13,11 +15,10 @@ const GamesPlatformFilterDropdownMenu = props => {
     const isSelected = item.slug === props.selectedOption || item.platforms?.some(x => x.slug === props.selectedOption);
     return (
       <li className="group relative" key={index}>
-        <Link
+        <div
           onClick={e => e.currentTarget === e.target && onOptionClick(item)}
           className={`text-[14px] block px-[20px] flex items-center gap-x-[10p] justify-between py-[5px] duration-200 cursor-pointer text-neu1-7 dark:text-neu1-3 font-System hover:bg-accent1 
           hover:text-neu1-3 ${isSelected ? "bg-accent1 font-bold text-neu1-1 dark:text-neu1-1" : "font-medium"}`}
-          to={`/games/${item.slug}${search}`}
         >
           {item.name}
           {hasPlatforms && (
@@ -26,7 +27,7 @@ const GamesPlatformFilterDropdownMenu = props => {
               className={`block text-neu1-5 group-hover:text-accent3 ${isSelected ? "text-neu1-1 dark:text-neu1-1" : ""}`}
             ></MdKeyboardArrowRight>
           )}
-        </Link>
+        </div>
         {hasPlatforms && (
           <GamesPlatformFilterDropdownMenu
             platformList={item.platforms}
