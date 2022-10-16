@@ -1,27 +1,32 @@
 import { useSelector } from "react-redux";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
-import AllGamesPage from "./pages/all-games/AllGamesPage";
-import GamePage from "./pages/game/GamePage";
 import NavigationDrawer from "./components/navigation-drawer/NavigationDrawer";
+import withRouteChangeRemounting from "./hoc/withRouteChangeRemounting";
+import GamesPage from "./pages/games/GamesPage";
+import GameDetailPage from "./pages/game-detail/GameDetailPage";
+import { useEffect, useMemo } from "react";
 
 const App = () => {
   const themeState = useSelector(state => state.theme);
+  const GamesPageWithRouteChangeRemounting = useMemo(() => withRouteChangeRemounting(GamesPage), []);
+
+  useEffect(() => {
+    
+  })
 
   return (
     <div id="app" className={themeState}>
       <div className="h-screen bg-bg-gradient dark:bg-bg-gradient-dark min-w-[320px] flex flex-col w-full">
-        <BrowserRouter>
-          <Header></Header>
-          <section className="grow w-full flex overflow-hidden">
-            <NavigationDrawer></NavigationDrawer>
-            <Routes>
-              <Route path="/" element={<AllGamesPage></AllGamesPage>}></Route>
-              <Route path="/games/:platform" element={<AllGamesPage></AllGamesPage>}></Route>
-              <Route path="game/:gameId" element={<GamePage></GamePage>}></Route>
-            </Routes>
-          </section>
-        </BrowserRouter>
+        <Header></Header>
+        <section className="grow w-full flex overflow-hidden">
+          <NavigationDrawer></NavigationDrawer>
+          <Routes>
+            <Route path="/" element={<GamesPageWithRouteChangeRemounting></GamesPageWithRouteChangeRemounting>}></Route>
+            <Route path="/games/:platform" element={<GamesPageWithRouteChangeRemounting></GamesPageWithRouteChangeRemounting>}></Route>
+            <Route path="game/:gameId" element={<GameDetailPage></GameDetailPage>}></Route>
+          </Routes>
+        </section>
       </div>
     </div>
   );

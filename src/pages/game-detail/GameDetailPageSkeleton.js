@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-const GamePageSkeleton = () => {
+const GameDetailPageSkeleton = () => {
     return (
         <div className='flex flex-col w-full pt-[30px] pb-[50px] px-[20px] overflow-auto'>
             <div className='w-full flex flex-wrap justify-between gap-[40px] border-b border-b-neu1-3 dark:border-b-neu1-8 w-[min(1000px,100%)] mx-auto pb-[20px]'>
@@ -69,4 +69,4 @@ const GamePageSkeleton = () => {
     );
 };
 
-export default GamePageSkeleton;
+export default GameDetailPageSkeleton;

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import GameCard from "../../components/cards/GameCard";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { ColorRing } from "react-loader-spinner";
 import VirtualizedGrid from "../../components/containers/VirtualizedGrid";
 import { getGameList } from "../../utils/apiRequests";
@@ -9,30 +9,30 @@ import GamesOrderDropdown from "./GamesOrderDropdown";
 import GamesPlatformFilterDrowdown from "./GamesPlatformFilterDrowdown";
 import { useParams, useSearchParams } from "react-router-dom";
 import { platformList, flattenPlatformList } from "../../data/platformList";
-import { setOrderBy, setPlatform } from "../../features/filter/gamesFiltersSlice";
 import { useLayoutEffect } from "react";
+import orderByOptions from "../../data/orderByOptions";
 
-const AllGamesPage = () => {
-  const dispatch = useDispatch();
+const GamesPage = () => {
   const requestsEnabledState = useSelector(state => state.request);
-  const gamesFilters = useSelector(state => state.gamesFilters);
-  const platformParam = useParams()["platform"];
+  const routeParams = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const didMountRef = useRef(false);
-  const [pageTitle, setPageTitle] = useState("");
+  const selectedOrder = orderByOptions.find(x => x.value === searchParams.get("order")) || orderByOptions.find(x => x.value === "-added");
+  const selectedPlatform = flattenPlatformList.find(x => x.slug === routeParams.platform) || platformList.find(x => x.slug === "all");
+  const pageTitle = selectedPlatform.name === "All" ? `All Games` : `Games for ${selectedPlatform.name}`;
 
   const [loadedContent, setLoadedContent] = useState([]);
   const currentPageRef = useRef(0);
   //const [contentScroll, setContentScroll] = useState(0);
 
-  const gamesRequest = useApiRequest(() => getGameList(currentPageRef.current, gamesFilters.OrderBy, gamesFilters.Platform));
+  const gamesRequest = useApiRequest(() => getGameList(currentPageRef.current, selectedOrder, selectedPlatform));
 
   const observer = useRef();
   const listContainerElement = useRef();
   const visor = useRef();
 
   const updateIntersectionObserver = () => {
-    if (gamesRequest.loading && !didMountRef.current && gamesFilters.Platform !== null) return;
+    if (gamesRequest.loading && !didMountRef.current) return;
     !!observer.current && observer.current.disconnect();
     observer.current = new IntersectionObserver(
       entries => {
@@ -47,51 +47,28 @@ const AllGamesPage = () => {
     !!visor.current && observer.current.observe(visor.current);
   };
 
-  const updateGamesFilters = () => {
-    const selectedPlatform = flattenPlatformList.find(x => x.slug === platformParam) || platformList.find(x => x.slug === "all");
-    dispatch(setOrderBy(searchParams.get("order") || "-added"));
-    dispatch(setPlatform(selectedPlatform));
-  };
-
-  useEffect(() => {
-    !!gamesRequest.data && setLoadedContent([...new Set([...loadedContent, ...(gamesRequest.data.results || [])])]);
-  }, [gamesRequest.data]);
+  useLayoutEffect(() => {
+    didMountRef.current = true;
+    document.title = pageTitle;
+    currentPageRef.current = 1;
+    gamesRequest.makeRequest();
+  }, []);
 
   useEffect(() => {
     updateIntersectionObserver();
   }, [gamesRequest.loading, requestsEnabledState]);
 
-  useLayoutEffect(() => {
-    if (!didMountRef.current && gamesFilters.Platform === null) return;
-
-    const newTitle = gamesFilters.Platform.name === "All" ? "All Games" : `Games for ${gamesFilters.Platform.name}`;
-    setPageTitle(newTitle);
-    document.title = newTitle;
-    setLoadedContent([]);
-    currentPageRef.current = 0;
-    updateIntersectionObserver();
-
-    currentPageRef.current = 1;
-    gamesRequest.makeRequest();
-  }, [gamesFilters.OrderBy, gamesFilters.Platform]);
-
   useEffect(() => {
-    if (gamesFilters.Platform === null) return;
-    updateGamesFilters();
-  }, [platformParam, searchParams]);
-
-  useEffect(() => {
-    updateGamesFilters();
-    didMountRef.current = true;
-  }, []);
+    !!gamesRequest.data && setLoadedContent([...new Set([...loadedContent, ...(gamesRequest.data.results || [])])]);
+  }, [gamesRequest.data]);
 
   const getHeader = () => {
     return (
       <section className="mb-[25px]">
         <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black my-[30px] leading-[70px]">{pageTitle}</h1>
         <div className="flex flex-wrap gap-[15px]">
-          <GamesOrderDropdown disabled={gamesRequest.loading}></GamesOrderDropdown>
-          <GamesPlatformFilterDrowdown disabled={gamesRequest.loading}></GamesPlatformFilterDrowdown>
+          <GamesOrderDropdown selectedOrder={selectedOrder}></GamesOrderDropdown>
+          <GamesPlatformFilterDrowdown selectedPlatform={selectedPlatform}></GamesPlatformFilterDrowdown>
         </div>
       </section>
     );
@@ -143,4 +120,4 @@ const AllGamesPage = () => {
   );
 };
 
-export default AllGamesPage;
+export default GamesPage;

@@ -8,13 +8,13 @@ import GenresSection from "./GenresSection";
 import MainInfoSection from "./MainInfoSection";
 import DevelopersSection from "./DevelopersSection";
 import MetacriticSection from "./MetacriticSection";
-import GamePageSkeleton from "./GamePageSkeleton";
+import GameDetailPageSkeleton from "./GameDetailPageSkeleton";
 import saveScrollToSessionStorage from "../../utils/saveScrollToSessionStorage";
 import { useMemo } from "react";
 import { throttle } from "lodash";
 import { useRef } from "react";
 
-const GamePage = () => {
+const GameDetailPage = () => {
   const gameId = useParams()["gameId"];
   const localStorageGameDataKey = `game-data-${gameId}`;
   const localStorageGameScreenshotsKey = `game-screenshots-${gameId}`;
@@ -77,7 +77,7 @@ const GamePage = () => {
   };
 
   return gameRequest.loading || screenshotsRequest.loading || !gameData ? (
-    <GamePageSkeleton></GamePageSkeleton>
+    <GameDetailPageSkeleton></GameDetailPageSkeleton>
   ) : (
     <main
       className="relative grow z-0 w-full bg-neu-1 dark:bg-neu1-10 pt-[30px] pb-[50px] px-[20px] overflow-auto animate-[fadeIn_0.5s_ease-out]"
@@ -113,4 +113,4 @@ const GamePage = () => {
   );
 };
 
-export default GamePage;
+export default GameDetailPage;

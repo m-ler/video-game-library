@@ -1,12 +1,10 @@
 import { useRef, useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import GamesPlatformFilterDropdownMenu from "./GamesPlatformFilterDropdownMenu";
-import { platformList, flattenPlatformList } from "../../data/platformList";
-import { useSelector } from "react-redux";
+import { platformList } from "../../data/platformList";
 
 const GamesPlatformFilterDrowdown = props => {
   const [showDropdown, setShowDropdown] = useState();
-  const gamesFilters = useSelector(state => state.gamesFilters);
   const dropdownRef = useRef();
 
   const onDocumentClick = e => {
@@ -23,7 +21,7 @@ const GamesPlatformFilterDrowdown = props => {
     };
   }, []);
 
-  return gamesFilters.Platform !== null ? (
+  return (
     <div className="relative z-[9] w-fit" ref={dropdownRef}>
       <button
         className={`flex items-center gap-x-[10px] px-[12px] py-[8px] rounded-md ${
@@ -41,7 +39,7 @@ const GamesPlatformFilterDrowdown = props => {
         <span
           className={`font-System font-bold text-[14px] ${showDropdown ? "text-neu1-1" : "text-neu1-10"}  dark:text-neu1-1 select-none`}
         >
-          {gamesFilters.Platform.name}
+          {props.selectedPlatform.name}
         </span>
         <IoIosArrowDown
           className={`dark:text-neu1-1 duration-200 ${showDropdown ? "rotate-180 text-neu1-1" : "text-neu1-10"}`}
@@ -51,11 +49,9 @@ const GamesPlatformFilterDrowdown = props => {
         className={`${!showDropdown ? "opacity-0 scale-y-0" : ""}`}
         onOptionClick={() => setShowDropdown(false)}
         platformList={platformList}
-        selectedOption={gamesFilters.Platform.slug}
+        selectedOption={props.selectedPlatform.slug}
       ></GamesPlatformFilterDropdownMenu>
     </div>
-  ) : (
-    ""
   );
 };
 

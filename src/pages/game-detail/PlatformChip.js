@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import platformColors from "../../data/platformColors";
 import platformIcons from "../../data/platformIcons";
 
-export default (props) => {
+export default props => {
   const platformColor = platformColors[props.plaformName] || "#000";
   const platformIcon = platformIcons[props.plaformName] || null;
 
@@ -18,9 +18,7 @@ export default (props) => {
           className: "text-white h-[1em] max-w-[2em]",
           color: "white",
         })}
-      <span className="font-OpenSans text-white font-semibold text-[14px] whitespace-nowrap">
-        {props.plaformName}
-      </span>
+      <span className="font-OpenSans text-white font-semibold text-[14px] whitespace-nowrap">{props.plaformName}</span>
     </Link>
   );
 };

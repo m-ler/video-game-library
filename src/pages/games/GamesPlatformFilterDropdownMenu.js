@@ -5,7 +5,7 @@ const GamesPlatformFilterDropdownMenu = props => {
   const { search } = useLocation();
 
   const onOptionClick = item => {
-    !!props.onOptionClick && props.onOptionClick(item); 
+    !!props.onOptionClick && props.onOptionClick(item);
   };
 
   const getMenuElement = (item, index) => {
@@ -30,7 +30,7 @@ const GamesPlatformFilterDropdownMenu = props => {
         {hasPlatforms && (
           <GamesPlatformFilterDropdownMenu
             platformList={item.platforms}
-            className="platform-child hidden group-hover:block left-[100%] top-[0px]"
+            className="platform-child hidden group-hover:block left-[100%] top-[0px_!important]"
             onOptionClick={props.onOptionClick}
             selectedOption={props.selectedOption}
           ></GamesPlatformFilterDropdownMenu>

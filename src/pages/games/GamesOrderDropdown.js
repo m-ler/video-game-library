@@ -2,14 +2,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { useSelector } from "react-redux";
 import GamesOrderByDropdownMenu from "./GamesOrderByDrowpdownMenu";
-import orderByOptions from "../../data/orderByOptions";
 
 const GamesOrderDropdown = props => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
-  const gamesFilters = useSelector(state => state.gamesFilters);
 
   const onDocumentClick = e => {
     const clickedOutside = !dropdownRef.current.contains(e.target);
@@ -42,7 +39,7 @@ const GamesOrderDropdown = props => {
         <span
           className={`font-System font-bold text-[14px] ${showDropdown ? "text-neu1-1" : "text-neu1-10"}  dark:text-neu1-1 select-none`}
         >
-          {(orderByOptions.find(x => x.value === gamesFilters.OrderBy) || orderByOptions.find(x => x.value === "-added")).name}
+          {props.selectedOrder.name}
         </span>
         <IoIosArrowDown
           className={`dark:text-neu1-1 duration-200 ${showDropdown ? "rotate-180 text-neu1-1" : "text-neu1-10"}`}
@@ -50,7 +47,7 @@ const GamesOrderDropdown = props => {
       </button>
       <GamesOrderByDropdownMenu
         className={`${!showDropdown ? "opacity-0 scale-y-0" : ""}`}
-        selectedOrder={gamesFilters.OrderBy}
+        selectedOrder={props.selectedOrder.value}
         onOptionClick={() => setShowDropdown(false)}
       ></GamesOrderByDropdownMenu>
     </div>

@@ -4,74 +4,107 @@ import { SiNintendo, SiSega, SiXbox } from "react-icons/si";
 
 export const gamesLinks = [
   {
-    link: "/",
+    routes: ["/games/all", "/"],
     icon: <MdGames></MdGames>,
-    label: "All games",
+    name: "All games",
   },
   {
-    link: "/",
+    routes: [],
     icon: <FaAward></FaAward>,
-    label: "Best of the year",
+    name: "Best of the year",
   },
   {
-    link: "/",
+    routes: [],
     icon: <FaCrown></FaCrown>,
-    label: "Best of all time",
+    name: "Best of all time",
   },
 ];
 
 export const platformLinks = [
   {
-    link: "/",
+    routes: ["/games/pc"],
     icon: <FaWindows></FaWindows>,
-    label: "PC",
+    name: "PC",
   },
   {
-    link: "/",
+    routes: [
+      "/games/playstation",
+      "/games/playstation5",
+      "/games/playstation4",
+      "/games/playstation3",
+      "/games/playstation2",
+      "/games/playstation1",
+      "/games/ps-vita",
+      "/games/psp",
+    ],
     icon: <FaPlaystation></FaPlaystation>,
-    label: "Playstation",
+    name: "Playstation",
   },
   {
-    link: "/",
+    routes: ["/games/xbox", "/games/xbox-one", "/games/xbox-series-x", "/games/xbox360", "/games/xbox-old"],
     icon: <SiXbox></SiXbox>,
-    label: "Xbox",
+    name: "Xbox",
   },
   {
-    link: "/",
+    routes: [
+      "/games/nintendo",
+      "/games/nintendo-switch",
+      "/games/nintendo-3ds",
+      "/games/nintendo-ds",
+      "/games/nintendo-dsi",
+      "/games/wii-u",
+      "/games/wii",
+      "/games/gamecube",
+      "/games/nintendo-64",
+      "/games/game-boy-advance",
+      "/games/game-boy-color",
+      "/games/game-boy",
+      "/games/snes",
+      "/games/nes",
+    ],
     icon: <SiNintendo></SiNintendo>,
-    label: "Nintendo",
+    name: "Nintendo",
   },
   {
-    link: "/",
+    routes: [
+      "/games/sega",
+      "/games/genesis",
+      "/games/sega-saturn",
+      "/games/sega-cd",
+      "/games/sega-32x",
+      "/games/sega-master-system",
+      "/games/dreamcast",
+      "/games/game-gear",
+    ],
     icon: <SiSega></SiSega>,
-    label: "Sega",
+    name: "Sega",
   },
   {
-    link: "/",
+    routes: ["/games/ios"],
     icon: <FaApple></FaApple>,
-    label: "iOS",
+    name: "iOS",
   },
   {
-    link: "/",
+    routes: ["games/android"],
     icon: <FaAndroid></FaAndroid>,
-    label: "Android",
+    name: "Android",
   },
 ];
 
 export const browseLinks = [
   {
-    link: "/",
+    routes: [],
     icon: <FaGhost></FaGhost>,
-    label: "Genres",
+    name: "Genres",
   },
   {
-    link: "/",
+    routes: [],
     icon: <FaCode></FaCode>,
-    label: "Developers",
+    name: "Developers",
   },
   {
-    link: "/",
+    routes: [],
     icon: <MdSend></MdSend>,
-    label: "Publishers",
+    name: "Publishers",
   },
 ];

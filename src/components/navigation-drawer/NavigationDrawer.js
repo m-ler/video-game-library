@@ -1,24 +1,33 @@
 import { cloneElement, useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { gamesLinks, platformLinks, browseLinks } from "../../data/navDrawerLinks";
 
 const NavigationDrawer = () => {
-  const [selectedMenu, setSelectedMenu] = useState();
+  const location = useLocation();
 
-  const getNavElement = (element, index) => {
+  const getNavElement = (linkItem, index) => {
+    const routeSelected = linkItem.routes.some(link => location.pathname === link);
     return (
       <Link
         key={index}
-        to={element.link}
-        className="group flex items-center gap-x-[7px] duration-200 py-[7px] rounded-tr-lg rounded-br-lg hover:px-[10px] hover:bg-neu1-3 dark:hover:bg-neu1-9"
+        to={linkItem.routes[0] || "/"}
+        className={`group flex items-center gap-x-[7px] duration-200 py-[7px] rounded-tr-lg rounded-br-lg hover:px-[10px] hover:bg-neu1-3 dark:hover:bg-neu1-9 ${
+          routeSelected ? "bg-neu1-3 dark:bg-neu1-9 px-[10px] border-l-[4px] border-l-accent3" : ""
+        }`}
       >
-        <span className="p-[5px] bg-neu1-3 dark:bg-neu1-8 group-hover:bg-accent1 dark:group-hover:bg-neu1-3 rounded-md duration-200">
-          {cloneElement(element.icon, {
-            className: "text-neu1-8 dark:text-neu1-1 group-hover:text-neu1-1 dark:group-hover:text-accent1  duration-200",
+        <span
+          className={`p-[5px] group-hover:bg-accent1 dark:group-hover:bg-neu1-3 rounded-md duration-200 ${
+            routeSelected ? "bg-accent1 dark:bg-neu1-3" : "bg-neu1-3 dark:bg-neu1-8"
+          }`}
+        >
+          {cloneElement(linkItem.icon, {
+            className: `group-hover:text-neu1-1 dark:group-hover:text-accent1 duration-200 ${
+              routeSelected ? "text-neu1-1 dark:text-accent1" : "text-neu1-8 dark:text-neu1-1"
+            }`,
           })}
         </span>
-        <h3 className="text-neu1-10 dark:text-neu1-1 font-System font-medium text-[14px]">{element.label}</h3>
+        <h3 className="text-neu1-10 dark:text-neu1-1 font-System font-medium text-[14px]">{linkItem.name}</h3>
       </Link>
     );
   };
