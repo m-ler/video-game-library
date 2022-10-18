@@ -85,6 +85,10 @@ module.exports = {
           from: { opacity: "0", transform: "scale(.5)" },
           to: { opacity: "1", transform: "scale(1)" },
         },
+        translateBottomTop: { 
+          from: { transform: "translateY(100%)" },
+          to: { transform: "translateY(0%)" },
+        },
       },
       transitionTimingFunction: {
         inSine: "cubic-bezier(0.12, 0, 0.39, 0)",

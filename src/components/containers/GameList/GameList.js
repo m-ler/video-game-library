@@ -1,38 +1,54 @@
 import { useEffect, useRef, useState } from "react";
-import GameCard from "../../components/cards/GameCard";
+import GameCard from "../../cards/GameCard";
 import { useSelector } from "react-redux";
 import { ColorRing } from "react-loader-spinner";
-import VirtualizedGrid from "../../components/containers/VirtualizedGrid";
-import { getGameList } from "../../utils/apiRequests";
-import useApiRequest from "../../hooks/useApiRequest";
+import VirtualizedGrid from "../VirtualizedGrid";
+import { getGameList } from "../../../utils/apiRequests";
+import useApiRequest from "../../../hooks/useApiRequest";
+
 import GamesOrderDropdown from "./GamesOrderDropdown";
 import GamesPlatformFilterDrowdown from "./GamesPlatformFilterDrowdown";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
-import { platformList, flattenPlatformList } from "../../data/platformList";
+import { useSearchParams } from "react-router-dom";
+import { platformList, flattenPlatformList } from "../../../data/platformList";
 import { useLayoutEffect } from "react";
-import orderByOptions from "../../data/orderByOptions";
-import gamesPageCategories from "../../data/gamesPageCategories";
+import orderByOptions from "../../../data/orderByOptions";
+import gamesPageCategories from "../../../data/gamesPageCategories";
+import { times } from "lodash";
 
-const GamesPage = () => {
-  const locationPath = useLocation().pathname;
-  const gamesPageCategory = gamesPageCategories.find(x => x.route.split("/:")[0] === locationPath) || null;
+const getPageTitle = (platform, genre, developer) => {
+  let title = "";
+  title += !!genre ? `${genre.name} games` : "";
+  title += !!developer ? `Developed by ${developer}` : "";
+  title += !!platform && platform !== "All" ? ` for ${platform}` : "";
+
+  if (platform && !genre && !developer) title = `Games for ${platform}`;
+  if (platform === "All" && !genre && !developer) title = "All games";
+  return title;
+};
+
+const GameList = props => {
   const requestsEnabledState = useSelector(state => state.request);
-  const routeParams = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const didMountRef = useRef(false);
-  const selectedOrder = orderByOptions.find(x => x.value === searchParams.get("order")) || orderByOptions.find(x => x.value === "-added");
-  const selectedPlatform = flattenPlatformList.find(x => x.slug === searchParams.get("platform")) || platformList.find(x => x.slug === "all");
-  const pageTitle = !!gamesPageCategory ? gamesPageCategory.title : `Games for ${selectedPlatform.name}`;
+
+  const selectedOrder =
+    props.order || orderByOptions.find(x => x.value === searchParams.get("order")) || orderByOptions.find(x => x.value === "-added");
+
+  const selectedPlatform =
+    props.platform || flattenPlatformList.find(x => x.slug === searchParams.get("platform")) || platformList.find(x => x.slug === "all");
+
+  const pageTitle = props.title || getPageTitle(selectedPlatform.name, props.genre, props.developer);
 
   const [loadedContent, setLoadedContent] = useState([]);
   const currentPageRef = useRef(0);
-  //const [contentScroll, setContentScroll] = useState(0);
 
   const gamesRequest = useApiRequest(() =>
     getGameList(currentPageRef.current, {
       order: selectedOrder.value,
       platform: selectedPlatform,
-      category: gamesPageCategory?.category || "",
+      category: props.category || "",
+      genre: props.genre?.id || "",
+      developer: props.developer || "",
     })
   );
 
@@ -75,7 +91,7 @@ const GamesPage = () => {
     return (
       <section className="mb-[25px]">
         <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black my-[30px] leading-[70px]">{pageTitle}</h1>
-        
+
         <div className="flex flex-wrap gap-[15px]">
           <GamesOrderDropdown selectedOrder={selectedOrder}></GamesOrderDropdown>
           <GamesPlatformFilterDrowdown selectedPlatform={selectedPlatform}></GamesPlatformFilterDrowdown>
@@ -87,7 +103,7 @@ const GamesPage = () => {
   const getFooter = () => {
     return gamesRequest.error ? (
       <div>
-        <h1 className="text-[48px] font-System text-center font-extrabold dark:text-white">SOMETHING WENT WRONG</h1>
+        <h1 className="text-[48px] font-System text-center font-bold dark:text-white">SOMETHING WENT WRONG</h1>
       </div>
     ) : gamesRequest.loading ? (
       <div className="flex justify-center w-full border-t-[1px] border-neu1-2 dark:border-neu1-9 py-[15px]">
@@ -107,13 +123,13 @@ const GamesPage = () => {
   const gridElement = index => <GameCard key={index} game={loadedContent[index]}></GameCard>;
 
   return (
-    <main
+    <section
       ref={listContainerElement}
       className="px-[20px] max-w-[1920px] w-full grow mx-auto flex flex-col gap-y-[20px] overflow-auto max-h-full z-0"
     >
       <VirtualizedGrid
-        name="AllGames"
-        rowHeight={337}
+        name="GameList"
+        rowHeight={317}
         columnWidth={320}
         gapX={20}
         gapY={20}
@@ -126,8 +142,8 @@ const GamesPage = () => {
         header={getHeader()}
         footer={getFooter()}
       ></VirtualizedGrid>
-    </main>
+    </section>
   );
 };
 
-export default GamesPage;
+export default GameList;

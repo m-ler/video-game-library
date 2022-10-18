@@ -13,7 +13,7 @@ const GameCardSlideshow = (props) => {
         return images;
     };
 
-    const imageList = getGameImages(props.game.short_screenshots);
+    const imageList = getGameImages(props.game.short_screenshots || []);
 
     return (
         <div className="max-h-[200px] min-h-[200px] relative rounded-tl-lg rounded-tr-lg overflow-hidden" style={props.style}>

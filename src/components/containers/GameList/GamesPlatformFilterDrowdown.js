@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import GamesPlatformFilterDropdownMenu from "./GamesPlatformFilterDropdownMenu";
-import { platformList } from "../../data/platformList";
+import { platformList } from "../../../data/platformList";
 
 const GamesPlatformFilterDrowdown = props => {
   const [showDropdown, setShowDropdown] = useState();

@@ -12,7 +12,9 @@ export const getGameList = async (page, params) => {
       : "";
 
   const response = await fetch(
-    `${BASE_URL}games${params.category}?key=${RAWG_KEY}&ordering=${params.order}${platformFilter}&page=${page}&page_size=100`
+    `${BASE_URL}games${params.category}?ordering=${params.order}${platformFilter}${
+      !!params.genre ? `&genres=${params.genre}` : ""
+    }&page=${page}&page_size=100&key=${RAWG_KEY}`
   );
   return await response.json();
 };

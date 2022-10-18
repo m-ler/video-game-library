@@ -3,9 +3,13 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/header/Header";
 import NavigationDrawer from "./components/navigation-drawer/NavigationDrawer";
 import withRouteChangeRemounting from "./hoc/withRouteChangeRemounting";
-import GamesPage from "./pages/games/GamesPage";
+import GamesPage from "./pages/GamesPage";
 import GameDetailPage from "./pages/game-detail/GameDetailPage";
 import { useEffect, useMemo } from "react";
+import GenresPage from "./pages/genres/GenresPage";
+import GamesByGenrePage from "./pages/GamesByGenrePage";
+import BestOfTheYearPage from "./pages/BestOfTheYearPage";
+import BestOfAllTimePage from "./pages/BestOfAllTimePage";
 
 const App = () => {
   const themeState = useSelector(state => state.theme);
@@ -22,9 +26,11 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Navigate replace to="/games"></Navigate>}></Route>
             <Route path="/games" element={<GamesPageWithRouteChangeRemounting></GamesPageWithRouteChangeRemounting>}></Route>
-            <Route path="/games/best-of-the-year" element={<GamesPageWithRouteChangeRemounting></GamesPageWithRouteChangeRemounting>}></Route>
-            <Route path="/games/best-of-all-time" element={<GamesPageWithRouteChangeRemounting></GamesPageWithRouteChangeRemounting>}></Route>
+            <Route path="/games/best-of-the-year" element={<BestOfTheYearPage></BestOfTheYearPage>}></Route>
+            <Route path="/games/best-of-all-time" element={<BestOfAllTimePage></BestOfAllTimePage>}></Route>
             <Route path="game/:gameId" element={<GameDetailPage></GameDetailPage>}></Route>
+            <Route path="/genres" element={<GenresPage></GenresPage>}></Route>
+            <Route path="/genres/:genre" element={<GamesByGenrePage></GamesByGenrePage>}></Route>
           </Routes>
         </section>
       </div>

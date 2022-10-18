@@ -1,4 +1,4 @@
-import orderByOptions from "../../data/orderByOptions";
+import orderByOptions from "../../../data/orderByOptions";
 import { useSearchParams } from "react-router-dom";
 
 const GamesOrderByDropdownMenu = props => {

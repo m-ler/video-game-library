@@ -108,9 +108,10 @@ export const platformLinks = [
 
 export const browseLinks = [
   {
-    route: [],
+    route: "/genres",
     icon: <FaGhost></FaGhost>,
     name: "Genres",
+    linkIsSelected: (pathname, search) => pathname.includes("/genres"),
   },
   {
     route: [],

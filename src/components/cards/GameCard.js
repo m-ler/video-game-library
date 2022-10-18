@@ -47,7 +47,7 @@ const GameCard = props => {
       onMouseOut={() => setHovering(false)}
       data-game-id={props.game.id}
       style={props.style}
-      className={`flex flex-col bg-neu1-1 dark:bg-neu1-9 ${
+      className={`flex flex-col bg-neu1-1 dark:bg-neu1-9 min-h-[317px] max-h-[317px] ${
         hovering ? "shadow-lg" : "shadow-md"
       } rounded-xl gap-y-[15px] animate-[fadeIn_0.3s_ease-out] relative`}
     >

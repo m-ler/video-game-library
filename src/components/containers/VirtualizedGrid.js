@@ -103,8 +103,8 @@ const VirtualizedGrid = props => {
       <div
         ref={ghostGrid}
         style={{
-          rowGap: props.gapX,
-          columnGap: props.gapY,
+          rowGap: props.gapX || 0,
+          columnGap: props.gapY || 0,
           gridTemplateColumns: `repeat(auto-fit, minmax(min(${props.columnWidth}px, 100%), 1fr))`,
         }}
         className={`grid w-full block`}
