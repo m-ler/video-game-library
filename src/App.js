@@ -10,6 +10,8 @@ import GenresPage from "./pages/genres/GenresPage";
 import GamesByGenrePage from "./pages/GamesByGenrePage";
 import BestOfTheYearPage from "./pages/BestOfTheYearPage";
 import BestOfAllTimePage from "./pages/BestOfAllTimePage";
+import DevelopersPage from "./pages/developers/DevelopersPage";
+import GamesByDeveloperPage from "./pages/GamesByDeveloperPage";
 
 const App = () => {
   const themeState = useSelector(state => state.theme);
@@ -28,9 +30,11 @@ const App = () => {
             <Route path="/games" element={<GamesPageWithRouteChangeRemounting></GamesPageWithRouteChangeRemounting>}></Route>
             <Route path="/games/best-of-the-year" element={<BestOfTheYearPage></BestOfTheYearPage>}></Route>
             <Route path="/games/best-of-all-time" element={<BestOfAllTimePage></BestOfAllTimePage>}></Route>
-            <Route path="game/:gameId" element={<GameDetailPage></GameDetailPage>}></Route>
+            <Route path="game/:gameSlug" element={<GameDetailPage></GameDetailPage>}></Route>
             <Route path="/genres" element={<GenresPage></GenresPage>}></Route>
             <Route path="/genres/:genre" element={<GamesByGenrePage></GamesByGenrePage>}></Route>
+            <Route path="/developers/" element={<DevelopersPage></DevelopersPage>}></Route>
+            <Route path="/developers/:developer" element={<GamesByDeveloperPage></GamesByDeveloperPage>}></Route>
           </Routes>
         </section>
       </div>

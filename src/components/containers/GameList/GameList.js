@@ -1,24 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import GameCard from "../../cards/GameCard";
 import { useSelector } from "react-redux";
-import { ColorRing } from "react-loader-spinner";
 import VirtualizedGrid from "../VirtualizedGrid";
 import { getGameList } from "../../../utils/apiRequests";
 import useApiRequest from "../../../hooks/useApiRequest";
-
 import GamesOrderDropdown from "./GamesOrderDropdown";
 import GamesPlatformFilterDrowdown from "./GamesPlatformFilterDrowdown";
 import { useSearchParams } from "react-router-dom";
 import { platformList, flattenPlatformList } from "../../../data/platformList";
 import { useLayoutEffect } from "react";
 import orderByOptions from "../../../data/orderByOptions";
-import gamesPageCategories from "../../../data/gamesPageCategories";
-import { times } from "lodash";
+import SpinnerA from "../../elements/loading-animations/SpinnerA";
 
 const getPageTitle = (platform, genre, developer) => {
   let title = "";
   title += !!genre ? `${genre.name} games` : "";
-  title += !!developer ? `Developed by ${developer}` : "";
+  title += !!developer ? `Developed by ${developer.name}` : "";
   title += !!platform && platform !== "All" ? ` for ${platform}` : "";
 
   if (platform && !genre && !developer) title = `Games for ${platform}`;
@@ -39,16 +36,16 @@ const GameList = props => {
 
   const pageTitle = props.title || getPageTitle(selectedPlatform.name, props.genre, props.developer);
 
-  const [loadedContent, setLoadedContent] = useState([]);
+  const [gameList, setGameList] = useState([]);
   const currentPageRef = useRef(0);
-
+  
   const gamesRequest = useApiRequest(() =>
     getGameList(currentPageRef.current, {
       order: selectedOrder.value,
       platform: selectedPlatform,
       category: props.category || "",
       genre: props.genre?.id || "",
-      developer: props.developer || "",
+      developer: props.developer?.slug || "",
     })
   );
 
@@ -84,7 +81,7 @@ const GameList = props => {
   }, [gamesRequest.loading, requestsEnabledState]);
 
   useEffect(() => {
-    !!gamesRequest.data && setLoadedContent([...new Set([...loadedContent, ...(gamesRequest.data.results || [])])]);
+    !!gamesRequest.data && setGameList([...new Set([...gameList, ...(gamesRequest.data.results || [])])]);
   }, [gamesRequest.data]);
 
   const getHeader = () => {
@@ -106,21 +103,13 @@ const GameList = props => {
         <h1 className="text-[48px] font-System text-center font-bold dark:text-white">SOMETHING WENT WRONG</h1>
       </div>
     ) : gamesRequest.loading ? (
-      <div className="flex justify-center w-full border-t-[1px] border-neu1-2 dark:border-neu1-9 py-[15px]">
-        <ColorRing
-          visible={true}
-          height="80"
-          width="80"
-          wrapperClass="blocks-wrapper"
-          colors={["#0F74E7", "#00CDDB", "#FF74AD", "#0F74E7", "#FF74AD"]}
-        />
-      </div>
+      <SpinnerA></SpinnerA>
     ) : (
       <div ref={visor} className="block w-full h-[150px] mb-[10px]"></div>
     );
   };
 
-  const gridElement = index => <GameCard key={index} game={loadedContent[index]}></GameCard>;
+  const getGameCard = index => <GameCard key={index} game={gameList[index]}></GameCard>;
 
   return (
     <section
@@ -133,8 +122,8 @@ const GameList = props => {
         columnWidth={320}
         gapX={20}
         gapY={20}
-        childElement={gridElement}
-        total={loadedContent.length}
+        childElement={getGameCard}
+        total={gameList.length}
         buffer={1}
         scrollContainer={listContainerElement.current}
         //onScroll={scrollElement => setContentScroll(scrollElement?.scrollTop || 0)}

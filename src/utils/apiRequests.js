@@ -12,20 +12,20 @@ export const getGameList = async (page, params) => {
       : "";
 
   const response = await fetch(
-    `${BASE_URL}games${params.category}?ordering=${params.order}${platformFilter}${
-      !!params.genre ? `&genres=${params.genre}` : ""
+    `${BASE_URL}games${params.category}?ordering=${params.order}${platformFilter}${!!params.genre ? `&genres=${params.genre}` : ""}${
+      !!params.developer ? `&developers=${params.developer}` : ""
     }&page=${page}&page_size=100&key=${RAWG_KEY}`
   );
   return await response.json();
 };
 
-export const getGameDetail = async gameId => {
-  const response = await fetch(`${BASE_URL}games/${gameId}?key=${RAWG_KEY}`);
+export const getGameDetail = async gameIdOrSlug => {
+  const response = await fetch(`${BASE_URL}games/${gameIdOrSlug}?key=${RAWG_KEY}`);
   return await response.json();
 };
 
-export const getGameDetailScreenshots = async gameId => {
-  const response = await fetch(`${BASE_URL}games/${gameId}/screenshots?key=${RAWG_KEY}`);
+export const getGameDetailScreenshots = async gameIdOrSlug => {
+  const response = await fetch(`${BASE_URL}games/${gameIdOrSlug}/screenshots?key=${RAWG_KEY}`);
   return await response.json();
 };
 
@@ -36,5 +36,20 @@ export const getGameSearchList = async query => {
 
 export const getParentPlatformList = async () => {
   const response = await fetch(`${BASE_URL}platforms/lists/parents?key=${RAWG_KEY}`);
+  return await response.json();
+};
+
+export const getGenreList = async () => {
+  const response = await fetch(`${BASE_URL}genres?key=${RAWG_KEY}`);
+  return await response.json();
+};
+
+export const getDeveloperList = async page => {
+  const response = await fetch(`${BASE_URL}developers?page=${page}&page_size=100&key=${RAWG_KEY}`);
+  return await response.json();
+};
+
+export const getDeveloperDetail = async developerIdOrSlug => {
+  const response = await fetch(`${BASE_URL}developers/${developerIdOrSlug}?key=${RAWG_KEY}`);
   return await response.json();
 };

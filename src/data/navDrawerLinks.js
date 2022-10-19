@@ -114,12 +114,13 @@ export const browseLinks = [
     linkIsSelected: (pathname, search) => pathname.includes("/genres"),
   },
   {
-    route: [],
+    route: "/developers",
     icon: <FaCode></FaCode>,
     name: "Developers",
+    linkIsSelected: (pathname, search) => pathname.includes("/developers"),
   },
   {
-    route: [],
+    route: "",
     icon: <MdSend></MdSend>,
     name: "Publishers",
   },

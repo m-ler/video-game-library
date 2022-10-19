@@ -15,13 +15,13 @@ import { throttle } from "lodash";
 import { useRef } from "react";
 
 const GameDetailPage = () => {
-  const gameId = useParams()["gameId"];
-  const localStorageGameDataKey = `game-data-${gameId}`;
-  const localStorageGameScreenshotsKey = `game-screenshots-${gameId}`;
-  const sessionStorageScrollKey = `game-page-scroll-${gameId}`;
+  const gameSlug = useParams()["gameSlug"];
+  const localStorageGameDataKey = `game-data-${gameSlug}`;
+  const localStorageGameScreenshotsKey = `game-screenshots-${gameSlug}`;
+  const sessionStorageScrollKey = `game-page-scroll-${gameSlug}`;
   const theme = useSelector(state => state.theme);
-  const gameRequest = useApiRequest(() => getGameDetail(gameId));
-  const screenshotsRequest = useApiRequest(() => getGameDetailScreenshots(gameId));
+  const gameRequest = useApiRequest(() => getGameDetail(gameSlug));
+  const screenshotsRequest = useApiRequest(() => getGameDetailScreenshots(gameSlug));
   const [gameData, setGameData] = useState();
   const [gameScreenshots, setGameScreenshots] = useState();
   const mainContainerElement = useRef();
@@ -41,21 +41,21 @@ const GameDetailPage = () => {
 
   useEffect(() => {
     getGameData();
-  }, [gameId]);
+  }, [gameSlug]);
 
   useEffect(() => {
-    !!gameData && (document.title = gameData.name);
+    !!gameData?.id && (document.title = gameData.name);
   }, [gameData]);
 
   useEffect(() => {
-    if (!!gameRequest.data) {
+    if (!!gameRequest.data?.id) {
       localStorage.setItem(localStorageGameDataKey, JSON.stringify(gameRequest.data));
       setGameData(gameRequest.data);
     }
   }, [gameRequest.data]);
 
   useEffect(() => {
-    if (!!screenshotsRequest.data) {
+    if (!!screenshotsRequest.data?.results) {
       localStorage.setItem(localStorageGameScreenshotsKey, JSON.stringify(screenshotsRequest.data.results));
       setGameScreenshots(screenshotsRequest.data.results);
     }
@@ -76,9 +76,9 @@ const GameDetailPage = () => {
     backgroundElement.current.classList.toggle("after:invisible", backgroundResolution > minimumResolution);
   };
 
-  return gameRequest.loading || screenshotsRequest.loading || !gameData ? (
+  return gameRequest.loading || screenshotsRequest.loading ? (
     <GameDetailPageSkeleton></GameDetailPageSkeleton>
-  ) : (
+  ) : !!gameData?.id ? (
     <main
       className="relative grow z-0 w-full bg-neu-1 dark:bg-neu1-10 pt-[30px] pb-[50px] px-[20px] overflow-auto animate-[fadeIn_0.5s_ease-out]"
       onScroll={onPageScroll}
@@ -110,6 +110,8 @@ const GameDetailPage = () => {
 
       {!!gameData.metacritic && <MetacriticSection score={gameData.metacritic} metacriticURL={gameData.metacritic_url}></MetacriticSection>}
     </main>
+  ) : (
+    <h1>GAME NOT FOUND</h1>
   );
 };
 

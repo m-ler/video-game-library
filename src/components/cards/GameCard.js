@@ -62,7 +62,7 @@ const GameCard = props => {
 
       <div className="flex flex-col gap-y-[5px] px-[20px] pb-[20px]">
         <Link
-          to={`/game/${props.game.id}`}
+          to={`/game/${props.game.slug}`}
           className={`text-neu1-9 dark:text-neu1-2 font-Roboto font-black text-[20px] text-ellipsis overflow-hidden block ${
             hovering ? "" : "whitespace-nowrap"
           } hover:underline`}

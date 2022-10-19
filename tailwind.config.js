@@ -85,7 +85,7 @@ module.exports = {
           from: { opacity: "0", transform: "scale(.5)" },
           to: { opacity: "1", transform: "scale(1)" },
         },
-        translateBottomTop: { 
+        translateBottomTop: {
           from: { transform: "translateY(100%)" },
           to: { transform: "translateY(0%)" },
         },
@@ -125,5 +125,5 @@ module.exports = {
       xl: "1280px", // => @media (min-width: 1280px) { ... }
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 };

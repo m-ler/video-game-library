@@ -1,9 +1,9 @@
-import { useRef, useState, useEffect } from "react";
-import { TailSpin } from "react-loader-spinner";
+import { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import useApiRequest from "../../../hooks/useApiRequest";
 import { getGameSearchList } from "../../../utils/apiRequests";
 import regularExpressions from "../../../utils/regularExpressions";
+import SpinnerB from "../../elements/loading-animations/SpinnerB";
 import SearchWindowGames from "./SearchWindowGames";
 
 const SearchWindow = props => {
@@ -24,16 +24,7 @@ const SearchWindow = props => {
     return !props.searchQuery ? (
       ""
     ) : gameSearchRequest.loading ? (
-      <div className="w-full flex justify-center">
-        <TailSpin
-          height="40"
-          width="40"
-          color={theme === "dark" ? "#616E7C" : "#9AA5B1"}
-          ariaLabel="tail-spin-loading"
-          radius="1"
-          visible={true}
-        />
-      </div>
+      <SpinnerB className="w-full flex justify-center"></SpinnerB>
     ) : (
       <SearchWindowGames resultOnSelect={props.resultOnSelect} games={gameSearchRequest.data?.results || []}></SearchWindowGames>
     );

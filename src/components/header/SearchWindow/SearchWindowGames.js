@@ -26,7 +26,7 @@ const SearchWindowGames = props => {
         ></img>
         <div className="flex flex-col grow">
           <Link
-            to={`game/${gameObj.id}`}
+            to={`game/${gameObj.slug}`}
             onClick={() => !!onClick && onClick(gameObj.name)}
             className="text-neu1-7 dark:text-neu1-3 text-[16px] font-Lato font-semibold hover:underline"
           >

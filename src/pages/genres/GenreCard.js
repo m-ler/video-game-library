@@ -3,7 +3,7 @@ import { getMidCompressedImageURL } from "../../utils/compressedImageURLS";
 
 const GenreCard = props => {
   return (
-    <div className="flex flex-col animate-[translateBottomTop_.3s_ease-out] relative z-0 rounded-lg">
+    <div className="flex flex-col animate-[fadeIn.3s_ease-out] relative z-0 rounded-lg">
       <img className="rounded-tl-lg rounded-tr-lg" src={getMidCompressedImageURL(props.genre.image_background)}></img>
       <div className="flex flex-col bg-neu1-1 dark:bg-neu1-9 p-[15px] rounded-bl-lg rounded-br-lg grow justify-center">
         <Link
