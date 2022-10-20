@@ -12,14 +12,15 @@ import { useLayoutEffect } from "react";
 import orderByOptions from "../../../data/orderByOptions";
 import SpinnerA from "../../elements/loading-animations/SpinnerA";
 
-const getPageTitle = (platform, genre, developer) => {
+const getPageTitle = (platform, genre, developer, publisher) => {
   let title = "";
   title += !!genre ? `${genre.name} games` : "";
   title += !!developer ? `Developed by ${developer.name}` : "";
+  title += !!publisher ? `Published by ${publisher.name}` : "";
   title += !!platform && platform !== "All" ? ` for ${platform}` : "";
 
-  if (platform && !genre && !developer) title = `Games for ${platform}`;
-  if (platform === "All" && !genre && !developer) title = "All games";
+  if (platform && !genre && !developer && !publisher) title = `Games for ${platform}`;
+  if (platform === "All" && !genre && !developer && !publisher) title = "All games";
   return title;
 };
 
@@ -34,11 +35,11 @@ const GameList = props => {
   const selectedPlatform =
     props.platform || flattenPlatformList.find(x => x.slug === searchParams.get("platform")) || platformList.find(x => x.slug === "all");
 
-  const pageTitle = props.title || getPageTitle(selectedPlatform.name, props.genre, props.developer);
+  const pageTitle = props.title || getPageTitle(selectedPlatform.name, props.genre, props.developer, props.publisher);
 
   const [gameList, setGameList] = useState([]);
   const currentPageRef = useRef(0);
-  
+
   const gamesRequest = useApiRequest(() =>
     getGameList(currentPageRef.current, {
       order: selectedOrder.value,
@@ -46,6 +47,7 @@ const GameList = props => {
       category: props.category || "",
       genre: props.genre?.id || "",
       developer: props.developer?.slug || "",
+      publisher: props.publisher?.slug || "",
     })
   );
 

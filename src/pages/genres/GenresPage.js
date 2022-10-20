@@ -1,15 +1,12 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import SpinnerA from "../../components/elements/loading-animations/SpinnerA";
-import { setGenres } from "../../features/data/genreSlice";
 import useApiRequest from "../../hooks/useApiRequest";
 import { getGenreList } from "../../utils/apiRequests";
 import GenreList from "./GenreList";
 
 const GenresPage = () => {
-  const genreList = useSelector(state => state.genres);
+  const [genreList, setGenreList] = useState([]);
   const genreRequest = useApiRequest(getGenreList);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     genreRequest.makeRequest();
@@ -17,7 +14,7 @@ const GenresPage = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(setGenres(genreRequest.data?.results || []));
+    setGenreList(genreRequest.data?.results || []);
   }, [genreRequest.data]);
 
   const getContent = () => {

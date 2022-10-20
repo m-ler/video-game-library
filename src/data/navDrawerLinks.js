@@ -1,5 +1,6 @@
-import { FaAward, FaCrown, FaWindows, FaPlaystation, FaApple, FaAndroid, FaCode, FaGhost } from "react-icons/fa";
-import { MdGames, MdSend } from "react-icons/md";
+import { FaAward, FaCrown, FaWindows, FaPlaystation, FaApple, FaAndroid, FaCode, FaGhost, FaGamepad } from "react-icons/fa";
+import { IoIosRocket } from "react-icons/io";
+import { MdGames } from "react-icons/md";
 import { SiNintendo, SiSega, SiXbox } from "react-icons/si";
 
 export const gamesLinks = [
@@ -108,6 +109,12 @@ export const platformLinks = [
 
 export const browseLinks = [
   {
+    route: "/platforms",
+    icon: <FaGamepad></FaGamepad>,
+    name: "Platforms",
+    linkIsSelected: (pathname, search) => pathname.includes("/platforms"),
+  },
+  {
     route: "/genres",
     icon: <FaGhost></FaGhost>,
     name: "Genres",
@@ -120,8 +127,9 @@ export const browseLinks = [
     linkIsSelected: (pathname, search) => pathname.includes("/developers"),
   },
   {
-    route: "",
-    icon: <MdSend></MdSend>,
+    route: "/publishers",
+    icon: <IoIosRocket></IoIosRocket>,
     name: "Publishers",
+    linkIsSelected: (pathname, search) => pathname.includes("/publishers"),
   },
 ];

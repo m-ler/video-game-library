@@ -12,6 +12,9 @@ import BestOfTheYearPage from "./pages/BestOfTheYearPage";
 import BestOfAllTimePage from "./pages/BestOfAllTimePage";
 import DevelopersPage from "./pages/developers/DevelopersPage";
 import GamesByDeveloperPage from "./pages/GamesByDeveloperPage";
+import PublishersPage from "./pages/publishers/PublishersPage";
+import GamesByPublisherPage from "./pages/GamesByPublisherPage";
+import PlatformsPage from "./pages/platforms/PlatformsPage";
 
 const App = () => {
   const themeState = useSelector(state => state.theme);
@@ -23,7 +26,7 @@ const App = () => {
     <div id="app" className={themeState}>
       <div className="h-screen bg-bg-gradient dark:bg-bg-gradient-dark min-w-[320px] flex flex-col w-full">
         <Header></Header>
-        <section className="grow w-full flex overflow-hidden">
+        <section className="grow w-full flex overflow-hidden relative z-0">
           <NavigationDrawer></NavigationDrawer>
           <Routes>
             <Route path="/" element={<Navigate replace to="/games"></Navigate>}></Route>
@@ -31,10 +34,13 @@ const App = () => {
             <Route path="/games/best-of-the-year" element={<BestOfTheYearPage></BestOfTheYearPage>}></Route>
             <Route path="/games/best-of-all-time" element={<BestOfAllTimePage></BestOfAllTimePage>}></Route>
             <Route path="game/:gameSlug" element={<GameDetailPage></GameDetailPage>}></Route>
+            <Route path="/platforms" element={<PlatformsPage></PlatformsPage>}></Route>
             <Route path="/genres" element={<GenresPage></GenresPage>}></Route>
             <Route path="/genres/:genre" element={<GamesByGenrePage></GamesByGenrePage>}></Route>
-            <Route path="/developers/" element={<DevelopersPage></DevelopersPage>}></Route>
+            <Route path="/developers" element={<DevelopersPage></DevelopersPage>}></Route>
             <Route path="/developers/:developer" element={<GamesByDeveloperPage></GamesByDeveloperPage>}></Route>
+            <Route path="/publishers" element={<PublishersPage></PublishersPage>}></Route>
+            <Route path="/publishers/:publisher" element={<GamesByPublisherPage></GamesByPublisherPage>}></Route>
           </Routes>
         </section>
       </div>

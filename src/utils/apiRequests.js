@@ -14,18 +14,18 @@ export const getGameList = async (page, params) => {
   const response = await fetch(
     `${BASE_URL}games${params.category}?ordering=${params.order}${platformFilter}${!!params.genre ? `&genres=${params.genre}` : ""}${
       !!params.developer ? `&developers=${params.developer}` : ""
-    }&page=${page}&page_size=100&key=${RAWG_KEY}`
+    }${!!params.publisher ? `&publishers=${params.publisher}` : ""}&page=${page}&page_size=100&key=${RAWG_KEY}`
   );
   return await response.json();
 };
 
-export const getGameDetail = async gameIdOrSlug => {
-  const response = await fetch(`${BASE_URL}games/${gameIdOrSlug}?key=${RAWG_KEY}`);
+export const getGameDetail = async idOrSlug => {
+  const response = await fetch(`${BASE_URL}games/${idOrSlug}?key=${RAWG_KEY}`);
   return await response.json();
 };
 
-export const getGameDetailScreenshots = async gameIdOrSlug => {
-  const response = await fetch(`${BASE_URL}games/${gameIdOrSlug}/screenshots?key=${RAWG_KEY}`);
+export const getGameDetailScreenshots = async idOrSlug => {
+  const response = await fetch(`${BASE_URL}games/${idOrSlug}/screenshots?key=${RAWG_KEY}`);
   return await response.json();
 };
 
@@ -39,8 +39,18 @@ export const getParentPlatformList = async () => {
   return await response.json();
 };
 
+export const getPlatformList = async page => {
+  const response = await fetch(`${BASE_URL}platforms?page=${page}&page_size=100&key=${RAWG_KEY}`);
+  return await response.json();
+};
+
 export const getGenreList = async () => {
   const response = await fetch(`${BASE_URL}genres?key=${RAWG_KEY}`);
+  return await response.json();
+};
+
+export const getGenreDetail = async idOrSlug => {
+  const response = await fetch(`${BASE_URL}genres/${idOrSlug}?key=${RAWG_KEY}`);
   return await response.json();
 };
 
@@ -49,7 +59,17 @@ export const getDeveloperList = async page => {
   return await response.json();
 };
 
-export const getDeveloperDetail = async developerIdOrSlug => {
-  const response = await fetch(`${BASE_URL}developers/${developerIdOrSlug}?key=${RAWG_KEY}`);
+export const getDeveloperDetail = async idOrSlug => {
+  const response = await fetch(`${BASE_URL}developers/${idOrSlug}?key=${RAWG_KEY}`);
+  return await response.json();
+};
+
+export const getPublisherList = async page => {
+  const response = await fetch(`${BASE_URL}publishers?page=${page}&page_size=100&key=${RAWG_KEY}`);
+  return await response.json();
+};
+
+export const getPublisherDetail = async idOrSlug => {
+  const response = await fetch(`${BASE_URL}publishers/${idOrSlug}?key=${RAWG_KEY}`);
   return await response.json();
 };

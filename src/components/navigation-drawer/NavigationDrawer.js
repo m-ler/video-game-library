@@ -33,22 +33,24 @@ const NavigationDrawer = () => {
   };
 
   return (
-    <aside
-      id="nav-drawer"
-      className="bg-gradient-to-l from-black/5 dark:from-black/10 h-full px-[20px] overflow-auto flex flex-col duration-100 basis-[300px]"
-    >
-      <h3 className="text-neu1-6 dark:text-neu1-4 font-Roboto font-medium text-[14px] border-b border-b-neu1-3 dark:border-b-neu1-8 my-[20px] pb-[5px] mb-[10px]">
-        GAMES
-      </h3>
-      {gamesLinks.map((link, index) => getNavElement(link, index))}
-      <h3 className="text-neu1-6 dark:text-neu1-4 font-Roboto font-medium text-[14px] border-b border-b-neu1-3 dark:border-b-neu1-8 my-[20px] pb-[5px] mb-[10px]">
-        PLATFORMS
-      </h3>
-      {platformLinks.map((link, index) => getNavElement(link, index))}
-      <h3 className="text-neu1-6 dark:text-neu1-4 font-Roboto font-medium text-[14px] border-b border-b-neu1-3 dark:border-b-neu1-8 my-[20px] pb-[5px] mb-[10px]">
-        BROWSE
-      </h3>
-      {browseLinks.map((link, index) => getNavElement(link, index))}
+    <aside id="nav-drawer" className="absolute top-0 left-0 z-10 bg-black/50 w-full h-full sm:w-[300px] sm:relative sm:bg-transparent">
+      <div
+        className="bg-gradient-to-l from-black/5 dark:from-black/10 h-full px-[20px] overflow-auto flex flex-col duration-100 basis-[300px] max-w-[300px] relative
+      before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-neu1-1 dark:before:bg-neu1-10 before:z-[-1] sm:before:hidden"
+      >
+        <h3 className="text-neu1-6 dark:text-neu1-4 font-Roboto font-medium text-[14px] border-b border-b-neu1-3 dark:border-b-neu1-8 my-[20px] pb-[5px] mb-[10px]">
+          GAMES
+        </h3>
+        {gamesLinks.map((link, index) => getNavElement(link, index))}
+        <h3 className="text-neu1-6 dark:text-neu1-4 font-Roboto font-medium text-[14px] border-b border-b-neu1-3 dark:border-b-neu1-8 my-[20px] pb-[5px] mb-[10px]">
+          PLATFORMS
+        </h3>
+        {platformLinks.map((link, index) => getNavElement(link, index))}
+        <h3 className="text-neu1-6 dark:text-neu1-4 font-Roboto font-medium text-[14px] border-b border-b-neu1-3 dark:border-b-neu1-8 my-[20px] pb-[5px] mb-[10px]">
+          BROWSE
+        </h3>
+        {browseLinks.map((link, index) => getNavElement(link, index))}
+      </div>
     </aside>
   );
 };
