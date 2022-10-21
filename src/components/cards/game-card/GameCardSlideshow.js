@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getMidCompressedImageURL } from "../../utils/compressedImageURLS";
+import { getMidCompressedImageURL } from "../../../utils/compressedImageURLS";
 
 
 

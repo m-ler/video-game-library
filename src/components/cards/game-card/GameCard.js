@@ -1,31 +1,20 @@
 import { cloneElement } from "react";
-import { FaWindows, FaLinux, FaPlaystation, FaXbox, FaApple, FaChrome } from "react-icons/fa";
-import { SiNintendoswitch, SiIos, SiSega } from "react-icons/si";
-import { DiAndroid } from "react-icons/di";
 import GameCardDetail from "./GameCardDetail";
 import { useState } from "react";
-import { getMidCompressedImageURL } from "../../utils/compressedImageURLS";
+import { getMidCompressedImageURL } from "../../../utils/compressedImageURLS";
 import GameCardSlideshow from "./GameCardSlideshow";
 import { Link } from "react-router-dom";
-
-const platformIconDictionary = {
-  "PC": <FaWindows></FaWindows>,
-  "Linux": <FaLinux></FaLinux>,
-  "PlayStation": <FaPlaystation></FaPlaystation>,
-  "Xbox": <FaXbox></FaXbox>,
-  "Nintendo": <SiNintendoswitch></SiNintendoswitch>,
-  "SEGA": <SiSega></SiSega>,
-  "Apple Macintosh": <FaApple></FaApple>,
-  "iOS": <SiIos></SiIos>,
-  "Android": <DiAndroid></DiAndroid>,
-  "Web": <FaChrome></FaChrome>,
-};
+import parentPlatformIcons from "../../../data/parentPlatformIcons";
 
 const getPlatformIconList = platforms => {
   const iconList = [];
   platforms.map((platform, index) => {
-    const icon = platformIconDictionary[platform];
-    iconList.push(!!icon ? cloneElement(icon, { key: index, className: "min-w-[15px]", size: "15px" }) : platform);
+    const icon = parentPlatformIcons[platform];
+    iconList.push(
+      !!icon
+        ? cloneElement(icon, { key: index, className: "min-w-[15px] max-w-[18px] max-h-[16px]", size: "15px", color: "currentColor" })
+        : platform
+    );
   });
   return iconList;
 };
@@ -71,7 +60,7 @@ const GameCard = props => {
         </Link>
         <div className="grid grid-cols-[1fr_30px] gap-y-[5px] grid-rows-[1fr_1fr] gap-x-[15px] items-center">
           <span
-            className="flex gap-[10px] overflow-hidden text-neu1-6 dark:text-neu1-4 font-OpenSans font-medium text-[16px] relative after:content-[''] 
+            className="flex items-center gap-[10px] overflow-hidden text-neu1-6 dark:text-neu1-4 font-OpenSans font-medium text-[16px] relative after:content-[''] 
                         after:absolute after:top-[0] after:right-[0] after:left-[0] after:bottom-[0] after:bg-[linear-gradient(to_left,_#F5F7FA_0%,_transparent_20px)]
                         dark:after:bg-[linear-gradient(to_left,_#323F4B_0%,_transparent_20px)]"
           >

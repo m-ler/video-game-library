@@ -5,7 +5,7 @@ export default (props) => {
             xmlns="http://www.w3.org/2000/svg"
             width={props.width}
             height={props.height}
-            viewBox="0 386.267 595.279 69.296"
+            viewBox="0 366.267 595.279 90.296"
             xmlSpace="preserve"
             {...props}
         >

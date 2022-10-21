@@ -5,7 +5,7 @@ export default (props) => {
         <svg
             width={props.width}
             height={props.height}
-            viewBox="0 370.195 567.39 100.438"
+            viewBox="0 330.195 567.39 170.438"
             xmlSpace="preserve"
             {...props}
         >

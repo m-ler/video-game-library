@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import GameCard from "../../cards/GameCard";
+import GameCard from "../../cards/game-card/GameCard";
 import { useSelector } from "react-redux";
 import VirtualizedGrid from "../VirtualizedGrid";
 import { getGameList } from "../../../utils/apiRequests";

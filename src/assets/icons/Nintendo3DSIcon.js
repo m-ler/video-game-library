@@ -3,7 +3,7 @@ export default (props) => {
 
     return (
         <svg
-            viewBox="1406.621 0 1093.379 305"
+            viewBox="1406.621 -100 1093.379 480"
             xmlSpace="preserve"
             {...props}
         >

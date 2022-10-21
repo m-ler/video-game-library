@@ -13,6 +13,7 @@ import saveScrollToSessionStorage from "../../utils/saveScrollToSessionStorage";
 import { useMemo } from "react";
 import { throttle } from "lodash";
 import { useRef } from "react";
+import PublishersSection from "./PublishersSection";
 
 const GameDetailPage = () => {
   const gameSlug = useParams()["gameSlug"];
@@ -101,12 +102,10 @@ const GameDetailPage = () => {
       ></div>
 
       {<MainInfoSection game={gameData || null} screenshots={gameScreenshots || null}></MainInfoSection>}
-
       {<PlatformsSection platforms={gameData.platforms || null}></PlatformsSection>}
-
       {<GenresSection genres={gameData.genres || null}></GenresSection>}
-
       {!!gameData.developers && gameData.developers.length > 0 && <DevelopersSection developers={gameData.developers}></DevelopersSection>}
+      {!!gameData.publishers && gameData.publishers.length > 0 && <PublishersSection publishers={gameData.publishers}></PublishersSection>}
 
       {!!gameData.metacritic && <MetacriticSection score={gameData.metacritic} metacriticURL={gameData.metacritic_url}></MetacriticSection>}
     </main>

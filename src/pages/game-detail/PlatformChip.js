@@ -9,13 +9,13 @@ export default props => {
 
   return (
     <Link
-      to="/"
+      to={`/games?platform=${props.platformSlug}`}
       className="px-[20px] py-[8px] rounded flex items-center gap-x-[10px] hover:scale-105 hover:drop-shadow-lg duration-100 w-max"
       style={{ backgroundColor: platformColor }}
     >
       {platformIcon &&
         cloneElement(platformIcon, {
-          className: "text-white h-[1em] max-w-[2em]",
+          className: "text-white h-[1em] ",
           color: "white",
         })}
       <span className="font-OpenSans text-white font-semibold text-[14px] whitespace-nowrap">{props.plaformName}</span>
