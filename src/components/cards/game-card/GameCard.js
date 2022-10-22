@@ -8,7 +8,7 @@ import parentPlatformIcons from "../../../data/parentPlatformIcons";
 
 const getPlatformIconList = platforms => {
   const iconList = [];
-  platforms.map((platform, index) => {
+  (platforms || []).map((platform, index) => {
     const icon = parentPlatformIcons[platform];
     iconList.push(
       !!icon

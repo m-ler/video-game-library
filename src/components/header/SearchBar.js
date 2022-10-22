@@ -1,40 +1,46 @@
 import { debounce } from "lodash";
+import { useEffect } from "react";
 import { useState, useRef, useMemo } from "react";
 import { MdSearch } from "react-icons/md";
-import withOverlay from "../../hoc/overlays/withOverlay";
 import regularExpressions from "../../utils/regularExpressions";
+import SearchBarHotkey from "./SearchBarHotkey";
 import SearchWindow from "./SearchWindow/SearchWindow";
 
 const SearchBar = () => {
-  const searchBarElement = useRef();
-  const searchInputElement = useRef();
+  const searchBarElementRef = useRef();
+  const searchInputElementRef = useRef();
   const [showSearchWindow, setShowSearchWindow] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [locked, setLocked] = useState(false);
 
-  const SearchWindowWithOverlay = useMemo(
-    () =>
-      withOverlay(SearchWindow, {
-        elementTarget: searchBarElement.current,
-        position: "bottom-left",
-        anchor: "top-left",
-        margin: { x: 0, y: 15 },
-        sameWidth: true,
-        autoClose: true,
-      }),
-    [searchBarElement.current]
-  );
+  useEffect(() => {
+    document.addEventListener("click", onDocumentClick);
+    return () => {
+      document.removeEventListener("click", onDocumentClick);
+    };
+  }, []);
 
-  const handleOnInput = e => {
-    setSearchQuery(e.target.value);
-    setShowSearchWindow(!regularExpressions.isEmpty.test(e.target.value));
+  const onDocumentClick = e => {
+    const clickedOutside = !searchBarElementRef.current.contains(e.target);
+    clickedOutside && setShowSearchWindow(false);
   };
+
+  const handleKeyDown = useMemo(
+    () =>
+      debounce(e => {
+        if (locked) return;
+        setSearchQuery(e.target.value);
+        setShowSearchWindow(!regularExpressions.isEmpty.test(e.target.value));
+      }, 300),
+    []
+  );
 
   return (
     <div
-      className="border border-neu1-4 dark:border-neu1-6  p-2.5 h-9 gap-x-2.5 rounded-full flex items-center px-5 mx-auto max-w-[800px] w-full"
-      ref={searchBarElement}
+      className="relative border border-neu1-4 dark:border-neu1-6 px[16px] py-[8px] gap-x-2.5 rounded-full flex items-center px-5 mx-auto max-w-[800px] w-full"
+      ref={searchBarElementRef}
     >
-      <MdSearch size={"24px"} className="text-neu1-7 dark:text-text2-dark "></MdSearch>
+      <MdSearch size={"22px"} className="text-neu1-7 dark:text-text2-dark min-w-[22px]"></MdSearch>
       <input
         type="text"
         placeholder="Search games"
@@ -42,19 +48,23 @@ const SearchBar = () => {
         autoComplete="off"
         spellCheck="false"
         onFocus={e => !regularExpressions.isEmpty.test(e.currentTarget.value) && setShowSearchWindow(true)}
-        onInput={useMemo(() => debounce(e => handleOnInput(e), 300), [])}
-        ref={searchInputElement}
+        onKeyDown={handleKeyDown}
+        ref={searchInputElementRef}
       ></input>
 
-      <SearchWindowWithOverlay
-        show={showSearchWindow}
-        setShow={setShowSearchWindow}
+      <SearchBarHotkey focused={showSearchWindow}></SearchBarHotkey>
+
+      <SearchWindow
         searchQuery={searchQuery}
+        setShowSearchWindow={setShowSearchWindow}
+        setInputLocked={setLocked}
+        show={showSearchWindow}
+        searchInputRef={searchInputElementRef}
         resultOnSelect={selectedResult => {
-          searchInputElement.current.value = selectedResult;
+          searchInputElementRef.current.value = selectedResult;
           setShowSearchWindow(false);
         }}
-      ></SearchWindowWithOverlay>
+      ></SearchWindow>
     </div>
   );
 };

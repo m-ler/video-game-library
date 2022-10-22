@@ -1,0 +1,97 @@
+import { useLayoutEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { MdSearch } from "react-icons/md";
+import { useParams } from "react-router-dom";
+import GameCard from "../components/cards/game-card/GameCard";
+import VirtualizedGrid from "../components/containers/VirtualizedGrid";
+import SpinnerA from "../components/elements/loading-animations/SpinnerA";
+import useApiRequest from "../hooks/useApiRequest";
+import { getGameSearchList } from "../utils/apiRequests";
+
+const SearchResultsPage = () => {
+  const queryParam = useParams()["query"];
+  const [currentPage, setCurrentPage] = useState(1);
+  const [resultsList, setResultsList] = useState([]);
+  const gameResultsRequest = useApiRequest(() => getGameSearchList(queryParam, currentPage, 100));
+  const listContainerElement = useRef();
+  const intersectionElement = useRef();
+  const intersectionObserver = useRef();
+
+  const updateIntersectionObserver = () => {
+    if (gameResultsRequest.loading) return;
+    !!intersectionObserver.current && intersectionObserver.current.disconnect();
+    intersectionObserver.current = new IntersectionObserver(
+      entries => {
+        entries[0].isIntersecting && setCurrentPage(prev => prev + 1);
+      }, 
+      { threshold: 1 }
+    );
+
+    !!intersectionElement.current && intersectionObserver.current.observe(intersectionElement.current);
+  };
+
+  useEffect(() => {
+    document.title = `${queryParam} - Search`;
+  }, []);
+
+  useLayoutEffect(() => {
+    currentPage > 0 && gameResultsRequest.makeRequest();
+  }, [currentPage]);
+
+  useLayoutEffect(() => {
+    setResultsList(prev => [...prev, ...(gameResultsRequest.data?.results || [])]);
+    updateIntersectionObserver();
+  }, [gameResultsRequest.data]);
+
+  const getHeader = () => {
+    const resultCount = gameResultsRequest.data?.count || null;
+    return (
+      <section className="mb-[25px] mt-[10px]">
+        <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[48px] font-black leading-[50px] inline break-all">
+          <MdSearch className="inline min-w-[40px] text-neu1-8 dark:text-neu1-3 mt-[-5px]" size={40}></MdSearch>'{queryParam}'
+        </h1>
+        {resultCount && (
+          <span className="px-[16px] py-[6px] text-[13px] font-OpenSans font-semibold bg-neu1-1 dark:bg-neu1-9 text-neu1-6 dark:text-neu1-3 rounded-xl block w-fit mt-[20px]">
+            {resultCount} {resultCount === 1 ? "result" : "results"}
+          </span>
+        )}
+      </section>
+    );
+  };
+
+  const getFooter = () => {
+    return gameResultsRequest.error ? (
+      <h1>SOMETHING WENT WRONG</h1>
+    ) : gameResultsRequest.loading ? (
+      <SpinnerA></SpinnerA>
+    ) : (
+      <div ref={intersectionElement} className="min-h-[40px] my-[20px]"></div>
+    );
+  };
+
+  const getGameCard = index => <GameCard key={index} game={resultsList[index]}></GameCard>;
+
+  return (
+    <section
+      ref={listContainerElement}
+      className="px-[20px] pt-[20px] max-w-[1920px] w-full grow mx-auto flex flex-col gap-y-[20px] overflow-auto max-h-full z-0"
+    >
+      <VirtualizedGrid
+        name="SearchResultsList"
+        rowHeight={317}
+        columnWidth={320}
+        gapX={20}
+        gapY={20}
+        childElement={getGameCard}
+        total={resultsList.length}
+        buffer={1}
+        scrollContainer={listContainerElement.current}
+        initialScroll={0}
+        header={getHeader()}
+        footer={getFooter()}
+      ></VirtualizedGrid>
+    </section>
+  );
+};
+
+export default SearchResultsPage;

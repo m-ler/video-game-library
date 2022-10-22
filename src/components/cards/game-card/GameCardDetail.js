@@ -1,22 +1,24 @@
+import { Link } from "react-router-dom";
+
 const getGenres = genresList => {
   return genresList.length > 0
     ? genresList
         .map((genre, index) => (
-          <a className="hover:underline" href="/" key={index}>
+          <Link className="hover:underline" to={`/genres/${genre.slug}`} key={index}>
             {genre.name}
-          </a>
+          </Link>
         ))
         .reduce((prev, curr) => [prev, ", ", curr])
     : "";
 };
 
 const getAllPlatforms = platformList => {
-  return platformList.length > 0
+  return platformList?.length > 0
     ? platformList
         .map((platform, index) => (
-          <a className="hover:underline" href="/" key={index}>
+          <Link className="hover:underline" to={`/games?platform=${platform.platform.slug}`} key={index}>
             {platform.platform.name}
-          </a>
+          </Link>
         ))
         .reduce((prev, curr) => [prev, ", ", curr])
     : "";

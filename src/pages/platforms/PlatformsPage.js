@@ -1,3 +1,4 @@
+import { useLayoutEffect } from "react";
 import { useState, useEffect, useRef } from "react";
 import SpinnerA from "../../components/elements/loading-animations/SpinnerA";
 import useApiRequest from "../../hooks/useApiRequest";
@@ -29,7 +30,7 @@ const PlatformsPage = () => {
     document.title = "Platforms";
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     currentPage > 0 && platformsRequest.makeRequest();
   }, [currentPage]);
 

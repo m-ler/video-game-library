@@ -1,10 +1,14 @@
 import { cloneElement, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Link, useLocation } from "react-router-dom";
 import { gamesLinks, platformLinks, browseLinks } from "../../data/navDrawerLinks";
+import { toggleNavMenu } from "../../features/nav-menu/navMenuSlice";
 
 const NavigationDrawer = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navMenuState = useSelector(state => state.navMenu);
 
   const getNavElement = (linkItem, index) => {
     const routeSelected = !!linkItem.linkIsSelected && !!linkItem.linkIsSelected(location.pathname, location.search);
@@ -33,9 +37,14 @@ const NavigationDrawer = () => {
   };
 
   return (
-    <aside id="nav-drawer" className="absolute top-0 left-0 z-10 bg-black/50 w-full h-full sm:w-[300px] sm:relative sm:bg-transparent">
+    <aside
+      className={`absolute top-0 left-0 z-10 bg-black/50 w-full h-full sm:w-[300px] sm:relative sm:bg-transparent ${
+        navMenuState.visible ? "" : "hidden"
+      }`}
+      onClick={e => e.currentTarget === e.target && dispatch(toggleNavMenu(false))}
+    >
       <div
-        className="bg-gradient-to-l from-black/5 dark:from-black/10 h-full px-[20px] overflow-auto flex flex-col duration-100 basis-[300px] max-w-[300px] relative
+        className="bg-gradient-to-l from-black/5 dark:from-black/10 h-full px-[20px] overflow-auto flex flex-col duration-100 max-w-[250px] relative
       before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-neu1-1 dark:before:bg-neu1-10 before:z-[-1] sm:before:hidden"
       >
         <h3 className="text-neu1-6 dark:text-neu1-4 font-Roboto font-medium text-[14px] border-b border-b-neu1-3 dark:border-b-neu1-8 my-[20px] pb-[5px] mb-[10px]">

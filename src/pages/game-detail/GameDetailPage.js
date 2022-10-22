@@ -104,8 +104,8 @@ const GameDetailPage = () => {
       {<MainInfoSection game={gameData || null} screenshots={gameScreenshots || null}></MainInfoSection>}
       {<PlatformsSection platforms={gameData.platforms || null}></PlatformsSection>}
       {<GenresSection genres={gameData.genres || null}></GenresSection>}
-      {!!gameData.developers && gameData.developers.length > 0 && <DevelopersSection developers={gameData.developers}></DevelopersSection>}
-      {!!gameData.publishers && gameData.publishers.length > 0 && <PublishersSection publishers={gameData.publishers}></PublishersSection>}
+      {<DevelopersSection developers={gameData.developers}></DevelopersSection>}
+      {<PublishersSection publishers={gameData.publishers}></PublishersSection>}
 
       {!!gameData.metacritic && <MetacriticSection score={gameData.metacritic} metacriticURL={gameData.metacritic_url}></MetacriticSection>}
     </main>

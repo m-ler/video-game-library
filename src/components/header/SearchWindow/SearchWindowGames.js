@@ -2,11 +2,13 @@ import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getHighCompressedImageURL } from "../../../utils/compressedImageURLS";
+import { useNavigate } from "react-router-dom";
 
 const SearchWindowGames = props => {
   const [focusedResultIndex, setFocusedResultIndex] = useState(null);
   const focusedResultElement = useRef();
   const resultsContainer = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     focusedResultElement.current = resultsContainer.current.children[focusedResultIndex] || null;
@@ -40,8 +42,19 @@ const SearchWindowGames = props => {
     );
   };
 
+  const redirectToSearchResults = () => {
+    props.setShowSearchWindow(false);
+    props.searchInputRef.current.blur();
+    props.setInputLocked(true);
+    setTimeout(() => props.setInputLocked(false), 350);
+    navigate(`/search/${props.searchInputRef.current.value}`);
+  };
+
   const keyDownCallbacks = {
-    "Enter": () => !!focusedResultElement.current && focusedResultElement.current.querySelector("a").click(),
+    "Enter": e => {
+      !!focusedResultElement.current ? focusedResultElement.current.querySelector("a").click() : redirectToSearchResults();
+      e.preventDefault();
+    },
     "ArrowUp": e => {
       e.preventDefault();
       selectResult(false);

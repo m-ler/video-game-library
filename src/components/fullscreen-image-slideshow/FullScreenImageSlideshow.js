@@ -7,7 +7,7 @@ import FullScreenImageSlideshowMainImage from "./FullScreenImageSlideshowMainIma
 import FullscreenImageSlideshowSelector from "./FullscreenImageSlideshowSelector";
 
 const getBackdrop = () => {
-  return <div className="fixed bg-black/90 top-[0] left-[0] right-[0] bottom-[0]"></div>;
+  return <div className="fixed bg-black/90 top-[0] left-[0] right-[0] bottom-[0] z-10"></div>;
 };
 
 const FullScreenImageSlideshow = props => {
@@ -34,7 +34,7 @@ const FullScreenImageSlideshow = props => {
 
   return (
     <Modal
-      className="w-screen h-screen fixed top-[0] left-[0] animate-[appear1_0.2s_ease-out]"
+      className="w-screen h-screen fixed top-[0] left-[0] animate-[appear1_0.2s_ease-out] z-10"
       keyboard={true}
       backdrop={true}
       show={true}

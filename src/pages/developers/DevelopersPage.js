@@ -1,3 +1,4 @@
+import { useLayoutEffect } from "react";
 import { useState, useRef, useEffect } from "react";
 import VirtualizedGrid from "../../components/containers/VirtualizedGrid";
 import SpinnerA from "../../components/elements/loading-animations/SpinnerA";
@@ -38,7 +39,7 @@ const DevelopersPage = () => {
     document.title = "Developers";
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     currentPage > 0 && developersRequest.makeRequest();
   }, [currentPage]);
 
