@@ -5,6 +5,9 @@ import { useParams } from "react-router-dom";
 import GameCard from "../components/cards/game-card/GameCard";
 import VirtualizedGrid from "../components/containers/VirtualizedGrid";
 import SpinnerA from "../components/elements/loading-animations/SpinnerA";
+import NoMoreResults from "../components/state-messages/NoMoreResults";
+import NoResultsFound from "../components/state-messages/NoResultsFound";
+import RequestError from "../components/state-messages/RequestError";
 import useApiRequest from "../hooks/useApiRequest";
 import { getGameSearchList } from "../utils/apiRequests";
 
@@ -22,8 +25,9 @@ const SearchResultsPage = () => {
     !!intersectionObserver.current && intersectionObserver.current.disconnect();
     intersectionObserver.current = new IntersectionObserver(
       entries => {
+        entries[0].isIntersecting && console.log("INTERSECTION!");
         entries[0].isIntersecting && setCurrentPage(prev => prev + 1);
-      }, 
+      },
       { threshold: 1 }
     );
 
@@ -60,10 +64,18 @@ const SearchResultsPage = () => {
   };
 
   const getFooter = () => {
+    const hasMoreResults = gameResultsRequest.data?.next !== null;
+    const resultsNotFound =
+      gameResultsRequest.data?.next === null && gameResultsRequest.data?.previous === null && resultsList.length === 0;
+
     return gameResultsRequest.error ? (
-      <h1>SOMETHING WENT WRONG</h1>
+      <RequestError></RequestError>
     ) : gameResultsRequest.loading ? (
       <SpinnerA></SpinnerA>
+    ) : resultsNotFound ? (
+      <NoResultsFound></NoResultsFound>
+    ) : !hasMoreResults ? (
+      <NoMoreResults></NoMoreResults>
     ) : (
       <div ref={intersectionElement} className="min-h-[40px] my-[20px]"></div>
     );

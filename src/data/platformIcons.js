@@ -1,20 +1,20 @@
 
 import { FaWindows, FaPlaystation, FaXbox, FaApple, FaAndroid, FaLinux } from 'react-icons/fa';
 import { SiNintendoswitch, SiNintendogamecube, SiNintendo, SiAtari, SiSega } from 'react-icons/si';
-import Nintendo3DSIcon from '../assets/icons/Nintendo3DSIcon';
-import NintendoDSIcon from '../assets/icons/NintendoDSIcon';
-import NintendoDSiIcon from '../assets/icons/NintendoDSiIcon';
-import NintendoWiiUIcon from '../assets/icons/NintendoWiiUIcon';
-import NintendoWiiIcon from '../assets/icons/NintendoWiiIcon';
-import Nintendo64Icon from '../assets/icons/Nintendo64Icon';
-import GameBoyAdvanceIcon from '../assets/icons/GameBoyAdvanceIcon';
-import GameBoyColorIcon from '../assets/icons/GameBoyColorIcon';
-import GameBoyIcon from '../assets/icons/GameBoyIcon';
-import SuperNintendoIcon from '../assets/icons/SuperNintendoIcon';
-import CommodoreAmigaIcon from '../assets/icons/CommodoreAmigaIcon';
-import Console3DOIcon from '../assets/icons/Console3DOIcon';
-import NeoGeoIcon from '../assets/icons/NeoGeoIcon';
-import BrowserIcon1 from '../assets/icons/BrowserIcon1';
+import Nintendo3DSIcon from './../assets/svgr/platform-icons/Nintendo3DSIcon';
+import NintendoDSIcon from './../assets/svgr/platform-icons/NintendoDSIcon';
+import NintendoDSiIcon from './../assets/svgr/platform-icons/NintendoDSiIcon';
+import NintendoWiiUIcon from './../assets/svgr/platform-icons/NintendoWiiUIcon';
+import NintendoWiiIcon from './../assets/svgr/platform-icons/NintendoWiiIcon';
+import Nintendo64Icon from './../assets/svgr/platform-icons/Nintendo64Icon';
+import GameBoyAdvanceIcon from './../assets/svgr/platform-icons/GameBoyAdvanceIcon';
+import GameBoyColorIcon from './../assets/svgr/platform-icons/GameBoyColorIcon';
+import GameBoyIcon from './../assets/svgr/platform-icons/GameBoyIcon';
+import SuperNintendoIcon from './../assets/svgr/platform-icons/SuperNintendoIcon';
+import CommodoreAmigaIcon from './../assets/svgr/platform-icons/CommodoreAmigaIcon';
+import Console3DOIcon from './../assets/svgr/platform-icons/Console3DOIcon';
+import NeoGeoIcon from './../assets/svgr/platform-icons/NeoGeoIcon';
+import BrowserIcon1 from '../assets/svgr/platform-icons/BrowserIcon1';
 
 export default {
     'PC': <FaWindows></FaWindows>,

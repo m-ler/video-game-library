@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import useApiRequest from "../../../hooks/useApiRequest";
 import { getGameSearchList } from "../../../utils/apiRequests";
 import regularExpressions from "../../../utils/regularExpressions";

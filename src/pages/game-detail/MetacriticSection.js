@@ -1,6 +1,6 @@
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import MetacriticIcon from "../../assets/icons/MetacriticIcon";
+import MetacriticIcon from "../../assets/svgr/platform-icons/MetacriticIcon";
 import getMetascoreColor from "../../utils/getMetascoreColor";
 
 const MetacriticSection = props => {

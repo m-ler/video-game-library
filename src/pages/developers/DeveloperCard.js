@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { getMidCompressedImageURL } from "../../utils/compressedImageURLS";
+import { getHighCompressedImageURL } from "../../utils/compressedImageURLS";
 
 const DeveloperCard = props => {
   return (
@@ -8,7 +8,7 @@ const DeveloperCard = props => {
       rounded-lg gap-x-[20px]"
     >
       <img
-        src={getMidCompressedImageURL(props.developer.image_background)}
+        src={getHighCompressedImageURL(props.developer.image_background)}
         className="object-cover aspect-square max-w-[80px] rounded-full"
       ></img>
       <div className="flex flex-col justify-center">

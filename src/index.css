@@ -1,5 +1,5 @@
-@import url(./assets/fonts.css);
-@import url(./assets/scrollbar.css);
+@import url(./assets/style/fonts.css);
+@import url(./assets/style/scrollbar.css);
 
 @tailwind components;
 @tailwind base;

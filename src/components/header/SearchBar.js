@@ -11,12 +11,13 @@ const SearchBar = () => {
   const searchInputElementRef = useRef();
   const [showSearchWindow, setShowSearchWindow] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [locked, setLocked] = useState(false);
 
   useEffect(() => {
     document.addEventListener("click", onDocumentClick);
+    document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("click", onDocumentClick);
+      document.removeEventListener("keydown", onKeyDown);
     };
   }, []);
 
@@ -25,10 +26,16 @@ const SearchBar = () => {
     clickedOutside && setShowSearchWindow(false);
   };
 
-  const handleKeyDown = useMemo(
+  const onKeyDown = e => {
+    if (e.ctrlKey && e.key == "k") {
+      e.preventDefault();
+      searchInputElementRef.current.focus();
+    }
+  };
+
+  const handleInput = useMemo(
     () =>
       debounce(e => {
-        if (locked) return;
         setSearchQuery(e.target.value);
         setShowSearchWindow(!regularExpressions.isEmpty.test(e.target.value));
       }, 300),
@@ -48,7 +55,7 @@ const SearchBar = () => {
         autoComplete="off"
         spellCheck="false"
         onFocus={e => !regularExpressions.isEmpty.test(e.currentTarget.value) && setShowSearchWindow(true)}
-        onKeyDown={handleKeyDown}
+        onInput={handleInput}
         ref={searchInputElementRef}
       ></input>
 
@@ -57,7 +64,6 @@ const SearchBar = () => {
       <SearchWindow
         searchQuery={searchQuery}
         setShowSearchWindow={setShowSearchWindow}
-        setInputLocked={setLocked}
         show={showSearchWindow}
         searchInputRef={searchInputElementRef}
         resultOnSelect={selectedResult => {

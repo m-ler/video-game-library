@@ -2,6 +2,8 @@ import { useLayoutEffect } from "react";
 import { useState, useRef, useEffect } from "react";
 import VirtualizedGrid from "../../components/containers/VirtualizedGrid";
 import SpinnerA from "../../components/elements/loading-animations/SpinnerA";
+import NoMoreResults from "../../components/state-messages/NoMoreResults";
+import RequestError from "../../components/state-messages/RequestError";
 import useApiRequest from "../../hooks/useApiRequest";
 import { getPublisherList } from "../../utils/apiRequests";
 import PublisherCard from "./PublisherCard";
@@ -49,10 +51,14 @@ const PublishersPage = () => {
   }, [publishersRequest.data]);
 
   const getFooter = () => {
+    const hasMoreResults = publishersRequest.data?.next !== null;
+
     return publishersRequest.error ? (
-      <h1>SOMETHING WENT WRONG</h1>
+      <RequestError></RequestError>
     ) : publishersRequest.loading ? (
       <SpinnerA></SpinnerA>
+    ) : !hasMoreResults ? (
+      <NoMoreResults></NoMoreResults>
     ) : (
       <div ref={intersectionElement} className="min-h-[40px] my-[20px]"></div>
     );

@@ -1,4 +1,4 @@
-import { ReactComponent as Logo } from "./../../assets/logo.svg";
+import { ReactComponent as Logo } from "./../../assets/svg/logo.svg";
 import ThemeButton from "./ThemeButton";
 import APIButton from "./APIButton";
 import { Link } from "react-router-dom";

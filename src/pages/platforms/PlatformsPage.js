@@ -1,6 +1,8 @@
 import { useLayoutEffect } from "react";
 import { useState, useEffect, useRef } from "react";
 import SpinnerA from "../../components/elements/loading-animations/SpinnerA";
+import NoMoreResults from "../../components/state-messages/NoMoreResults";
+import RequestError from "../../components/state-messages/RequestError";
 import useApiRequest from "../../hooks/useApiRequest";
 import { getPlatformList } from "../../utils/apiRequests";
 import PlatformList from "./PlatformList";
@@ -40,10 +42,13 @@ const PlatformsPage = () => {
   }, [platformsRequest.data]);
 
   const getFooter = () => {
+    const hasMoreResults = platformsRequest.data?.next !== null;
     return platformsRequest.error ? (
-      <h1>SOMETHING WENT WRONG</h1>
+      <RequestError></RequestError>
     ) : platformsRequest.loading ? (
       <SpinnerA></SpinnerA>
+    ) : !hasMoreResults ? (
+      <NoMoreResults></NoMoreResults>
     ) : (
       <div ref={intersectionElement} className="min-h-[40px] my-[20px]"></div>
     );

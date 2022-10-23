@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import GameList from "../components/containers/GameList/GameList";
 import SpinnerB from "../components/elements/loading-animations/SpinnerB";
+import RequestError from "../components/state-messages/RequestError";
 import withRouteChangeRemounting from "../hoc/withRouteChangeRemounting";
 import useApiRequest from "../hooks/useApiRequest";
 import { getPublisherDetail } from "../utils/apiRequests";
@@ -22,7 +23,7 @@ const GamesByPublisherPage = () => {
   const GameListWithRouteChangeRemounting = useMemo(() => withRouteChangeRemounting(GameList), []);
 
   return publisherRequest.error ? (
-    <h1>SOMETHING WENT WRONG</h1>
+    <RequestError></RequestError>
   ) : publisherRequest.loading ? (
     <SpinnerB className="w-full flex justify-center m-[20px] px-[20px]"></SpinnerB>
   ) : !!publisherDetail?.id ? (

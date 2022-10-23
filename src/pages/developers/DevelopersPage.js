@@ -2,6 +2,8 @@ import { useLayoutEffect } from "react";
 import { useState, useRef, useEffect } from "react";
 import VirtualizedGrid from "../../components/containers/VirtualizedGrid";
 import SpinnerA from "../../components/elements/loading-animations/SpinnerA";
+import NoMoreResults from "../../components/state-messages/NoMoreResults";
+import RequestError from "../../components/state-messages/RequestError";
 import useApiRequest from "../../hooks/useApiRequest";
 import { getDeveloperList } from "../../utils/apiRequests";
 import DeveloperCard from "./DeveloperCard";
@@ -49,10 +51,14 @@ const DevelopersPage = () => {
   }, [developersRequest.data]);
 
   const getFooter = () => {
+    const hasMoreResults = developersRequest.data?.next !== null;
+
     return developersRequest.error ? (
-      <h1>SOMETHING WENT WRONG</h1>
+      <RequestError></RequestError>
     ) : developersRequest.loading ? (
       <SpinnerA></SpinnerA>
+    ) : !hasMoreResults ? (
+      <NoMoreResults></NoMoreResults>
     ) : (
       <div ref={intersectionElement} className="min-h-[40px] my-[20px]"></div>
     );

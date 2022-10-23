@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import SpinnerA from "../../components/elements/loading-animations/SpinnerA";
+import RequestError from "../../components/state-messages/RequestError";
 import useApiRequest from "../../hooks/useApiRequest";
 import { getGenreList } from "../../utils/apiRequests";
 import GenreList from "./GenreList";
@@ -19,7 +20,7 @@ const GenresPage = () => {
 
   const getContent = () => {
     return genreRequest.error ? (
-      <h1 className="text-[48px] font-System text-center font-bold dark:text-white">SOMETHING WENT WRONG</h1>
+      <RequestError></RequestError>
     ) : genreRequest.loading ? (
       <SpinnerA></SpinnerA>
     ) : (

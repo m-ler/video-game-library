@@ -11,6 +11,9 @@ import { platformList, flattenPlatformList } from "../../../data/platformList";
 import { useLayoutEffect } from "react";
 import orderByOptions from "../../../data/orderByOptions";
 import SpinnerA from "../../elements/loading-animations/SpinnerA";
+import NoMoreResults from "../../state-messages/NoMoreResults";
+import NoResultsFound from "../../state-messages/NoResultsFound";
+import RequestError from "../../state-messages/RequestError";
 
 const getPageTitle = (platform, genre, developer, publisher) => {
   let title = "";
@@ -60,7 +63,7 @@ const GameList = props => {
     !!observer.current && observer.current.disconnect();
     observer.current = new IntersectionObserver(
       entries => {
-        if (entries[0].isIntersecting && requestsEnabledState && currentPageRef.current >= 1) {
+        if (entries[0].isIntersecting && requestsEnabledState && currentPageRef.current >= 1 && gamesRequest.data.next !== null) {
           currentPageRef.current += 1;
           gamesRequest.makeRequest();
         }
@@ -100,12 +103,17 @@ const GameList = props => {
   };
 
   const getFooter = () => {
+    const hasMoreResults = gamesRequest.data?.next !== null;
+    const resultsNotFound = gamesRequest.data?.next === null && gamesRequest.data?.previous === null && gameList.length === 0;
+
     return gamesRequest.error ? (
-      <div>
-        <h1 className="text-[48px] font-System text-center font-bold dark:text-white">SOMETHING WENT WRONG</h1>
-      </div>
+      <RequestError></RequestError>
     ) : gamesRequest.loading ? (
       <SpinnerA></SpinnerA>
+    ) : resultsNotFound ? (
+      <NoResultsFound></NoResultsFound>
+    ) : !hasMoreResults ? (
+      <NoMoreResults></NoMoreResults>
     ) : (
       <div ref={visor} className="block w-full h-[150px] mb-[10px]"></div>
     );

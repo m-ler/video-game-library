@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import GameList from "../components/containers/GameList/GameList";
 import SpinnerB from "../components/elements/loading-animations/SpinnerB";
+import RequestError from "../components/state-messages/RequestError";
 import withRouteChangeRemounting from "../hoc/withRouteChangeRemounting";
 import useApiRequest from "../hooks/useApiRequest";
 import { getDeveloperDetail } from "../utils/apiRequests";
@@ -24,7 +25,7 @@ const GamesByDeveloperPage = () => {
   const GameListWithRouteChangeRemounting = useMemo(() => withRouteChangeRemounting(GameList), []);
 
   return developerRequest.error ? (
-    <h1>SOMETHING WENT WRONG</h1>
+    <RequestError></RequestError>
   ) : developerRequest.loading ? (
     <SpinnerB className="w-full flex justify-center m-[20px] px-[20px]"></SpinnerB>
   ) : !!developerDetail?.id ? (

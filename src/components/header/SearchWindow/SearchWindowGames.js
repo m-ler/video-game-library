@@ -45,8 +45,6 @@ const SearchWindowGames = props => {
   const redirectToSearchResults = () => {
     props.setShowSearchWindow(false);
     props.searchInputRef.current.blur();
-    props.setInputLocked(true);
-    setTimeout(() => props.setInputLocked(false), 350);
     navigate(`/search/${props.searchInputRef.current.value}`);
   };
 
