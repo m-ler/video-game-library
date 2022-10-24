@@ -94,7 +94,7 @@ const VirtualizedGrid = props => {
   return (
     <div
       ref={gridParentElement}
-      className="flex flex-col overflow-auto grow"
+      className="flex flex-col overflow-auto grow sm:scrollbar-hide sm:pr-[0px]"
       onScroll={useMemo(() => throttle(handleScroll, 100, { leading: true, trailing: true }), [])}
     >
       <div ref={header} className="box-border">

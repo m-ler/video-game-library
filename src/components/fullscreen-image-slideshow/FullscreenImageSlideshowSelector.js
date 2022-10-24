@@ -19,7 +19,7 @@ const FullscreenImageSlideshowSelector = props => {
   return (
     <div>
       <div
-        className="max-w-full w-min mx-auto bg-black min-h-[100px] max-h-[100px] overflow-auto no-scrollbar hidden md:flex p-[10px] gap-x-[10px]"
+        className="max-w-full w-min mx-auto bg-black min-h-[100px] max-h-[100px] overflow-auto no-scrollbar flex md:hidden p-[10px] gap-x-[10px]"
         ref={imageSelectorElement}
         onWheel={scrollHorizontally}
       >
@@ -36,7 +36,7 @@ const FullscreenImageSlideshowSelector = props => {
         ))}
       </div>
       <div
-        className="max-w-full w-min mx-auto bg-black min-h-[20px] max-h-[100px] overflow-auto no-scrollbar flex md:hidden p-[10px] gap-x-[10px]"
+        className="max-w-full w-min mx-auto bg-black min-h-[20px] max-h-[100px] overflow-auto no-scrollbar hidden md:flex p-[10px] gap-x-[10px]"
         onWheel={scrollHorizontally}
       >
         {props.images.map((img, index) => (

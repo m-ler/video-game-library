@@ -1,7 +1,9 @@
+import { isScreenMobile } from "../../utils/environment";
+
 const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
-  visible: document.body.clientWidth >= 640,
+  visible: !isScreenMobile(),
 };
 
 export const navMenuSlice = createSlice({

@@ -48,7 +48,7 @@ const FullScreenImageSlideshow = props => {
         >
           <MdClose className="text-white" size={30}></MdClose>
         </button>
-        <div className="w-full m-auto flex flex-col max-h-[100%] gap-y-[20px] py-[50px] px-[10px] md:px-[50px]">
+        <div className="w-full m-auto flex flex-col max-h-[100%] gap-y-[20px] py-[50px] px-[50px] md:px-[10px]">
           {imagesAreValid ? (
             <FullScreenImageSlideshowMainImage
               leftButtonOnClick={() => selectImage(false)}
