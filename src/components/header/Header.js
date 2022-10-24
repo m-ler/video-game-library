@@ -1,8 +1,7 @@
 import { ReactComponent as Logo } from "./../../assets/svg/logo.svg";
 import ThemeButton from "./ThemeButton";
-import APIButton from "./APIButton";
 import { Link } from "react-router-dom";
-import SearchBar from "./SearchBar";
+import SearchBar from "./search-bar/SearchBar";
 import NavMenuButton from "./NavMenuButton";
 
 const Header = () => {
@@ -19,7 +18,6 @@ const Header = () => {
       </div>
 
       <div className="flex gap-x-[10px]">
-        <APIButton></APIButton>
         <ThemeButton></ThemeButton>
       </div>
     </header>

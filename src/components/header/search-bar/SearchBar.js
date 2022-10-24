@@ -1,15 +1,14 @@
-import { debounce } from "lodash";
 import { useEffect } from "react";
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef } from "react";
 import { MdSearch } from "react-icons/md";
-import regularExpressions from "../../utils/regularExpressions";
+import regularExpressions from "../../../utils/regularExpressions";
 import SearchBarHotkey from "./SearchBarHotkey";
-import SearchWindow from "./SearchWindow/SearchWindow";
+import SearchDropdown from "./search-dropdown/SearchDropdown";
 
 const SearchBar = () => {
   const searchBarElementRef = useRef();
   const searchInputElementRef = useRef();
-  const [showSearchWindow, setShowSearchWindow] = useState(false);
+  const [showSearchDropdown, setShowSearchDropdown] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -23,7 +22,12 @@ const SearchBar = () => {
 
   const onDocumentClick = e => {
     const clickedOutside = !searchBarElementRef.current.contains(e.target);
-    clickedOutside && setShowSearchWindow(false);
+    clickedOutside && setShowSearchDropdown(false);
+  };
+
+  const onInput = e => {
+    setSearchQuery(e.target.value);
+    setShowSearchDropdown(true);
   };
 
   const onKeyDown = e => {
@@ -32,15 +36,6 @@ const SearchBar = () => {
       searchInputElementRef.current.focus();
     }
   };
-
-  const handleInput = useMemo(
-    () =>
-      debounce(e => {
-        setSearchQuery(e.target.value);
-        setShowSearchWindow(!regularExpressions.isEmpty.test(e.target.value));
-      }, 300),
-    []
-  );
 
   return (
     <div
@@ -54,23 +49,25 @@ const SearchBar = () => {
         className="bg-transparent outline-0 text-neu1-10 dark:text-neu1-1 text-sm placeholder:font-normal placeholder:text-l-on-sec-c/40 dark:placeholder:text-d-on-sec-c/40 w-full font-OpenSans font-semibold"
         autoComplete="off"
         spellCheck="false"
-        onFocus={e => !regularExpressions.isEmpty.test(e.currentTarget.value) && setShowSearchWindow(true)}
-        onInput={handleInput}
+        onFocus={() => setShowSearchDropdown(true)}
+        onInput={onInput}
         ref={searchInputElementRef}
       ></input>
 
-      <SearchBarHotkey focused={showSearchWindow}></SearchBarHotkey>
+      <SearchBarHotkey focused={showSearchDropdown}></SearchBarHotkey>
 
-      <SearchWindow
-        searchQuery={searchQuery}
-        setShowSearchWindow={setShowSearchWindow}
-        show={showSearchWindow}
-        searchInputRef={searchInputElementRef}
-        resultOnSelect={selectedResult => {
-          searchInputElementRef.current.value = selectedResult;
-          setShowSearchWindow(false);
-        }}
-      ></SearchWindow>
+      {showSearchDropdown && (
+        <SearchDropdown
+          searchQuery={searchQuery}
+          show={showSearchDropdown}
+          setShowSearchDropdown={setShowSearchDropdown}
+          searchInputRef={searchInputElementRef}
+          resultOnSelect={selectedResult => {
+            searchInputElementRef.current.value = selectedResult;
+            setShowSearchDropdown(false);
+          }}
+        ></SearchDropdown>
+      )}
     </div>
   );
 };

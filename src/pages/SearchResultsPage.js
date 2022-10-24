@@ -23,13 +23,9 @@ const SearchResultsPage = () => {
   const updateIntersectionObserver = () => {
     if (gameResultsRequest.loading) return;
     !!intersectionObserver.current && intersectionObserver.current.disconnect();
-    intersectionObserver.current = new IntersectionObserver(
-      entries => {
-        entries[0].isIntersecting && console.log("INTERSECTION!");
-        entries[0].isIntersecting && setCurrentPage(prev => prev + 1);
-      },
-      { threshold: 1 }
-    );
+    intersectionObserver.current = new IntersectionObserver(entries => entries[0].isIntersecting && setCurrentPage(prev => prev + 1), {
+      threshold: 1,
+    });
 
     !!intersectionElement.current && intersectionObserver.current.observe(intersectionElement.current);
   };
@@ -73,7 +69,7 @@ const SearchResultsPage = () => {
     ) : gameResultsRequest.loading ? (
       <SpinnerA></SpinnerA>
     ) : resultsNotFound ? (
-      <NoResultsFound></NoResultsFound>
+      <NoResultsFound message="We couldn't find any game matching your search."></NoResultsFound>
     ) : !hasMoreResults ? (
       <NoMoreResults></NoMoreResults>
     ) : (

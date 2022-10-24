@@ -16,6 +16,7 @@ import GamesByPublisherPage from "./pages/GamesByPublisherPage";
 import PlatformsPage from "./pages/platforms/PlatformsPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { useMemo } from "react";
+import NotFound404Page from "./pages/NotFound404Page";
 
 const App = () => {
   const themeState = useSelector(state => state.theme);
@@ -29,6 +30,7 @@ const App = () => {
         <section className="grow w-full flex overflow-hidden relative z-0">
           <NavigationDrawer></NavigationDrawer>
           <Routes>
+            <Route path="*" element={<NotFound404Page></NotFound404Page>} />
             <Route path="/" element={<Navigate replace to="/games"></Navigate>}></Route>
             <Route path="/games" element={<GamesPageWRCR></GamesPageWRCR>}></Route>
             <Route path="/games/best-of-the-year" element={<BestOfTheYearPage></BestOfTheYearPage>}></Route>

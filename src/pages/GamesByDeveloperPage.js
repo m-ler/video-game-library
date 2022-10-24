@@ -28,10 +28,10 @@ const GamesByDeveloperPage = () => {
     <RequestError></RequestError>
   ) : developerRequest.loading ? (
     <SpinnerB className="w-full flex justify-center m-[20px] px-[20px]"></SpinnerB>
-  ) : !!developerDetail?.id ? (
+  ) : !!developerDetail ? (
     <GameListWithRouteChangeRemounting developer={developerDetail}></GameListWithRouteChangeRemounting>
   ) : (
-    <h1>Developer not found</h1>
+    ""
   );
 };
 

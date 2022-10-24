@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import GameCard from "../../cards/game-card/GameCard";
-import { useSelector } from "react-redux";
 import VirtualizedGrid from "../VirtualizedGrid";
 import { getGameList } from "../../../utils/apiRequests";
 import useApiRequest from "../../../hooks/useApiRequest";
@@ -17,18 +16,17 @@ import RequestError from "../../state-messages/RequestError";
 
 const getPageTitle = (platform, genre, developer, publisher) => {
   let title = "";
-  title += !!genre ? `${genre.name} games` : "";
-  title += !!developer ? `Developed by ${developer.name}` : "";
-  title += !!publisher ? `Published by ${publisher.name}` : "";
+  title += !!genre?.id ? `${genre.name} games` : "";
+  title += !!developer?.id ? `Developed by ${developer.name}` : "";
+  title += !!publisher?.id ? `Published by ${publisher.name}` : "";
   title += !!platform && platform !== "All" ? ` for ${platform}` : "";
 
-  if (platform && !genre && !developer && !publisher) title = `Games for ${platform}`;
-  if (platform === "All" && !genre && !developer && !publisher) title = "All games";
+  if (platform && !genre?.id && !developer?.id && !publisher?.id) title = `Games for ${platform}`;
+  if (platform === "All" && !genre?.id && !developer?.id && !publisher?.id) title = "All games";
   return title;
 };
 
 const GameList = props => {
-  const requestsEnabledState = useSelector(state => state.request);
   const [searchParams, setSearchParams] = useSearchParams();
   const didMountRef = useRef(false);
 
@@ -63,7 +61,7 @@ const GameList = props => {
     !!observer.current && observer.current.disconnect();
     observer.current = new IntersectionObserver(
       entries => {
-        if (entries[0].isIntersecting && requestsEnabledState && currentPageRef.current >= 1 && gamesRequest.data.next !== null) {
+        if (entries[0].isIntersecting && currentPageRef.current >= 1 && gamesRequest.data?.next !== null) {
           currentPageRef.current += 1;
           gamesRequest.makeRequest();
         }
@@ -83,7 +81,7 @@ const GameList = props => {
 
   useEffect(() => {
     updateIntersectionObserver();
-  }, [gamesRequest.loading, requestsEnabledState]);
+  }, [gamesRequest.loading]);
 
   useEffect(() => {
     !!gamesRequest.data && setGameList([...new Set([...gameList, ...(gamesRequest.data.results || [])])]);
@@ -111,7 +109,7 @@ const GameList = props => {
     ) : gamesRequest.loading ? (
       <SpinnerA></SpinnerA>
     ) : resultsNotFound ? (
-      <NoResultsFound></NoResultsFound>
+      <NoResultsFound message="We couldn't find any game with this filter combination. "></NoResultsFound>
     ) : !hasMoreResults ? (
       <NoMoreResults></NoMoreResults>
     ) : (

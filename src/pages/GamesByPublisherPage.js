@@ -26,10 +26,10 @@ const GamesByPublisherPage = () => {
     <RequestError></RequestError>
   ) : publisherRequest.loading ? (
     <SpinnerB className="w-full flex justify-center m-[20px] px-[20px]"></SpinnerB>
-  ) : !!publisherDetail?.id ? (
+  ) : !!publisherDetail ? (
     <GameListWithRouteChangeRemounting publisher={publisherDetail}></GameListWithRouteChangeRemounting>
   ) : (
-    <h1>Publisher not found</h1>
+    ""
   );
 };
 

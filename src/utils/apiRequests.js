@@ -30,7 +30,7 @@ export const getGameDetailScreenshots = async idOrSlug => {
 };
 
 export const getGameSearchList = async (query, page = 1, pageSize = 10) => {
-  const response = await fetch(`${BASE_URL}games?page_size=${pageSize}&search=${query}&search_precise=true&page=${page}&key=${RAWG_KEY}`);
+  const response = await fetch(`${BASE_URL}games?page_size=${pageSize}&search=${query}&page=${page}&key=${RAWG_KEY}`);
   return await response.json();
 };
 

@@ -19,17 +19,17 @@ const GamesByGenrePage = () => {
   }, []);
 
   useEffect(() => {
-    setSelectedGenre(genreRequest.data || null);
+    setSelectedGenre(genreRequest.data);
   }, [genreRequest.data]);
 
   return genreRequest.error ? (
     <RequestError></RequestError>
   ) : genreRequest.loading ? (
     <SpinnerB className="w-full flex justify-center m-[20px] px-[20px]"></SpinnerB>
-  ) : !!selectedGenre?.id ? (
+  ) : !!selectedGenre ? (
     <GameListWithRouteChangeRemounting genre={selectedGenre}></GameListWithRouteChangeRemounting>
   ) : (
-    <h1>Genre not found</h1>
+    ""
   );
 };
 export default GamesByGenrePage;

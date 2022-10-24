@@ -27,7 +27,7 @@ const getAllPlatforms = platformList => {
 const GameCardDetail = props => {
   return (
     <div
-      className={`absolute top-[calc(100%-20px)] left-[0px] right-[0px] min-h-[50px] flex flex-col gap-y-[10px] z-10 shadow-lg transition duration-200 
+      className={`absolute top-[calc(100%-15px)] left-[0px] right-[0px] min-h-[50px] flex flex-col gap-y-[10px] z-10 shadow-lg transition duration-200 
       p-[20px] backdrop-blur-xl bg-neu1-1/80 dark:bg-neu1-9/80 z-0 rounded-b-[10px] origin-top ${props.className || ""}`}
     >
       <div className="border-t border-neu1-4 dark:border-neu1-6 block w-full pt-[10px] z-10">

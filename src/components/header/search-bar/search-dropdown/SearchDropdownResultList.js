@@ -1,17 +1,17 @@
 import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getHighCompressedImageURL } from "../../../utils/compressedImageURLS";
+import { getHighCompressedImageURL } from "../../../../utils/compressedImageURLS";
 import { useNavigate } from "react-router-dom";
 
-const SearchWindowGames = props => {
+const SearchDropdownResultList = props => {
   const [focusedResultIndex, setFocusedResultIndex] = useState(null);
   const focusedResultElement = useRef();
   const resultsContainer = useRef();
   const navigate = useNavigate();
 
   useEffect(() => {
-    focusedResultElement.current = resultsContainer.current.children[focusedResultIndex] || null;
+    focusedResultElement.current = !!resultsContainer.current ? resultsContainer.current.children[focusedResultIndex] : null;
   }, [focusedResultIndex]);
 
   const getGameListItem = (gameObj, index, onClick) => {
@@ -43,7 +43,7 @@ const SearchWindowGames = props => {
   };
 
   const redirectToSearchResults = () => {
-    props.setShowSearchWindow(false);
+    props.setShowSearchDropdown(false);
     props.searchInputRef.current.blur();
     navigate(`/search/${props.searchInputRef.current.value}`);
   };
@@ -51,6 +51,7 @@ const SearchWindowGames = props => {
   const keyDownCallbacks = {
     "Enter": e => {
       !!focusedResultElement.current ? focusedResultElement.current.querySelector("a").click() : redirectToSearchResults();
+      props.setShowSearchDropdown(false);
       e.preventDefault();
     },
     "ArrowUp": e => {
@@ -64,11 +65,11 @@ const SearchWindowGames = props => {
   };
 
   const handleKeyDown = e => {
-    const resultsAvaliable = !!resultsContainer.current && resultsContainer.current.childElementCount > 0;
-    resultsAvaliable && keyDownCallbacks[e.key] && keyDownCallbacks[e.key](e);
+    keyDownCallbacks[e.key] && keyDownCallbacks[e.key](e);
   };
 
   const selectResult = nextResult => {
+    if (!resultsContainer.current?.childElementCount > 0) return;
     setFocusedResultIndex(current => {
       return nextResult
         ? current === resultsContainer.current.childElementCount - 1 || current == null
@@ -87,6 +88,10 @@ const SearchWindowGames = props => {
     };
   }, []);
 
-  return <div ref={resultsContainer}>{props.games.map((game, index) => getGameListItem(game, index, props.resultOnSelect))}</div>;
+  return props.games.length > 0 ? (
+    <div ref={resultsContainer}>{props.games.map((game, index) => getGameListItem(game, index, props.resultOnSelect))}</div>
+  ) : (
+    ""
+  );
 };
-export default SearchWindowGames;
+export default SearchDropdownResultList;

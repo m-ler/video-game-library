@@ -28,6 +28,7 @@ const GameCard = props => {
   const platforms = props.game?.parent_platforms?.map(platform => platform.platform.name);
   const platformIcons = getPlatformIconList(platforms);
   const metascore = props.game.metacritic;
+  const gameHasScreenshots = props.game.short_screenshots?.length > 0;
 
   return (
     <div
@@ -36,16 +37,17 @@ const GameCard = props => {
       onMouseOut={() => setHovering(false)}
       data-game-id={props.game.id}
       style={props.style}
-      className={`flex flex-col bg-neu1-1 dark:bg-neu1-9 min-h-[317px] max-h-[317px] ${
-        hovering ? "shadow-lg" : "shadow-md"
+      className={`flex flex-col bg-neu1-1 dark:bg-neu1-9 min-h-[317px] ${
+        hovering ? "shadow-lg overf" : "shadow-md"
       } rounded-xl gap-y-[15px] animate-[fadeIn_0.3s_ease-out] relative`}
     >
-      <GameCardSlideshow game={props.game} style={{ display: hovering ? "block" : "none" }}></GameCardSlideshow>
+      <GameCardSlideshow game={props.game} style={{ display: hovering && gameHasScreenshots ? "block" : "none" }}></GameCardSlideshow>
       <img
         loading="lazy"
+        onLoad={e => e.target.src.includes("fallback-game-img") && e.target.classList.add("dark:invert")}
         src={getMidCompressedImageURL(props.game.background_image)}
-        className={`max-h-[200px] min-h-[200px] object-cover rounded-tr-lg rounded-tl-lg cursor-pointer bg-neu1-1 dark:bg-neu1-10 ${
-          hovering ? "hidden" : "block"
+        className={`max-h-[200px] min-h-[200px] object-cover rounded-tr-lg rounded-tl-lg bg-neu1-1 dark:bg-neu1-10 ${
+          hovering && gameHasScreenshots ? "hidden" : "block"
         }`}
       ></img>
 

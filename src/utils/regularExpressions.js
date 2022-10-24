@@ -1,4 +1,5 @@
 export default {
-  allSpaces: /\s/g,
+  removeSpaces: /\s/g,
   isEmpty: /^\s*$/,
+  allAreSpaces: /^\s*$/
 };
