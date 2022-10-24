@@ -13,15 +13,14 @@ const Header = () => {
           <Logo className="min-w-[58px] w-8 h-9 fill-neu1-10 dark:fill-neu1-1"></Logo>
         </Link>
       </div>
-      <div className="mx-auto  grow">
+      <div className="flex items-center gap-x-[10px] mx-auto grow">
         <SearchBar></SearchBar>
-      </div>
+        <ThemeButton></ThemeButton> 
+      </div> 
 
-      <div className="flex gap-x-[10px]">
-        <ThemeButton></ThemeButton>
-      </div>
     </header>
   );
 };
 
 export default Header;
+ 

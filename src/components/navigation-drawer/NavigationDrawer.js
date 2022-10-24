@@ -44,8 +44,8 @@ const NavigationDrawer = () => {
       onClick={e => e.currentTarget === e.target && dispatch(toggleNavMenu(false))}
     >
       <div
-        className="bg-gradient-to-l from-black/5 dark:from-black/10 h-full px-[20px] overflow-auto flex flex-col duration-100 max-w-[250px] relative
-      before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-neu1-1 dark:before:bg-neu1-10 before:z-[-1] sm:before:hidden"
+        className="sm:bg-gradient-to-l sm:from-black/5 sm:dark:from-black/10 bg-neu1-1 dark:bg-neu1-10 h-full px-[20px] pb-[20px] overflow-auto flex flex-col 
+        duration-100 max-w-[250px] relative"
       >
         <h3 className="text-neu1-6 dark:text-neu1-4 font-Roboto font-medium text-[14px] border-b border-b-neu1-3 dark:border-b-neu1-8 my-[20px] pb-[5px] mb-[10px]">
           GAMES
