@@ -3,6 +3,7 @@ import ThemeButton from "./ThemeButton";
 import { Link } from "react-router-dom";
 import SearchBar from "./search-bar/SearchBar";
 import NavMenuButton from "./NavMenuButton";
+import UserButton from "./UserButton";
 
 const Header = () => {
   return (
@@ -15,12 +16,11 @@ const Header = () => {
       </div>
       <div className="flex items-center gap-x-[10px] mx-auto grow">
         <SearchBar></SearchBar>
-        <ThemeButton></ThemeButton> 
-      </div> 
-
+        <ThemeButton></ThemeButton>
+        <UserButton></UserButton>
+      </div>
     </header>
   );
 };
 
 export default Header;
- 

@@ -12,10 +12,10 @@ const ThemeButton = () => {
     };
 
     return (
-        <Tooltip title='Toggle theme' trigger='mouseenter' delay={200} size='small' theme='transparent'>
-            <button className={`bg-accent1 dark:bg-d-ter p-2 rounded-full hover:brightness-125 transition duration-300`} onClick={handleOnClick}>
-                <MdOutlineDarkMode size={'1.3rem'} className={`text-white dark:text-d-on-ter ${themeState == 'dark' ? 'hidden' : ''}`}></MdOutlineDarkMode>
-                <MdOutlineLightMode size={'1.3rem'} className={`text-white dark:text-d-on-ter ${themeState == 'light' ? 'hidden' : ''}`}></MdOutlineLightMode>
+        <Tooltip title='Toggle theme' trigger='mouseenter' delay={100} size='small' theme='transparent'>
+            <button className={`bg-accent1 dark:bg-d-ter p-[8px] rounded-full hover:brightness-125 transition duration-300`} onClick={handleOnClick}>
+                <MdOutlineDarkMode size={'22px'} className={`text-white dark:text-d-on-ter ${themeState == 'dark' ? 'hidden' : ''}`}></MdOutlineDarkMode>
+                <MdOutlineLightMode size={'22px'} className={`text-white dark:text-d-on-ter ${themeState == 'light' ? 'hidden' : ''}`}></MdOutlineLightMode>
             </button>
         </Tooltip>
     ) 

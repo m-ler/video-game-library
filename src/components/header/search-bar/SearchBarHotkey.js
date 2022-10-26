@@ -2,7 +2,7 @@ const keyStyle = `border border-neu1-4 dark:border-neu1-6 px-[8px] py-[2px] text
 
 const SearchBarHotkey = props => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center md:hidden">
       <span className={keyStyle}>{props.focused ? "Enter" : "Ctrl + k"}</span>
     </div>
   );

@@ -17,6 +17,8 @@ import PlatformsPage from "./pages/platforms/PlatformsPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { useMemo } from "react";
 import NotFound404Page from "./pages/NotFound404Page";
+import LogInPage from "./pages/log-in/LogInPage";
+import WithNavDrawer from "./layouts/WithNavDrawer";
 
 const App = () => {
   const themeState = useSelector(state => state.theme);
@@ -27,25 +29,27 @@ const App = () => {
     <div id="app" className={`${themeState} z-0`}>
       <div className="h-screen bg-bg-gradient dark:bg-bg-gradient-dark min-w-[320px] flex flex-col w-full z-0">
         <Header></Header>
-        <section className="grow w-full flex overflow-hidden relative z-0">
-          <NavigationDrawer></NavigationDrawer>
+        <main className="grow w-full flex overflow-hidden relative z-0">
           <Routes>
-            <Route path="*" element={<NotFound404Page></NotFound404Page>} />
-            <Route path="/" element={<Navigate replace to="/games"></Navigate>}></Route>
-            <Route path="/games" element={<GamesPageWRCR></GamesPageWRCR>}></Route>
-            <Route path="/games/best-of-the-year" element={<BestOfTheYearPage></BestOfTheYearPage>}></Route>
-            <Route path="/games/best-of-all-time" element={<BestOfAllTimePage></BestOfAllTimePage>}></Route>
-            <Route path="game/:gameSlug" element={<GameDetailPage></GameDetailPage>}></Route>
-            <Route path="/platforms" element={<PlatformsPage></PlatformsPage>}></Route>
-            <Route path="/genres" element={<GenresPage></GenresPage>}></Route>
-            <Route path="/genres/:genre" element={<GamesByGenrePage></GamesByGenrePage>}></Route>
-            <Route path="/developers" element={<DevelopersPage></DevelopersPage>}></Route>
-            <Route path="/developers/:developer" element={<GamesByDeveloperPage></GamesByDeveloperPage>}></Route>
-            <Route path="/publishers" element={<PublishersPage></PublishersPage>}></Route>
-            <Route path="/publishers/:publisher" element={<GamesByPublisherPage></GamesByPublisherPage>}></Route>
-            <Route path="/search/:query" element={<SearchResultsPageWRCR></SearchResultsPageWRCR>}></Route>
+            <Route element={<WithNavDrawer></WithNavDrawer>}>
+              <Route path="*" element={<NotFound404Page></NotFound404Page>}></Route>
+              <Route path="/" element={<Navigate replace to="/games"></Navigate>}></Route>
+              <Route path="/games" element={<GamesPageWRCR></GamesPageWRCR>}></Route>
+              <Route path="/games/best-of-the-year" element={<BestOfTheYearPage></BestOfTheYearPage>}></Route>
+              <Route path="/games/best-of-all-time" element={<BestOfAllTimePage></BestOfAllTimePage>}></Route>
+              <Route path="game/:gameSlug" element={<GameDetailPage></GameDetailPage>}></Route>
+              <Route path="/platforms" element={<PlatformsPage></PlatformsPage>}></Route>
+              <Route path="/genres" element={<GenresPage></GenresPage>}></Route>
+              <Route path="/genres/:genre" element={<GamesByGenrePage></GamesByGenrePage>}></Route>
+              <Route path="/developers" element={<DevelopersPage></DevelopersPage>}></Route>
+              <Route path="/developers/:developer" element={<GamesByDeveloperPage></GamesByDeveloperPage>}></Route>
+              <Route path="/publishers" element={<PublishersPage></PublishersPage>}></Route>
+              <Route path="/publishers/:publisher" element={<GamesByPublisherPage></GamesByPublisherPage>}></Route>
+              <Route path="/search/:query" element={<SearchResultsPageWRCR></SearchResultsPageWRCR>}></Route>
+            </Route>
+            <Route path="/login" element={<LogInPage></LogInPage>}></Route>
           </Routes>
-        </section>
+        </main>
       </div>
     </div>
   );
