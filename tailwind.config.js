@@ -9,6 +9,7 @@ module.exports = {
       accent1: "#0F74E7",
       accent2: "#00CDDB",
       accent3: "#F095B4",
+      error: "#cf2d31",
 
       "neu1-1": "#F5F7FA",
       "neu1-2": "#E4E7EB",

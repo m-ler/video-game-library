@@ -4,13 +4,17 @@ import { Link } from "react-router-dom";
 import FormInput from "../../components/forms/FormInput";
 import regularExpressions from "../../utils/regularExpressions";
 
-const validateEmail = value => regularExpressions.validEmail.test(value);
+const validateEmail = async value => {
+  const delay = time => new Promise(res => setTimeout(res, time));
+  await delay(1000);
+  if (!regularExpressions.validEmail.test(value)) return "Invalid email.";
+};
 
 const LogInForm = () => {
   return (
     <div className="flex flex-col gap-y-[15px] w-full animate-[fadeIn_0.3s_ease-out]">
-      <FormInput label="Email" type="text" icon={<MdEmail></MdEmail>} validate={validateEmail} validationMessage=""></FormInput>
-      <FormInput label="Password" type="password" icon={<RiLockPasswordFill></RiLockPasswordFill>}></FormInput>
+      <FormInput id="login-email" label="Email" type="text" icon={<MdEmail></MdEmail>} validate={validateEmail}></FormInput>
+      <FormInput id="login-password" label="Password" type="password" icon={<RiLockPasswordFill></RiLockPasswordFill>}></FormInput>
 
       <div className="flex flex-wrap items-center gap-[15px] justify-between mt-[15px]">
         <Link to="/" className="text-neu1-5 text-medium font-System text-[14px] hover:underline">

@@ -8,9 +8,9 @@ const SpinnerB = props => {
       <TailSpin
         height="40"
         width="40"
-        color={theme === "dark" ? "#616E7C" : "#9AA5B1"}
+        color={theme === "dark" ? "#7B8794" : "#9AA5B1"}
         ariaLabel="tail-spin-loading"
-        radius="1"
+        radius="0"
         visible={true}
       />
     </div>
