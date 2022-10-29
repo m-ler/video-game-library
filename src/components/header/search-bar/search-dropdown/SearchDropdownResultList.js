@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getHighCompressedImageURL } from "../../../../utils/compressedImageURLS";
 import { useNavigate } from "react-router-dom";
+import regularExpressions from "../../../../utils/regularExpressions";
 
 const SearchDropdownResultList = props => {
   const [focusedResultIndex, setFocusedResultIndex] = useState(null);
@@ -43,6 +44,7 @@ const SearchDropdownResultList = props => {
   };
 
   const redirectToSearchResults = () => {
+    if (regularExpressions.isEmpty.test(props.searchQuery)) return;
     props.setShowSearchDropdown(false);
     props.searchInputRef.current.blur();
     navigate(`/search/${props.searchInputRef.current.value}`);

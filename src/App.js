@@ -1,7 +1,6 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/header/Header";
-import NavigationDrawer from "./components/navigation-drawer/NavigationDrawer";
 import withRouteChangeRemounting from "./hoc/withRouteChangeRemounting";
 import GamesPage from "./pages/GamesPage";
 import GameDetailPage from "./pages/game-detail/GameDetailPage";
@@ -19,11 +18,30 @@ import { useMemo } from "react";
 import NotFound404Page from "./pages/NotFound404Page";
 import LogInPage from "./pages/log-in/LogInPage";
 import WithNavDrawer from "./layouts/WithNavDrawer";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/firebase";
+import { setCurrentUser } from "./features/firebase/firebaseSlice";
 
 const App = () => {
+  const dispatch = useDispatch();
   const themeState = useSelector(state => state.theme);
+  const firebaseState = useSelector(state => state.firebase);
   const GamesPageWRCR = useMemo(() => withRouteChangeRemounting(GamesPage), []);
   const SearchResultsPageWRCR = useMemo(() => withRouteChangeRemounting(SearchResultsPage), []);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, user => {
+      const currentUser = !!user
+        ? {
+            uid: user.uid,
+            displayName: user.displayName,
+          }
+        : null;
+
+      dispatch(setCurrentUser(currentUser));
+    });
+  }, []);
 
   return (
     <div id="app" className={`${themeState} z-0`}>
