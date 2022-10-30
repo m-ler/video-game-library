@@ -1,25 +1,13 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import GamesPlatformFilterDropdownMenu from "./GamesPlatformFilterDropdownMenu";
 import { platformList } from "../../../data/platformList";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
 
 const GamesPlatformFilterDrowdown = props => {
   const [showDropdown, setShowDropdown] = useState();
   const dropdownRef = useRef();
-
-  const onDocumentClick = e => {
-    if (!dropdownRef.current) return;
-    const clickedOutside = !dropdownRef.current.contains(e.target);
-    clickedOutside && setShowDropdown(false);
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", onDocumentClick);
-
-    return () => {
-      document.removeEventListener("click", onDocumentClick);
-    };
-  }, []);
+  useOnClickOutside([dropdownRef], () => setShowDropdown(false));
 
   return (
     <div className="relative z-[9] w-fit" ref={dropdownRef}>

@@ -7,7 +7,6 @@ const setUsername = async username => {
     displayName: username,
   };
   
-  console.log("called setUsername");
   const [response, error] = await handlePromise(updateProfile(auth.currentUser, userProfile));
   error && console.log(error);
 };

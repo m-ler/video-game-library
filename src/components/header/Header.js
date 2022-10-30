@@ -4,17 +4,11 @@ import { Link } from "react-router-dom";
 import SearchBar from "./search-bar/SearchBar";
 import NavMenuButton from "./NavMenuButton";
 import UserButton from "./UserButton";
-import { auth } from "../../firebase/firebase";
 import LoggedUserButton from "./LoggedUserButton";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
+
 const Header = () => {
-  
-  
-  useEffect(() => {
-  }, []);
-  
-  console.log(auth.currentUser);
-  
+  const currentUser = useSelector(state => state.firebase.currentUser);
 
   return (
     <header className="flex items-center gap-x-[25px] px-[20px] py-[20px] w-full flex-wrap gap-y-[15px] w-full border-b border-b-neu1-3 dark:border-b-neu1-9 z-10">
@@ -27,7 +21,7 @@ const Header = () => {
       <div className="flex items-center gap-x-[10px] mx-auto grow">
         <SearchBar></SearchBar>
         <ThemeButton></ThemeButton>
-        {!!auth.currentUser ? <LoggedUserButton></LoggedUserButton> : <UserButton></UserButton>}
+        {!!currentUser ? <LoggedUserButton></LoggedUserButton> : <UserButton></UserButton>}
       </div>
     </header>
   );

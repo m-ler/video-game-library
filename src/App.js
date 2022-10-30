@@ -32,7 +32,7 @@ const App = () => {
 
   useEffect(() => {
     onAuthStateChanged(auth, user => {
-      const currentUser = !!user
+      const currentUser = !!user && !!user?.displayName
         ? {
             uid: user.uid,
             displayName: user.displayName,

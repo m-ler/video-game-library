@@ -8,8 +8,8 @@ import { useState } from "react";
 import createUser from "../../firebase/createUser";
 import { useNavigate } from "react-router-dom";
 import SpinnerC from "../../components/elements/loading-animations/SpinnerC";
-import signIn from "../../firebase/signIn";
-
+import { setCurrentUser } from "../../features/firebase/firebaseSlice";
+import { useDispatch } from "react-redux";
 const validateEmail = async value => {
   const delay = time => new Promise(res => setTimeout(res, time));
   await delay(500);
@@ -21,6 +21,7 @@ const validateUserName = async value => {};
 const validatePassword = async value => {};
 
 const SignUpForm = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formComplete, setFormComplete] = useState(false);
   const [creatingUser, setCreatingUser] = useState(false);
@@ -42,8 +43,8 @@ const SignUpForm = () => {
     setCreatingUser(true);
     const userCredential = await createUser({ email, password, username });
     setCreatingUser(false);
-    if(!!userCredential){
-      //TODO UPDATE STORE
+    if (!!userCredential) {
+      dispatch(setCurrentUser({ uid: userCredential.user.uid, displayName: userCredential.user.displayName }));
       navigate("/games");
     }
   };
@@ -79,14 +80,11 @@ const SignUpForm = () => {
       ></FormInput>
 
       <button
-        onClick={() => !creatingUser && signUp()}
-        disabled={!formComplete}
-        className={`relative group bg-accent1 ml-auto mt-[15px] px-[16px] py-[6px] rounded enabled:hover:bg-accent2
-         duration-200 disabled:bg-neu1-5/50 ${creatingUser ? "pointer-events-none" : ""}`}
+        onClick={() => !creatingUser && formComplete && signUp()}
+        className={`relative group  ml-auto mt-[15px] px-[16px] py-[6px] rounded duration-200 
+         ${creatingUser ? "pointer-events-none" : ""} ${formComplete ? "bg-accent1 hover:bg-accent2" : "bg-neu1-5/50"}`}
       >
-        <span className={`text-[16px] text-neu1-1 font-Raleway font-bold group-disabled:opacity-50 ${creatingUser ? "invisible" : ""}`}>
-          Sign up
-        </span>
+        <span className={`text-[16px] text-neu1-1 font-Raleway font-bold ${creatingUser ? "invisible" : ""}`}>Sign up</span>
         {creatingUser && <SpinnerC width={30} height={30} className="absolute top-0 left-0 w-full h-full"></SpinnerC>}
       </button>
     </div>
