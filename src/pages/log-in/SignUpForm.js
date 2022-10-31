@@ -10,15 +10,27 @@ import { useNavigate } from "react-router-dom";
 import SpinnerC from "../../components/elements/loading-animations/SpinnerC";
 import { setCurrentUser } from "../../features/firebase/firebaseSlice";
 import { useDispatch } from "react-redux";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../firebase/firebase";
+import { toast } from "react-toastify";
+
 const validateEmail = async value => {
-  const delay = time => new Promise(res => setTimeout(res, time));
-  await delay(500);
   if (!regularExpressions.validEmail.test(value)) return "Invalid email.";
+
+  const q = query(collection(db, "users"), where("email", "==", value));
+  const response = await getDocs(q);
+  if (!response.empty) return "That email is taken. Please try another.";
 };
 
-const validateUserName = async value => {};
+const validateUserName = async value => {
+  const q = query(collection(db, "users"), where("nickname", "==", value));
+  const response = await getDocs(q);
+  if (!response.empty) return "That username is taken. Please try another.";
+};
 
-const validatePassword = async value => {};
+const validatePassword = async value => {
+  if (value.length < 6) return "Password must contain at least 6 characters.";
+};
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
@@ -45,12 +57,15 @@ const SignUpForm = () => {
     setCreatingUser(false);
     if (!!userCredential) {
       dispatch(setCurrentUser({ uid: userCredential.user.uid, displayName: userCredential.user.displayName }));
+      toast(`Welcome ${username} 👋`, { onClose: 3000 });
       navigate("/games");
     }
   };
 
+  const onFormSubmit = e => e.preventDefault();
+
   return (
-    <div className="flex flex-col gap-y-[15px] w-full animate-[fadeIn_0.3s_ease-out]">
+    <form className="flex flex-col gap-y-[15px] w-full animate-[fadeIn_0.3s_ease-out]" onSubmit={onFormSubmit}>
       <FormInput
         id="sign-up-email"
         label="Email"
@@ -87,7 +102,7 @@ const SignUpForm = () => {
         <span className={`text-[16px] text-neu1-1 font-Raleway font-bold ${creatingUser ? "invisible" : ""}`}>Sign up</span>
         {creatingUser && <SpinnerC width={30} height={30} className="absolute top-0 left-0 w-full h-full"></SpinnerC>}
       </button>
-    </div>
+    </form>
   );
 };
 

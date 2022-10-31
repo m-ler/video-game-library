@@ -1,13 +1,20 @@
 import { forwardRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import deleteUser from "../../firebase/deleteUser";
 import signOut from "../../firebase/signOut";
 
 const menuOptionStyle =
   "block text-neu1-3 font-Raleway font-semibold text-[14px] whitespace-nowrap py-[10px] px-[15px] hover:underline hover:bg-neu1-8 text-left";
 
 const LoggedUserMenu = forwardRef((props, ref) => {
-  const onLogOutClick = e => {
-    signOut();
+  const navigate = useNavigate();
+  const deleteAccountOnClick = async () => {
+    const deleted = await deleteUser();
+    deleted && signUserOut();
+  };
+  const signUserOut = async () => {
+    const signedOut = await signOut();
+    signedOut && navigate("/login");
   };
 
   return (
@@ -22,7 +29,11 @@ const LoggedUserMenu = forwardRef((props, ref) => {
         </Link>
       </button>
 
-      <button className={menuOptionStyle} onClick={onLogOutClick}>
+      <button className={menuOptionStyle} onClick={deleteAccountOnClick}>
+        Delete account
+      </button>
+
+      <button className={menuOptionStyle} onClick={signUserOut}>
         Log out
       </button>
     </div>

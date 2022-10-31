@@ -43,8 +43,12 @@ const LogInForm = () => {
     !!errorMessage && setloginErrorMessage(errorMessage);
   };
 
+  const onFormSubmit = e => {
+    e.preventDefault();
+  }
+
   return (
-    <div className="flex flex-col gap-y-[15px] w-full animate-[fadeIn_0.3s_ease-out]">
+    <form className="flex flex-col gap-y-[15px] w-full animate-[fadeIn_0.3s_ease-out]" onSubmit={onFormSubmit}>
       <FormInput
         id="login-email"
         label="Email"
@@ -85,7 +89,7 @@ const LogInForm = () => {
           {logging && <SpinnerC width={30} height={30} className="absolute top-0 left-0 w-full h-full"></SpinnerC>}
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

@@ -1,0 +1,26 @@
+.Toastify__toast {
+  background-color: #F5F7FA !important;
+}
+
+.dark .Toastify__toast {
+  background-color: #323F4B !important;
+  border: 1px solid #2f3752;
+}
+
+.Toastify__toast-body{
+  color: #1F2933;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
+.dark .Toastify__toast-body{
+  color: #E4E7EB !important;
+}
+
+.dark .Toastify__close-button{
+  color: white !important;
+}
+
+.Toastify__progress-bar {
+  background: linear-gradient(90deg, rgba(15, 116, 231, 1) 0%, rgba(0, 205, 219, 1) 50%, rgba(240, 149, 180, 1) 100%) !important;
+}

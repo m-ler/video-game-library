@@ -22,25 +22,27 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase";
 import { setCurrentUser } from "./features/firebase/firebaseSlice";
+import { ToastContainer, toast } from "react-toastify";
 
 const App = () => {
   const dispatch = useDispatch();
   const themeState = useSelector(state => state.theme);
-  const firebaseState = useSelector(state => state.firebase);
   const GamesPageWRCR = useMemo(() => withRouteChangeRemounting(GamesPage), []);
   const SearchResultsPageWRCR = useMemo(() => withRouteChangeRemounting(SearchResultsPage), []);
 
   useEffect(() => {
     onAuthStateChanged(auth, user => {
-      const currentUser = !!user && !!user?.displayName
-        ? {
-            uid: user.uid,
-            displayName: user.displayName,
-          }
-        : null;
+      const currentUser =
+        !!user && !!user?.displayName
+          ? {
+              uid: user.uid,
+              displayName: user.displayName,
+            }
+          : null;
 
       dispatch(setCurrentUser(currentUser));
     });
+
   }, []);
 
   return (
@@ -69,6 +71,7 @@ const App = () => {
           </Routes>
         </main>
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

@@ -39,9 +39,13 @@ module.exports = {
     },
     backgroundImage: {
       "bg-gradient":
-        "radial-gradient(circle at 20% -10%, #DDECFF 0%, transparent 40%), radial-gradient(circle at 90% 150%, #DDECFF 0%, #E4E7EB 50%)",
+        "radial-gradient(circle at 20% -10%, #DDECFF 0%, transparent 40%), radial-gradient(circle at 90% 150%, #DDECFF 0%, #edeff2 50%)",
       "bg-gradient-dark":
         "radial-gradient(circle at 20% -20%, #111F33 0%, transparent 40%), radial-gradient(circle at 100% 150%, #111F33 0%, #1F2933 50%)",
+      "bg-login-gradient":
+        "radial-gradient(circle at 20% -10%, #edeff2 0%, transparent 40%), radial-gradient(circle at 90% 150%, #edeff2 0%, #DDECFF 50%)",
+      "bg-login-gradient-dark":
+        "radial-gradient(circle at 20% -20%, #1F2933 0%, transparent 40%), radial-gradient(circle at 100% 150%, #1F2933 0%, #111F33 50%)",
       "gradient-to-t": "linear-gradient(to top, var(--tw-gradient-stops))",
       "gradient-to-tr": "linear-gradient(to top right, var(--tw-gradient-stops))",
       "gradient-to-r": "linear-gradient(to right, var(--tw-gradient-stops))",
@@ -102,6 +106,14 @@ module.exports = {
           },
           "40%, 60%": {
             transform: "translate3d(4px, 0, 0)",
+          },
+        },
+        hueShift: {
+          from: {
+            filter: "hue-rotate(180deg)",
+          },
+          to: {
+            filter: "hue-rotate(0deg)",
           },
         },
       },
