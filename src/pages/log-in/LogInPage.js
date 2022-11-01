@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import WomanArcade from "../../assets/svgr/illustration/WomanArcade";
 import LogInForm from "./LogInForm";
@@ -7,6 +8,10 @@ const optionTabStyle = `text-neu1-8 dark:text-neu1-2 text-[24px] grow font-Rubik
 rounded-tl-[10px] rounded-tr-[10px] dark:hover:bg-neu1-9 duration-200`;
 
 const LogInPage = () => {
+  useEffect(() => {
+    document.title = "VGL - Login"
+  }, []);
+
   const [logIn, setLogIn] = useState(true);
 
   return (

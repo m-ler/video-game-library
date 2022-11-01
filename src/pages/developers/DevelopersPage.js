@@ -11,7 +11,7 @@ import DeveloperCard from "./DeveloperCard";
 const getHeader = () => {
   return (
     <div className="mb-[25px]">
-      <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black">Developers</h1>
+      <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] sm:text-[48px] font-black">Developers</h1>
     </div>
   );
 };
@@ -71,20 +71,17 @@ const DevelopersPage = () => {
       ref={listContainerElement}
       className="px-[20px] pt-[20px] max-w-[1920px] w-full grow mx-auto flex flex-col gap-y-[20px] overflow-auto max-h-full z-0"
     >
+      {getHeader()}
       <VirtualizedGrid
-        name="DevelopersList"
         columnWidth={400}
         rowHeight={120}
         gapX={20}
         gapY={20}
         childElement={getDeveloperCard}
         total={developerList.length}
-        buffer={1}
-        scrollContainer={listContainerElement.current}
-        initialScroll={0}
-        header={getHeader()}
-        footer={getFooter()}
+        buffer={4}
       ></VirtualizedGrid>
+      {getFooter()}
     </section>
   );
 };

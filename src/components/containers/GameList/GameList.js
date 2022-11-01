@@ -90,7 +90,9 @@ const GameList = props => {
   const getHeader = () => {
     return (
       <section className="mb-[25px]">
-        <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black my-[30px] leading-[70px]">{pageTitle}</h1>
+        <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] sm:text-[48px] font-black my-[30px] sm:my-[15px] leading-[70px] sm:leading-[55px]">
+          {pageTitle}
+        </h1>
 
         <div className="flex flex-wrap gap-[15px]">
           <GamesOrderDropdown selectedOrder={selectedOrder}></GamesOrderDropdown>
@@ -124,21 +126,17 @@ const GameList = props => {
       ref={listContainerElement}
       className="px-[20px] max-w-[1920px] w-full grow mx-auto flex flex-col gap-y-[20px] overflow-auto max-h-full z-0"
     >
+      {getHeader()}
       <VirtualizedGrid
-        name="GameList"
         rowHeight={317}
         columnWidth={320}
         gapX={20}
         gapY={20}
         childElement={getGameCard}
         total={gameList.length}
-        buffer={1}
-        scrollContainer={listContainerElement.current}
-        //onScroll={scrollElement => setContentScroll(scrollElement?.scrollTop || 0)}
-        initialScroll={0}
-        header={getHeader()}
-        footer={getFooter()}
+        buffer={4}
       ></VirtualizedGrid>
+      {getFooter()}
     </section>
   );
 };

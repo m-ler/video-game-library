@@ -7,6 +7,7 @@ export const themeSlice = createSlice({
   reducers: {
     toggleTheme: (state, action) => {
       localStorage.setItem("theme", action.payload);
+      document.body.classList.toggle("dark", action.payload === "dark");
       return action.payload;
     },
   },

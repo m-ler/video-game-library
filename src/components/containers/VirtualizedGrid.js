@@ -1,20 +1,18 @@
-import { throttle } from "lodash";
-import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import useOverflowChange from "../../hooks/useOverflowChange";
 
 const VirtualizedGrid = props => {
-  const [scrollTop, setScrollTop] = useState(0);
   const [columnCount, setColumnCount] = useState(1);
   const [columnWidth, setColumnWidth] = useState(0);
+  const [visibleNodes, setVisibleNodes] = useState([]);
 
   const resizeObserver = useRef();
   const gridParentElement = useRef();
   const ghostGrid = useRef();
   const header = useRef();
   const footer = useRef();
-  const topIndexThreshold = useRef(0);
-  const bottomIndexThreshold = useRef(Number.POSITIVE_INFINITY);
+  const intersectionsNodesRef = useRef();
+  const intersectionsNodesParentRef = useRef();
 
   useEffect(() => {
     resizeObserver.current = new ResizeObserver(entries => {
@@ -24,8 +22,24 @@ const VirtualizedGrid = props => {
     resizeObserver.current.observe(ghostGrid.current);
     gridParentElement.current.scrollTop = props.initialScroll || 0;
 
+    const intersectionNodeMargin = (props.rowHeight + props.gapY) * props.buffer;
+    intersectionsNodesRef.current = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          setVisibleNodes(prev => {
+            const nodeIndex = parseInt(entry.target.getAttribute("data-index"));
+            const newState = [...prev];
+            newState[nodeIndex] = entry.isIntersecting;
+            return newState;
+          });
+        });
+      },
+      { rootMargin: `${intersectionNodeMargin}px 0px 0px 0px` }
+    );
+
     return () => {
       resizeObserver.current.disconnect();
+      intersectionsNodesRef.current.disconnect();
     };
   }, []);
 
@@ -33,14 +47,15 @@ const VirtualizedGrid = props => {
     updateLayout();
   }, [columnCount]);
 
+  useEffect(() => {
+    if (!intersectionsNodesRef.current) return;
+    intersectionsNodesRef.current.disconnect();
+    [...intersectionsNodesParentRef.current.children].forEach(node => intersectionsNodesRef.current.observe(node));
+  }, [props.total, columnCount]);
+
   useOverflowChange(hasOverflow => {
     gridParentElement.current.classList.toggle("pr-[10px]", hasOverflow);
   }, gridParentElement);
-
-  const handleScroll = () => {
-    setScrollTop(gridParentElement.current?.scrollTop ?? 0);
-    !!props.onScroll && props.onScroll(gridParentElement.current);
-  };
 
   const updateLayout = () => {
     const templateColumns = window.getComputedStyle(ghostGrid.current).getPropertyValue("grid-template-columns");
@@ -48,22 +63,29 @@ const VirtualizedGrid = props => {
     !!ghostGrid.current && setColumnCount(templateColumns.split(" ").length);
   };
 
-  const getVisibleElementsIndices = () => {
-    const headerHeight = header.current?.getBoundingClientRect()?.height ?? 0;
-    const viewportHeight = gridParentElement.current?.getBoundingClientRect()?.height ?? 0;
-
-    topIndexThreshold.current = ((scrollTop - headerHeight) / (props.rowHeight + props.gapY)) * columnCount - props.buffer * columnCount;
-    bottomIndexThreshold.current =
-      ((scrollTop - headerHeight + viewportHeight) / (props.rowHeight + props.gapY)) * columnCount + props.buffer * columnCount;
+  const getIntersectionNodes = () => {
+    const intersectionList = [];
+    for (let i = 0; i < Math.ceil(props.total / columnCount) / props.buffer; i++) {
+      intersectionList.push(
+        <span
+          key={i}
+          data-index={i}
+          className="invisible block absolute"
+          style={{
+            top: parseInt((props.rowHeight + props.gapY) * (i * props.buffer)),
+          }}
+        ></span>
+      );
+    }
+    return intersectionList;
   };
 
   const getVisibleElements = () => {
-    getVisibleElementsIndices();
     const visibleElements = [];
 
     for (let i = 0; i < props.total; i++) {
-      const isInViewport = i > topIndexThreshold.current && i < bottomIndexThreshold.current;
-      if (!isInViewport) continue;
+      const isVisible = visibleNodes[Math.floor(i / columnCount / props.buffer)];
+      if (!isVisible) continue;
 
       const style = {
         position: "absolute",
@@ -92,11 +114,7 @@ const VirtualizedGrid = props => {
   };
 
   return (
-    <div
-      ref={gridParentElement}
-      className="flex flex-col overflow-auto grow sm:scrollbar-hide sm:pr-[0px]"
-      onScroll={useMemo(() => throttle(handleScroll, 100, { leading: true, trailing: true }), [])}
-    >
+    <div ref={gridParentElement} className="flex flex-col sm:scrollbar-hide sm:pr-[0px]">
       <div ref={header} className="box-border">
         {props.header || ""}
       </div>
@@ -111,7 +129,8 @@ const VirtualizedGrid = props => {
       >
         {getGhostGridContent()}
       </div>
-      <div style={{ minHeight: getHeight() || 0 }} className="relative w-full overflow-hidden z-0">
+      <div style={{ minHeight: getHeight() || 0 }} className="relative w-full  z-0">
+        <div ref={intersectionsNodesParentRef}>{getIntersectionNodes()}</div>
         {getVisibleElements()}
       </div>
       <div ref={footer} className="box-border">

@@ -56,7 +56,7 @@ const PlatformsPage = () => {
 
   return (
     <div className="px-[20px] pt-[20px] pb-[50px] max-w-[1920px] w-full grow mx-auto flex flex-col gap-y-[20px] overflow-auto max-h-full z-0">
-      <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black">Platforms</h1>
+      <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] sm:text-[48px] font-black">Platforms</h1>
       <PlatformList platforms={platformList}></PlatformList>
       {getFooter()}
     </div>

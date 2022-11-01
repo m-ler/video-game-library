@@ -13,6 +13,7 @@ const SearchDropdownResultList = props => {
 
   useEffect(() => {
     focusedResultElement.current = !!resultsContainer.current ? resultsContainer.current.children[focusedResultIndex] : null;
+    !!focusedResultElement.current && focusedResultElement.current.scrollIntoView({ behaviour: "smooth", block: "center" });
   }, [focusedResultIndex]);
 
   const getGameListItem = (gameObj, index, onClick) => {
@@ -44,7 +45,7 @@ const SearchDropdownResultList = props => {
   };
 
   const redirectToSearchResults = () => {
-    if (regularExpressions.isEmpty.test(props.searchQuery)) return;
+    if (regularExpressions.isEmpty.test(props.searchInputRef.current.value)) return;
     props.setShowSearchDropdown(false);
     props.searchInputRef.current.blur();
     navigate(`/search/${props.searchInputRef.current.value}`);

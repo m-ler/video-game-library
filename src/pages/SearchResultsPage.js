@@ -84,20 +84,17 @@ const SearchResultsPage = () => {
       ref={listContainerElement}
       className="px-[20px] pt-[20px] max-w-[1920px] w-full grow mx-auto flex flex-col gap-y-[20px] overflow-auto max-h-full z-0"
     >
+      {getHeader()}
       <VirtualizedGrid
-        name="SearchResultsList"
         rowHeight={317}
         columnWidth={320}
         gapX={20}
         gapY={20}
         childElement={getGameCard}
         total={resultsList.length}
-        buffer={1}
-        scrollContainer={listContainerElement.current}
-        initialScroll={0}
-        header={getHeader()}
-        footer={getFooter()}
+        buffer={4}
       ></VirtualizedGrid>
+      {getFooter()}
     </section>
   );
 };

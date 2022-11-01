@@ -23,6 +23,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase";
 import { setCurrentUser } from "./features/firebase/firebaseSlice";
 import { ToastContainer, toast } from "react-toastify";
+import { toggleTheme } from "./features/theme/themeSlice";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -43,13 +44,17 @@ const App = () => {
       dispatch(setCurrentUser(currentUser));
     });
 
+    dispatch(toggleTheme(themeState));
+
+    //toast.success("Hello World", {autoClose: 99999}) 
+
   }, []);
 
   return (
-    <div id="app" className={`${themeState} z-0`}>
-      <div className="h-screen bg-bg-gradient dark:bg-bg-gradient-dark min-w-[320px] flex flex-col w-full z-0">
+    <div id="app" className="z-0">
+      <div className="min-h-screen bg-bg-gradient dark:bg-bg-gradient-dark min-w-[320px] flex flex-col w-full z-0">
         <Header></Header>
-        <main className="grow w-full flex overflow-hidden relative z-0">
+        <main className="grow w-full flex relative">
           <Routes>
             <Route element={<WithNavDrawer></WithNavDrawer>}>
               <Route path="*" element={<NotFound404Page></NotFound404Page>}></Route>

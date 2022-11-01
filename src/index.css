@@ -6,9 +6,6 @@
 @tailwind base;
 @tailwind utilities;
 
-body {
-  overflow: hidden;
-}
 
 input:-webkit-autofill,
 input:-webkit-autofill:focus {

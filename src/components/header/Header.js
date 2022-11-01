@@ -11,17 +11,19 @@ const Header = () => {
   const currentUser = useSelector(state => state.firebase.currentUser);
 
   return (
-    <header className="flex items-center gap-x-[25px] px-[20px] py-[20px] w-full flex-wrap gap-y-[15px] w-full border-b border-b-neu1-3 dark:border-b-neu1-9 z-10">
+    <header className="flex items-center gap-x-[25px] sm:gap-[15px] p-[20px] sm:py-[10px] w-full flex-wrap sm:flex-nowrap gap-y-[15px] w-full border-b border-b-neu1-3 dark:border-b-neu1-9 z-10">
       <NavMenuButton></NavMenuButton>
       <div className="flex items-center gap-x-[10px]">
         <Link to="/">
-          <Logo className="min-w-[58px] w-8 h-9 fill-neu1-10 dark:fill-neu1-1"></Logo>
+          <Logo className="max-w-[58px] sm:max-w-[44px] h-full fill-neu1-10 dark:fill-neu1-1"></Logo>
         </Link>
       </div>
       <div className="flex items-center gap-x-[10px] mx-auto grow">
         <SearchBar></SearchBar>
-        <ThemeButton></ThemeButton>
-        {!!currentUser ? <LoggedUserButton></LoggedUserButton> : <UserButton></UserButton>}
+        <div className="flex gap-[10px] sm:hidden">
+          <ThemeButton></ThemeButton>
+          {!!currentUser ? <LoggedUserButton></LoggedUserButton> : <UserButton></UserButton>}
+        </div>
       </div>
     </header>
   );

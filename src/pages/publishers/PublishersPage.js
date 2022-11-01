@@ -11,7 +11,7 @@ import PublisherCard from "./PublisherCard";
 const getHeader = () => {
   return (
     <div className="mb-[25px]">
-      <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] font-black">Publishers</h1>
+      <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] sm:text-[48px] font-black">Publishers</h1>
     </div>
   );
 };
@@ -71,20 +71,17 @@ const PublishersPage = () => {
       ref={listContainerElement}
       className="px-[20px] pt-[20px] max-w-[1920px] w-full grow mx-auto flex flex-col gap-y-[20px] overflow-auto max-h-full z-0"
     >
+      {getHeader()}
       <VirtualizedGrid
-        name="PublisherList"
         columnWidth={400}
         rowHeight={120}
         gapX={20}
         gapY={20}
         childElement={getPublisherCard}
         total={publisherList.length}
-        buffer={1}
-        scrollContainer={listContainerElement.current}
-        initialScroll={0}
-        header={getHeader()}
-        footer={getFooter()}
+        buffer={4}
       ></VirtualizedGrid>
+      {getFooter()}
     </section>
   );
 };
