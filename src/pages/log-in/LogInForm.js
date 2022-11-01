@@ -45,7 +45,7 @@ const LogInForm = () => {
 
   const onFormSubmit = e => {
     e.preventDefault();
-  }
+  };
 
   return (
     <form className="flex flex-col gap-y-[15px] w-full animate-[fadeIn_0.3s_ease-out]" onSubmit={onFormSubmit}>
@@ -75,7 +75,7 @@ const LogInForm = () => {
       )}
 
       <div className="flex flex-wrap items-center gap-[15px] justify-between mt-[15px]">
-        <Link to="/" className="text-neu1-5 text-medium font-System text-[14px] hover:underline">
+        <Link to="/recover-password" className="text-neu1-5 text-medium font-System text-[14px] hover:underline">
           Forgot your password?
         </Link>
         <button

@@ -9,7 +9,7 @@ rounded-tl-[10px] rounded-tr-[10px] dark:hover:bg-neu1-9 duration-200`;
 
 const LogInPage = () => {
   useEffect(() => {
-    document.title = "VGL - Login"
+    document.title = "Login"
   }, []);
 
   const [logIn, setLogIn] = useState(true);

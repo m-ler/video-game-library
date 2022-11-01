@@ -7,12 +7,12 @@ import UserButton from "./UserButton";
 import LoggedUserButton from "./LoggedUserButton";
 import { useSelector } from "react-redux";
 
-const Header = () => {
+const Header = props => {
   const currentUser = useSelector(state => state.firebase.currentUser);
 
   return (
     <header className="flex items-center gap-x-[25px] sm:gap-[15px] p-[20px] sm:py-[10px] w-full flex-wrap sm:flex-nowrap gap-y-[15px] w-full border-b border-b-neu1-3 dark:border-b-neu1-9 z-10">
-      <NavMenuButton></NavMenuButton>
+      {props.withNavMenuButton && <NavMenuButton></NavMenuButton>}
       <div className="flex items-center gap-x-[10px]">
         <Link to="/">
           <Logo className="max-w-[58px] sm:max-w-[44px] h-full fill-neu1-10 dark:fill-neu1-1"></Logo>
@@ -22,7 +22,7 @@ const Header = () => {
         <SearchBar></SearchBar>
         <div className="flex gap-[10px] sm:hidden">
           <ThemeButton></ThemeButton>
-          {!!currentUser ? <LoggedUserButton></LoggedUserButton> : <UserButton></UserButton>}
+          {props.withUserButton ? !!currentUser ? <LoggedUserButton></LoggedUserButton> : <UserButton></UserButton> : ""}
         </div>
       </div>
     </header>

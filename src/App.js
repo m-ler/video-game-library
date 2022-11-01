@@ -24,6 +24,9 @@ import { auth } from "./firebase/firebase";
 import { setCurrentUser } from "./features/firebase/firebaseSlice";
 import { ToastContainer, toast } from "react-toastify";
 import { toggleTheme } from "./features/theme/themeSlice";
+import RecoverPasswordPage from "./pages/recover-password/RecoverPasswordPage";
+import ResetPasswordPage from "./pages/reset-password/ResetPasswordPage";
+import WithoutNavDrawer from "./layouts/WithoutNavDrawer";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -45,36 +48,35 @@ const App = () => {
     });
 
     dispatch(toggleTheme(themeState));
-
-    //toast.success("Hello World", {autoClose: 99999}) 
-
   }, []);
 
   return (
     <div id="app" className="z-0">
       <div className="min-h-screen bg-bg-gradient dark:bg-bg-gradient-dark min-w-[320px] flex flex-col w-full z-0">
-        <Header></Header>
-        <main className="grow w-full flex relative">
-          <Routes>
-            <Route element={<WithNavDrawer></WithNavDrawer>}>
-              <Route path="*" element={<NotFound404Page></NotFound404Page>}></Route>
-              <Route path="/" element={<Navigate replace to="/games"></Navigate>}></Route>
-              <Route path="/games" element={<GamesPageWRCR></GamesPageWRCR>}></Route>
-              <Route path="/games/best-of-the-year" element={<BestOfTheYearPage></BestOfTheYearPage>}></Route>
-              <Route path="/games/best-of-all-time" element={<BestOfAllTimePage></BestOfAllTimePage>}></Route>
-              <Route path="game/:gameSlug" element={<GameDetailPage></GameDetailPage>}></Route>
-              <Route path="/platforms" element={<PlatformsPage></PlatformsPage>}></Route>
-              <Route path="/genres" element={<GenresPage></GenresPage>}></Route>
-              <Route path="/genres/:genre" element={<GamesByGenrePage></GamesByGenrePage>}></Route>
-              <Route path="/developers" element={<DevelopersPage></DevelopersPage>}></Route>
-              <Route path="/developers/:developer" element={<GamesByDeveloperPage></GamesByDeveloperPage>}></Route>
-              <Route path="/publishers" element={<PublishersPage></PublishersPage>}></Route>
-              <Route path="/publishers/:publisher" element={<GamesByPublisherPage></GamesByPublisherPage>}></Route>
-              <Route path="/search/:query" element={<SearchResultsPageWRCR></SearchResultsPageWRCR>}></Route>
-            </Route>
+        <Routes>
+          <Route element={<WithoutNavDrawer></WithoutNavDrawer>}>
+            <Route path="*" element={<NotFound404Page></NotFound404Page>}></Route>
             <Route path="/login" element={<LogInPage></LogInPage>}></Route>
-          </Routes>
-        </main>
+            <Route path="/recover-password" element={<RecoverPasswordPage></RecoverPasswordPage>}></Route>
+            <Route path="/reset-password" element={<ResetPasswordPage></ResetPasswordPage>}></Route>
+          </Route>
+          
+          <Route element={<WithNavDrawer></WithNavDrawer>}>
+            <Route path="/" element={<Navigate replace to="/games"></Navigate>}></Route>
+            <Route path="/games" element={<GamesPageWRCR></GamesPageWRCR>}></Route>
+            <Route path="/games/best-of-the-year" element={<BestOfTheYearPage></BestOfTheYearPage>}></Route>
+            <Route path="/games/best-of-all-time" element={<BestOfAllTimePage></BestOfAllTimePage>}></Route>
+            <Route path="game/:gameSlug" element={<GameDetailPage></GameDetailPage>}></Route>
+            <Route path="/platforms" element={<PlatformsPage></PlatformsPage>}></Route>
+            <Route path="/genres" element={<GenresPage></GenresPage>}></Route>
+            <Route path="/genres/:genre" element={<GamesByGenrePage></GamesByGenrePage>}></Route>
+            <Route path="/developers" element={<DevelopersPage></DevelopersPage>}></Route>
+            <Route path="/developers/:developer" element={<GamesByDeveloperPage></GamesByDeveloperPage>}></Route>
+            <Route path="/publishers" element={<PublishersPage></PublishersPage>}></Route>
+            <Route path="/publishers/:publisher" element={<GamesByPublisherPage></GamesByPublisherPage>}></Route>
+            <Route path="/search/:query" element={<SearchResultsPageWRCR></SearchResultsPageWRCR>}></Route>
+          </Route>
+        </Routes>
       </div>
       <ToastContainer></ToastContainer>
     </div>

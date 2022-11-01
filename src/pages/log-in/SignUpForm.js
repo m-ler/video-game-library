@@ -10,22 +10,16 @@ import { useNavigate } from "react-router-dom";
 import SpinnerC from "../../components/elements/loading-animations/SpinnerC";
 import { setCurrentUser } from "../../features/firebase/firebaseSlice";
 import { useDispatch } from "react-redux";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
 import { toast } from "react-toastify";
+import { emailExists, usernameExists } from "../../firebase/firestoreQueries";
 
 const validateEmail = async value => {
   if (!regularExpressions.validEmail.test(value)) return "Invalid email.";
-
-  const q = query(collection(db, "users"), where("email", "==", value));
-  const response = await getDocs(q);
-  if (!response.empty) return "That email is taken. Please try another.";
+  if (await emailExists(value)) return "That email is taken. Please try another.";
 };
 
 const validateUserName = async value => {
-  const q = query(collection(db, "users"), where("nickname", "==", value));
-  const response = await getDocs(q);
-  if (!response.empty) return "That username is taken. Please try another.";
+  if (await usernameExists(value)) return "That username is taken. Please try another.";
 };
 
 const validatePassword = async value => {
