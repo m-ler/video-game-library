@@ -6,7 +6,7 @@ const WithNavDrawer = () => {
   return (
     <>
       <Header withNavMenuButton={true} withUserButton={true}></Header>
-      <main className="grow w-full flex relative">
+      <main className="grow w-full flex relative pt-[82px] sm:pt-[52px] z-0">
         <NavigationDrawer></NavigationDrawer>
         <Outlet></Outlet>
       </main>

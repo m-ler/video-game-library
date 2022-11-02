@@ -14,8 +14,8 @@ const GamesOrderByDropdownMenu = props => {
     return (
       <li
         key={index}
-        className={`text-[14px] px-[20px] py-[5px] duration-200 cursor-pointer text-neu1-7 dark:text-neu1-3 font-System hover:bg-accent1 hover:font-bold hover:text-neu1-3 ${
-          props.selectedOrder === item.value ? "bg-accent1 font-bold text-neu1-1 dark:text-neu1-1" : "font-medium"
+        className={`text-[14px] px-[20px] py-[5px] duration-200 cursor-pointer font-System hover:bg-accent1 hover:font-bold hover:text-neu1-3 ${
+          props.selectedOrder === item.value ? "bg-accent1 font-bold text-neu1-1 dark:text-neu1-1" : "text-neu1-6 dark:text-neu1-4 font-medium"
         }`}
         onClick={() => onOptionClick(item)}
       >

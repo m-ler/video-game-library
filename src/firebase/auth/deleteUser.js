@@ -1,8 +1,8 @@
 import { deleteUser } from "firebase/auth";
 import { deleteDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
-import handlePromise from "../utils/handlePromise";
-import { auth, db } from "./firebase";
+import handlePromise from "../../utils/handlePromise";
+import { auth, db } from "../firebase";
 
 const deleteUserDocument = async userID => {
   const [response, error] = await handlePromise(deleteDoc(doc(db, "users", userID)));

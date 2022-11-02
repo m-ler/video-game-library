@@ -3,8 +3,8 @@ import { useState } from "react";
 import { MdCheckCircle, MdEmail } from "react-icons/md";
 import SpinnerC from "../../components/elements/loading-animations/SpinnerC";
 import FormInput from "../../components/forms/FormInput";
-import { emailExists } from "../../firebase/firestoreQueries";
-import sendPassResetEmail from "../../firebase/sendPassResetEmail";
+import { emailExists } from "../../firebase/fireStore/firestoreQueries";
+import sendPassResetEmail from "../../firebase/auth/sendPassResetEmail";
 import regularExpressions from "../../utils/regularExpressions";
 
 const validateEmail = async value => {

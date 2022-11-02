@@ -42,7 +42,7 @@ const SearchDropdown = props => {
   return (
     props.show && (
       <div
-        className="backdrop-blur-xl bg-neu1-1/95 dark:bg-neu1-10/95 border border-neu1-5 rounded-[10px] p-[20px] w-full block drop-shadow-xl 
+        className="bg-neu1-1 dark:bg-neu1-10 border border-neu1-5 rounded-[10px] p-[20px] w-full block drop-shadow-xl 
     origin-top animate-[fadeIn_0.15s] max-h-[50vh] overflow-auto absolute top-[calc(100%+15px)] left-0 empty:hidden"
       >
         {gameSearchRequest.loading && <SpinnerB className="w-full flex justify-center"></SpinnerB>}

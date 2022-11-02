@@ -17,8 +17,8 @@ const GamesPlatformFilterDropdownMenu = props => {
       <li className="group relative" key={index}>
         <div
           onClick={e => e.currentTarget === e.target && onOptionClick(item)}
-          className={`text-[14px] block px-[20px] flex items-center gap-x-[10p] justify-between py-[5px] duration-200 cursor-pointer text-neu1-7 dark:text-neu1-3 font-System hover:bg-accent1 
-          hover:text-neu1-3 ${isSelected ? "bg-accent1 font-bold text-neu1-1 dark:text-neu1-1" : "font-medium"}`}
+          className={`text-[14px] block px-[20px] flex items-center gap-x-[10p] justify-between py-[5px] duration-200 cursor-pointer font-System hover:bg-accent1 
+          hover:text-neu1-3 ${isSelected ? "bg-accent1 font-bold text-neu1-1 " : "font-medium text-neu1-6 dark:text-neu1-4"}`}
         >
           {item.name}
           {hasPlatforms && (

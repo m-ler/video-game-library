@@ -5,7 +5,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import SpinnerC from "../../components/elements/loading-animations/SpinnerC";
 import FormInput from "../../components/forms/FormInput";
-import resetForgottenPassword from "../../firebase/resetForgottenPassword";
+import resetForgottenPassword from "../../firebase/auth/resetForgottenPassword";
 
 const validatePassword = value => {
   if (value.length < 6) return "Password must contain at least 6 characters.";

@@ -1,6 +1,6 @@
 import { signOut } from "firebase/auth";
-import handlePromise from "../utils/handlePromise";
-import { auth } from "./firebase";
+import handlePromise from "../../utils/handlePromise";
+import { auth } from "../firebase";
 import { toast } from "react-toastify";
 
 export default async () => {

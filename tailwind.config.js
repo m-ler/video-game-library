@@ -39,7 +39,7 @@ module.exports = {
     },
     backgroundImage: {
       "bg-gradient":
-        "radial-gradient(circle at 20% -10%, #DDECFF 0%, transparent 40%), radial-gradient(circle at 90% 150%, #DDECFF 0%, #edeff2 50%)",
+        "radial-gradient(circle at 20% -10%, #f2f8ff 0%, transparent 40%), radial-gradient(circle at 90% 150%, #f2f8ff 0%, #edeff2 50%)",
       "bg-gradient-dark":
         "radial-gradient(circle at 20% -20%, #111F33 0%, transparent 40%), radial-gradient(circle at 100% 150%, #111F33 0%, #1F2933 50%)",
       "bg-login-gradient":

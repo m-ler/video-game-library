@@ -1,6 +1,6 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import handlePromise from "../utils/handlePromise";
-import { auth } from "./firebase";
+import handlePromise from "../../utils/handlePromise";
+import { auth } from "../firebase";
 
 const errorMessages = {
   "auth/user-not-found": "The email you entered doesn't belong to an account.",

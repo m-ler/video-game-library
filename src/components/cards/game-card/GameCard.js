@@ -5,6 +5,9 @@ import { getMidCompressedImageURL } from "../../../utils/compressedImageURLS";
 import GameCardSlideshow from "./GameCardSlideshow";
 import { Link } from "react-router-dom";
 import parentPlatformIcons from "../../../data/parentPlatformIcons";
+import { MdOutlineThumbUp } from "react-icons/md";
+import IconButton from "../../elements/buttons/IconButton";
+import GameCardLikeButton from "./GameCardLikeButton";
 
 const getPlatformIconList = platforms => {
   const iconList = [];
@@ -52,14 +55,18 @@ const GameCard = props => {
       ></img>
 
       <div className="flex flex-col gap-y-[5px] px-[20px] pb-[20px]">
-        <Link
-          to={`/game/${props.game.slug}`}
-          className={`text-neu1-9 dark:text-neu1-2 font-Roboto font-black text-[20px] text-ellipsis overflow-hidden block ${
-            hovering ? "" : "whitespace-nowrap"
-          } hover:underline`}
-        >
-          {props.game.name}
-        </Link>
+        <div className="flex gap-x-[15px] justify-between items-center">
+          <Link
+            to={`/game/${props.game.slug}`}
+            className={`text-neu1-9 dark:text-neu1-2 font-Roboto font-black text-[20px] text-ellipsis overflow-hidden block ${
+              hovering ? "" : "whitespace-nowrap"
+            } hover:underline`}
+          >
+            {props.game.name}
+          </Link>
+          <GameCardLikeButton game={props.game}></GameCardLikeButton>
+        </div>
+
         <div className="grid grid-cols-[1fr_30px] gap-y-[5px] grid-rows-[1fr_1fr] gap-x-[15px] items-center">
           <span
             className="flex items-center gap-[10px] overflow-hidden text-neu1-6 dark:text-neu1-4 font-OpenSans font-medium text-[16px] relative after:content-[''] 

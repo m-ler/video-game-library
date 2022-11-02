@@ -5,13 +5,13 @@ import FormInput from "../../components/forms/FormInput";
 import regularExpressions from "../../utils/regularExpressions";
 import { useRef } from "react";
 import { useState } from "react";
-import createUser from "../../firebase/createUser";
+import createUser from "../../firebase/auth/createUser";
 import { useNavigate } from "react-router-dom";
 import SpinnerC from "../../components/elements/loading-animations/SpinnerC";
 import { setCurrentUser } from "../../features/firebase/firebaseSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { emailExists, usernameExists } from "../../firebase/firestoreQueries";
+import { emailExists, usernameExists } from "../../firebase/fireStore/firestoreQueries";
 
 const validateEmail = async value => {
   if (!regularExpressions.validEmail.test(value)) return "Invalid email.";

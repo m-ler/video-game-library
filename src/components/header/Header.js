@@ -11,7 +11,8 @@ const Header = props => {
   const currentUser = useSelector(state => state.firebase.currentUser);
 
   return (
-    <header className="flex items-center gap-x-[25px] sm:gap-[15px] p-[20px] sm:py-[10px] w-full flex-wrap sm:flex-nowrap gap-y-[15px] w-full border-b border-b-neu1-3 dark:border-b-neu1-9 z-10">
+    <header className="flex items-center gap-x-[25px] sm:gap-[15px] p-[20px] sm:py-[10px] w-full flex-wrap sm:flex-nowrap gap-y-[15px] w-full border-b border-b-neu1-3 
+    fixed top-0 left-0 dark:border-b-neu1-9 z-10 bg-neu1-1/90 dark:bg-neu1-10/90 backdrop-blur-xl">
       {props.withNavMenuButton && <NavMenuButton></NavMenuButton>}
       <div className="flex items-center gap-x-[10px]">
         <Link to="/">

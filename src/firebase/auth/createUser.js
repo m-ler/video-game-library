@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import handlePromise from "../utils/handlePromise";
-import { auth, db } from "./firebase";
+import handlePromise from "../../utils/handlePromise";
+import { auth, db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 const createUserDocument = async (uid, email, nickname, password) => {
@@ -9,6 +9,7 @@ const createUserDocument = async (uid, email, nickname, password) => {
     email,
     nickname,
     password,
+    likes: [],
   });
 };
 
