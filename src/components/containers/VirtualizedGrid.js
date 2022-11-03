@@ -58,6 +58,7 @@ const VirtualizedGrid = props => {
   }, gridParentElement);
 
   const updateLayout = () => {
+    if (!ghostGrid.current) return;
     const templateColumns = window.getComputedStyle(ghostGrid.current).getPropertyValue("grid-template-columns");
     setColumnWidth(parseFloat(templateColumns.split("px ")[0]));
     !!ghostGrid.current && setColumnCount(templateColumns.split(" ").length);

@@ -20,16 +20,18 @@ import { ToastContainer, toast } from "react-toastify";
 import RecoverPasswordPage from "./pages/recover-password/RecoverPasswordPage";
 import ResetPasswordPage from "./pages/reset-password/ResetPasswordPage";
 import WithoutNavDrawer from "./layouts/WithoutNavDrawer";
-import useFirebaseManager from "./hooks/useFirebaseManager";
+import FavoritesPage from "./pages/FavoritesPage";
+import ScrollBodyToTop from "./components/utils/ScrollBodyToTop";
+import FirebaseManager from "./components/firebase/FirebaseManager";
 
 const App = () => {
-  useFirebaseManager();
-
   const GamesPageWRCR = useMemo(() => withRouteChangeRemounting(GamesPage), []);
   const SearchResultsPageWRCR = useMemo(() => withRouteChangeRemounting(SearchResultsPage), []);
 
   return (
     <div id="app" className="z-0">
+      <ScrollBodyToTop></ScrollBodyToTop>
+      <FirebaseManager></FirebaseManager>
       <div className="min-h-screen bg-neu1-2 dark:bg-neu1-10 min-w-[320px] flex flex-col w-full z-0">
         <Routes>
           <Route element={<WithoutNavDrawer></WithoutNavDrawer>}>
@@ -44,6 +46,7 @@ const App = () => {
             <Route path="/games" element={<GamesPageWRCR></GamesPageWRCR>}></Route>
             <Route path="/games/best-of-the-year" element={<BestOfTheYearPage></BestOfTheYearPage>}></Route>
             <Route path="/games/best-of-all-time" element={<BestOfAllTimePage></BestOfAllTimePage>}></Route>
+            <Route path="/favorites" element={<FavoritesPage></FavoritesPage>}></Route>
             <Route path="game/:gameSlug" element={<GameDetailPage></GameDetailPage>}></Route>
             <Route path="/platforms" element={<PlatformsPage></PlatformsPage>}></Route>
             <Route path="/genres" element={<GenresPage></GenresPage>}></Route>

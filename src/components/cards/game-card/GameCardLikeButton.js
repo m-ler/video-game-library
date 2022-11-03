@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { setCurrentUserLikes } from "../../../features/firebase/firebaseSlice";
 import saveGame from "../../../firebase/fireStore/games/saveVideoGame";
+import updateVideoGameLikes from "../../../firebase/fireStore/games/updateVideoGameLikes";
 import updateUserLikes from "../../../firebase/fireStore/users/updateUserLikes";
+import handlePromise from "../../../utils/handlePromise";
 import IconButton from "../../elements/buttons/IconButton";
 import SpinnerC from "../../elements/loading-animations/SpinnerC";
 
@@ -18,8 +20,9 @@ const GameCardLikeButton = props => {
   const updateLike = async () => {
     setLoading(true);
     const newLikesArray = liked ? userLikes.filter(x => x !== props.game.id) : [...userLikes, props.game.id];
-    await saveGame(props.game);
-    const updatedLikes = await updateUserLikes(currentUser.uid, newLikesArray);
+    !liked && (await handlePromise(saveGame(props.game)));
+    const updatedLikes = await updateUserLikes(currentUser.uid, props.game.id, !liked);
+    await updateVideoGameLikes(props.game.id, currentUser.uid, !liked);
     setLoading(false);
     if (!updatedLikes) return;
     dispatch(setCurrentUserLikes(newLikesArray));
@@ -29,7 +32,7 @@ const GameCardLikeButton = props => {
   if (userLikes === null) return "";
 
   return loading ? (
-    <SpinnerC className="max-w-[28px]" width={28} height={28}></SpinnerC>
+    <SpinnerC className="min-w-[28px] max-w-[28px]" width={28} height={28}></SpinnerC>
   ) : (
     <IconButton onClick={updateLike}>
       {liked ? (

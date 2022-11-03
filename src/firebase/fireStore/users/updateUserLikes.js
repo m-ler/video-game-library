@@ -1,9 +1,9 @@
-import { doc, setDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import handlePromise from "../../../utils/handlePromise";
 import { db } from "../../firebase";
 
-export default async (uid, likesArray) => {
+export default async (uid, gameID, add) => {
   const docRef = doc(db, "users", uid);
-  const [response, error] = await handlePromise(setDoc(docRef, { likes: likesArray }, { merge: true }));
+  const [response, error] = await handlePromise(updateDoc(docRef, { likes: add ? arrayUnion(gameID) : arrayRemove(gameID) }));
   return !error;
 };

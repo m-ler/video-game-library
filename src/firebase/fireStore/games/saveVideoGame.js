@@ -13,6 +13,7 @@ export default async gameObj => {
     released: gameObj.released,
     short_screenshots: gameObj.short_screenshots,
     slug: gameObj.slug,
+    likes: []
   };
 
   const docRef = doc(db, "videogames", gameData.id.toString());

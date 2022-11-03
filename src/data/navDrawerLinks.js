@@ -1,6 +1,6 @@
 import { FaAward, FaCrown, FaWindows, FaPlaystation, FaApple, FaAndroid, FaCode, FaGhost, FaGamepad } from "react-icons/fa";
 import { IoIosRocket } from "react-icons/io";
-import { MdGames } from "react-icons/md";
+import { MdGames, MdThumbUp } from "react-icons/md";
 import { SiNintendo, SiSega, SiXbox } from "react-icons/si";
 
 export const gamesLinks = [
@@ -133,3 +133,10 @@ export const browseLinks = [
     linkIsSelected: (pathname, search) => pathname.includes("/publishers"),
   },
 ];
+
+export const favoritesLink = {
+  route: "/favorites",
+  icon: <MdThumbUp></MdThumbUp>,
+  name: "Favorites",
+  linkIsSelected: (pathname, search) => pathname.includes("/favorites"),
+};

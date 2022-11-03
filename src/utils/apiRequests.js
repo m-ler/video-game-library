@@ -1,3 +1,7 @@
+import { collection, getDocs, limit, query, startAfter, startAt, where } from "firebase/firestore";
+import { db } from "../firebase/firebase";
+import handlePromise from "./handlePromise";
+
 const API_KEY = "a2bb4511c7b2410895f09afa44233447";
 const RAWG_KEY = "c542e67aec3a4340908f9de9e86038af";
 const BASE_URL = `https://api.rawg.io/api/`;
@@ -72,4 +76,26 @@ export const getPublisherList = async page => {
 export const getPublisherDetail = async idOrSlug => {
   const response = await fetch(`${BASE_URL}publishers/${idOrSlug}?key=${RAWG_KEY}`);
   return await response.json();
+};
+
+export const getUserFavoriteGames = async (lastDoc, userUID) => {
+  if (!userUID) return;
+
+  const getFirstPage = async () => {
+    const first = query(collection(db, "videogames"), where("likes", "array-contains", userUID), limit(100));
+    return await getDocs(first);
+  };
+
+  const getNextPage = async () => {
+    const first = query(collection(db, "videogames"), where("likes", "array-contains", userUID), startAfter(lastDoc), limit(100));
+    return await getDocs(first);
+  };
+
+  const response = !!lastDoc ? await getNextPage() : await getFirstPage();
+
+  return {
+    results: !!response ? response.docs.map(doc => doc.data()) : null,
+    lastDoc: !!response ? response.docs[response.docs.length - 1] : null,
+    empty: response.empty,
+  };
 };

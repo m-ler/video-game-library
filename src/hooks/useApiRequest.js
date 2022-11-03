@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default requestFunction => {
   const [data, setData] = useState(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [offline, setOffline] = useState(false);
 

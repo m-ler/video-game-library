@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
-import { gamesLinks, platformLinks, browseLinks } from "../../data/navDrawerLinks";
+import { gamesLinks, platformLinks, browseLinks, favoritesLink } from "../../data/navDrawerLinks";
 import { toggleNavMenu } from "../../features/nav-menu/navMenuSlice";
 import { isScreenMobile } from "../../utils/environment";
 import LoggedUserButton from "../header/LoggedUserButton";
@@ -15,6 +15,7 @@ const NavigationDrawer = () => {
   const location = useLocation();
   const navMenuState = useSelector(state => state.navMenu);
   const currentUser = useSelector(state => state.firebase.currentUser);
+  const userLikes = useSelector(state => state.firebase.currentUserLikes);
 
   useEffect(() => {
     isScreenMobile() && dispatch(toggleNavMenu(false));
@@ -42,6 +43,9 @@ const NavigationDrawer = () => {
         {gamesLinks.map((link, index) => (
           <NavigationElement linkItem={link} key={index}></NavigationElement>
         ))}
+
+        {userLikes !== null && <NavigationElement linkItem={favoritesLink}></NavigationElement>}
+
         <h3 className="text-neu1-6 dark:text-neu1-4 font-Roboto font-medium text-[14px] border-b border-b-neu1-3 dark:border-b-neu1-8 mt-[20px] pb-[5px] mb-[10px]">
           PLATFORMS
         </h3>
