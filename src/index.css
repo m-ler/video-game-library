@@ -1,6 +1,7 @@
 @import url(./assets/style/fonts.css);
 @import url(./assets/style/scrollbar.css);
 @import url(./assets/style/toastify.css);
+@import url(./assets/style/reactjs-popup.css);
  
 @tailwind components;
 @tailwind base;

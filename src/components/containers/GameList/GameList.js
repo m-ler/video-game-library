@@ -95,6 +95,7 @@ const GameList = props => {
         </h1>
 
         <div className="flex flex-wrap gap-[15px]">
+          
           <GamesOrderDropdown selectedOrder={selectedOrder}></GamesOrderDropdown>
           <GamesPlatformFilterDrowdown selectedPlatform={selectedPlatform}></GamesPlatformFilterDrowdown>
         </div>

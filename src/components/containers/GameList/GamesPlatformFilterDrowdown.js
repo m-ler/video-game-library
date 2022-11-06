@@ -3,13 +3,14 @@ import { IoIosArrowDown } from "react-icons/io";
 import GamesPlatformFilterDropdownMenu from "./GamesPlatformFilterDropdownMenu";
 import { platformList } from "../../../data/platformList";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import Popup from "reactjs-popup";
 
 const GamesPlatformFilterDrowdown = props => {
   const [showDropdown, setShowDropdown] = useState();
   const dropdownRef = useRef();
   useOnClickOutside([dropdownRef], () => setShowDropdown(false));
 
-  return (
+  const dropdownButton = (
     <div className="relative z-[9] w-fit" ref={dropdownRef}>
       <button
         className={`flex items-center gap-x-[10px] px-[12px] py-[8px] rounded-md ${
@@ -33,13 +34,26 @@ const GamesPlatformFilterDrowdown = props => {
           className={`dark:text-neu1-1 duration-200 ${showDropdown ? "rotate-180 text-neu1-1" : "text-neu1-10"}`}
         ></IoIosArrowDown>
       </button>
+    </div>
+  );
+
+  return (
+    <Popup
+      trigger={dropdownButton}
+      position="bottom left"
+      on="click"
+      closeOnDocumentClick
+      arrow={false}
+      onOpen={() => setShowDropdown(true)}
+      onClose={() => setShowDropdown(false)}
+      offsetY={10}
+    >
       <GamesPlatformFilterDropdownMenu
-        className={`${!showDropdown ? "opacity-0 scale-y-0" : ""}`}
         onOptionClick={() => setShowDropdown(false)}
         platformList={platformList}
         selectedOption={props.selectedPlatform.slug}
       ></GamesPlatformFilterDropdownMenu>
-    </div>
+    </Popup>
   );
 };
 

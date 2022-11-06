@@ -53,8 +53,8 @@ const FavoritesPage = () => {
 
   const getFooter = () => {
     const noMoreResults = favoritesRequest.data?.empty && gameList.length > 0;
-    const resultsNotFound = (favoritesRequest.data === null && gameList.length === 0) || favoritesRequest.data?.results?.length === 0;
-    favoritesRequest.error && console.log(favoritesRequest.error);
+    const resultsNotFound = (favoritesRequest.data?.results === null && gameList.length === 0) || favoritesRequest.data?.results?.length === 0;
+
     return favoritesRequest.error ? (
       <RequestError></RequestError>
     ) : favoritesRequest.loading ? (
@@ -75,7 +75,7 @@ const FavoritesPage = () => {
       ref={listContainerElement}
       className="px-[20px] pt-[20px] max-w-[1920px] w-full grow mx-auto flex flex-col gap-y-[20px] overflow-auto max-h-full z-0"
     >
-      <div className="mb-[25px]">
+      <div className="my-[25px]">
         <h1 className="text-neu1-10 dark:text-neu1-1 font-System text-[60px] sm:text-[48px] font-black leading-[48px]">Favorite games</h1>
       </div>
 

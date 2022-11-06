@@ -8,7 +8,10 @@ import { getUserDocumentById } from "../../firebase/fireStore/firestoreQueries";
 const getUserObj = user => {
   return {
     uid: user.uid,
+    email: user.email,
     displayName: user.displayName,
+    photoURL: user.photoURL || null,
+    latestUpdateTime: Date.now(),
   };
 };
 
@@ -27,10 +30,12 @@ const FirebaseManager = () => {
 
   useEffect(() => {
     onAuthStateChanged(auth, user => {
-      const validUser = !!user && !!user?.displayName;
-
       dispatch(setCurrentUser(!!user?.displayName ? getUserObj(user) : null));
       loadUserLikes(user);
+
+      auth.onIdTokenChanged(user => {
+        dispatch(setCurrentUser(!!user?.displayName ? getUserObj(user) : null));
+      });
     });
   }, []);
 

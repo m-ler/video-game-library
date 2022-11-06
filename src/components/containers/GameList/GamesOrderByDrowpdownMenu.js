@@ -26,8 +26,8 @@ const GamesOrderByDropdownMenu = props => {
 
   return (
     <ul
-      className={`bg-neu1-1 dark:bg-neu1-10 border border-neu1-4 dark:border-neu1-5 py-[15px] w-full absolute top-[calc(100%+10px)] left-[0px] z-10 rounded-lg drop-shadow-lg duration-200 
-      origin-top ${props.className}`}
+      className={`bg-neu1-1 dark:bg-neu1-10 border border-neu1-4 dark:border-neu1-5 py-[15px] w-max  z-10 rounded-lg drop-shadow-lg duration-200 
+      animate-[fadeIn_.2s_linear] ${props.className}`}
     >
       {orderByOptions.map((item, index) => getMenuElement(item, index))}
     </ul>

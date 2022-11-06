@@ -1,0 +1,8 @@
+[data-popup="modal"].popup-overlay {
+  background-color: rgba(0, 0, 0, 0.70);
+}
+
+[data-popup="modal"] > .popup-content {
+  padding: 15px;
+  max-width: 100%;
+}

@@ -8,7 +8,7 @@ export const gamesLinks = [
     route: "/games",
     icon: <MdGames></MdGames>,
     name: "All games",
-    linkIsSelected: (pathname, search) => (pathname === "/games" && !search) || (pathname === "/games" && search.includes("platform=all")),
+    linkIsSelected: (pathname, search) => (pathname === "/games" && !search.includes("platform")) || (pathname === "/games" && search.includes("platform=all")),
   },
   {
     route: "/games/best-of-the-year",
