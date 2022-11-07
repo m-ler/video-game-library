@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Tooltip } from "react-tippy";
 import Popup from "reactjs-popup";
-import UserAvatarButton from "../users/UserAvatarButton";
-import UserModal from "./UserModal";
+import UserAvatarButton from "../user/UserAvatarButton";
+import UserModal from "../user/UserModal";
 
 const LoggedUserButton = () => {
   const userBotonRef = useRef();

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useState } from "react";
-import SpinnerC from "../../components/elements/loading-animations/SpinnerC";
+import SpinnerC from "../../components/loading-animations/SpinnerC";
 import { RiLockPasswordFill } from "react-icons/ri";
 import FormInput from "../../components/forms/FormInput";
 import { MdError } from "react-icons/md";

@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { MdEmail, MdError } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
-import SpinnerC from "../../components/elements/loading-animations/SpinnerC";
+import SpinnerC from "../../components/loading-animations/SpinnerC";
 import FormInput from "../../components/forms/FormInput";
 import signIn from "../../firebase/auth/signIn";
 import regularExpressions from "../../utils/regularExpressions";

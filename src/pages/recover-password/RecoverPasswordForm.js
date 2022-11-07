@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useState } from "react";
 import { MdCheckCircle, MdEmail } from "react-icons/md";
-import SpinnerC from "../../components/elements/loading-animations/SpinnerC";
+import SpinnerC from "../../components/loading-animations/SpinnerC";
 import FormInput from "../../components/forms/FormInput";
 import { emailExists } from "../../firebase/fireStore/firestoreQueries";
 import sendPassResetEmail from "../../firebase/auth/sendPassResetEmail";

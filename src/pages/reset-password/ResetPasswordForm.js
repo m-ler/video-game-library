@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import SpinnerC from "../../components/elements/loading-animations/SpinnerC";
+import SpinnerC from "../../components/loading-animations/SpinnerC";
 import FormInput from "../../components/forms/FormInput";
 import resetForgottenPassword from "../../firebase/auth/resetForgottenPassword";
 

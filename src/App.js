@@ -1,29 +1,29 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import withRouteChangeRemounting from "./hoc/withRouteChangeRemounting";
-import GamesPage from "./pages/GamesPage";
-import GameDetailPage from "./pages/game-detail/GameDetailPage";
-import GenresPage from "./pages/genres/GenresPage";
-import GamesByGenrePage from "./pages/GamesByGenrePage";
-import BestOfTheYearPage from "./pages/BestOfTheYearPage";
-import BestOfAllTimePage from "./pages/BestOfAllTimePage";
-import DevelopersPage from "./pages/developers/DevelopersPage";
-import GamesByDeveloperPage from "./pages/GamesByDeveloperPage";
-import PublishersPage from "./pages/publishers/PublishersPage";
-import GamesByPublisherPage from "./pages/GamesByPublisherPage";
-import PlatformsPage from "./pages/platforms/PlatformsPage";
-import SearchResultsPage from "./pages/SearchResultsPage";
+import GamesPage from "./pages/games";
+import GameDetailPage from "./pages/game-detail";
+import GenresPage from "./pages/genres";
+import GamesByGenrePage from "./pages/games-by-genre";
+import BestOfTheYearPage from "./pages/best-of-the-year";
+import BestOfAllTimePage from "./pages/best-of-all-time";
+import DevelopersPage from "./pages/developers";
+import GamesByDeveloperPage from "./pages/games-by-developer";
+import PublishersPage from "./pages/publishers";
+import GamesByPublisherPage from "./pages/games-by-publisher";
+import PlatformsPage from "./pages/platforms";
+import SearchResultsPage from "./pages/search-results";
 import { useMemo } from "react";
-import NotFound404Page from "./pages/NotFound404Page";
-import LogInPage from "./pages/log-in/LogInPage";
-import WithNavDrawer from "./layouts/WithNavDrawer";
+import NotFound404Page from "./pages/not-found-404";
+import LogInPage from "./pages/log-in";
+import WithNavigation from "./layouts/WithNavigation";
 import { ToastContainer, toast } from "react-toastify";
-import RecoverPasswordPage from "./pages/recover-password/RecoverPasswordPage";
-import ResetPasswordPage from "./pages/reset-password/ResetPasswordPage";
-import WithoutNavDrawer from "./layouts/WithoutNavDrawer";
-import FavoritesPage from "./pages/FavoritesPage";
-import ScrollBodyToTop from "./components/utils/ScrollBodyToTop";
+import RecoverPasswordPage from "./pages/recover-password";
+import ResetPasswordPage from "./pages/reset-password";
+import WithoutNavigation from "./layouts/WithoutNavigation";
+import FavoritesPage from "./pages/favorites";
+import ScrollBodyToTop from "./components/scroll-body-to-top";
 import FirebaseManager from "./components/firebase/FirebaseManager";
-import DeleteAccountPage from "./pages/delete-account/DeleteAccountPage";
+import DeleteAccountPage from "./pages/delete-account";
 import PrivateRoute from "./components/react-router/PrivateRoute";
 
 const App = () => {
@@ -36,7 +36,7 @@ const App = () => {
       <FirebaseManager></FirebaseManager>
       <div className="min-h-screen bg-neu1-2 dark:bg-neu1-10 min-w-[320px] flex flex-col w-full z-0">
         <Routes>
-          <Route element={<WithoutNavDrawer></WithoutNavDrawer>}>
+          <Route element={<WithoutNavigation></WithoutNavigation>}>
             <Route path="*" element={<NotFound404Page></NotFound404Page>}></Route>
             <Route
               path="/login"
@@ -49,7 +49,7 @@ const App = () => {
             <Route
               path="/recover-password"
               element={
-                <PrivateRoute>
+                <PrivateRoute onlyAnonymous={true}>
                   <RecoverPasswordPage></RecoverPasswordPage>
                 </PrivateRoute>
               }
@@ -72,7 +72,7 @@ const App = () => {
             ></Route>
           </Route>
 
-          <Route element={<WithNavDrawer></WithNavDrawer>}>
+          <Route element={<WithNavigation></WithNavigation>}>
             <Route path="/" element={<Navigate replace to="/games"></Navigate>}></Route>
             <Route path="/games" element={<GamesPageWRCR></GamesPageWRCR>}></Route>
             <Route path="/games/best-of-the-year" element={<BestOfTheYearPage></BestOfTheYearPage>}></Route>

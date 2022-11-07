@@ -7,7 +7,7 @@ import { useRef } from "react";
 import { useState } from "react";
 import createUser from "../../firebase/auth/createUser";
 import { useNavigate } from "react-router-dom";
-import SpinnerC from "../../components/elements/loading-animations/SpinnerC";
+import SpinnerC from "../../components/loading-animations/SpinnerC";
 import { setCurrentUser } from "../../features/firebase/firebaseSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";

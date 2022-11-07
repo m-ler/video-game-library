@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getMidCompressedImageURL } from "../../utils/compressedImageURLS";
-import FullScreenImageSlideshow from "../../components/fullscreen-image-slideshow/FullScreenImageSlideshow";
+import FullScreenImageSlideshow from "../../components/fullscreen-image-slideshow";
 
 export default props => {
   const [showSlideshow, setShowSlideshow] = useState(false);

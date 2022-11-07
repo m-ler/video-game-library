@@ -3,7 +3,7 @@ import { debounce } from "lodash";
 import useApiRequest from "../../../../hooks/useApiRequest";
 import { getGameSearchList } from "../../../../utils/apiRequests";
 import regularExpressions from "../../../../utils/regularExpressions";
-import SpinnerB from "../../../elements/loading-animations/SpinnerB";
+import SpinnerB from "../../../loading-animations/SpinnerB";
 import SearchDropdownResultList from "./SearchDropdownResultList";
 
 const SearchDropdown = props => {
