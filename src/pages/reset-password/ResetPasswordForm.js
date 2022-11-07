@@ -15,7 +15,6 @@ const ResetPasswordForm = props => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const mode = searchParams.get("mode");
   const actionCode = searchParams.get("oobCode");
 
   const [resettingPassword, setResettingPassword] = useState(false);

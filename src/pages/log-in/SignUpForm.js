@@ -12,6 +12,7 @@ import { setCurrentUser } from "../../features/firebase/firebaseSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { emailExists, usernameExists } from "../../firebase/fireStore/firestoreQueries";
+import signIn from "../../firebase/auth/signIn";
 
 const validateEmail = async value => {
   if (!regularExpressions.validEmail.test(value)) return "Invalid email.";
@@ -50,8 +51,7 @@ const SignUpForm = () => {
     const userCredential = await createUser({ email, password, username });
     setCreatingUser(false);
     if (!!userCredential) {
-      dispatch(setCurrentUser({ uid: userCredential.user.uid, displayName: userCredential.user.displayName }));
-      toast(`Welcome ${username} 👋`, { onClose: 3000 });
+      await signIn(email, password);
       navigate("/games");
     }
   };

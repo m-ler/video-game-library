@@ -32,7 +32,7 @@ const UserModal = () => {
     }
 
     const fileExtension = file.type.split("/")[1];
-    const imagePath = `users/avatars/${currentUser?.displayName}.${fileExtension}`;
+    const imagePath = `users/avatars/${currentUser?.displayName}/avatar.${fileExtension}`;
     const [uploadedFile, error] = await uploadFile(file, imagePath);
 
     if (error) {
@@ -48,11 +48,6 @@ const UserModal = () => {
     !!uploadedFile && toast.success("Avatar updated successfully.");
   };
 
-  const deleteAccountOnClick = async () => {
-    return;
-    const deleted = await deleteUser();
-    deleted && signUserOut();
-  };
   const signUserOut = async () => {
     const signedOut = await signOut();
     signedOut && navigate("/login");
@@ -76,12 +71,12 @@ const UserModal = () => {
       <input type="file" className="hidden" onChange={avatarInputOnChange} ref={avatarInputRef} accept=".png, .jpg, .jpeg"></input>
 
       <div className="flex flex-wrap gap-x-[15px] justify-between gap-y-[10px]">
-        <button
-          className={`text-[12px] text-neu1-4 dark:text-neu1-5 hover:text-error  dark:hover:text-error`}
-          onClick={deleteAccountOnClick}
+        <Link
+          to="/delete-account"
+          className={`text-[12px] text-neu1-4 dark:text-neu1-5 hover:text-error  dark:hover:text-error inline-block flex items-center`}
         >
           Delete account
-        </button>
+        </Link>
 
         <button className={`${menuOptionStyle} text-neu1-6 dark:text-neu1-3 ml-auto`} onClick={signUserOut}>
           Log out

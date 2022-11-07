@@ -10,6 +10,7 @@ const SearchBar = () => {
   const searchInputElementRef = useRef();
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [focused, setFocused] = useState(false);
 
   useEffect(() => {
     document.addEventListener("click", onDocumentClick);
@@ -50,12 +51,16 @@ const SearchBar = () => {
         w-full font-OpenSans font-semibold text-[16px] sm:text-[14px]"
         autoComplete="off"
         spellCheck="false"
-        onFocus={() => setShowSearchDropdown(true)}
+        onBlur={() => setFocused(false)}
+        onFocus={() => {
+          setShowSearchDropdown(true);
+          setFocused(true);
+        }}
         onInput={onInput}
         ref={searchInputElementRef}
       ></input>
 
-      <SearchBarHotkey focused={showSearchDropdown}></SearchBarHotkey>
+      <SearchBarHotkey focused={focused}></SearchBarHotkey>
 
       {showSearchDropdown && (
         <SearchDropdown

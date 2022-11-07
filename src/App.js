@@ -23,6 +23,8 @@ import WithoutNavDrawer from "./layouts/WithoutNavDrawer";
 import FavoritesPage from "./pages/FavoritesPage";
 import ScrollBodyToTop from "./components/utils/ScrollBodyToTop";
 import FirebaseManager from "./components/firebase/FirebaseManager";
+import DeleteAccountPage from "./pages/delete-account/DeleteAccountPage";
+import PrivateRoute from "./components/react-router/PrivateRoute";
 
 const App = () => {
   const GamesPageWRCR = useMemo(() => withRouteChangeRemounting(GamesPage), []);
@@ -36,9 +38,38 @@ const App = () => {
         <Routes>
           <Route element={<WithoutNavDrawer></WithoutNavDrawer>}>
             <Route path="*" element={<NotFound404Page></NotFound404Page>}></Route>
-            <Route path="/login" element={<LogInPage></LogInPage>}></Route>
-            <Route path="/recover-password" element={<RecoverPasswordPage></RecoverPasswordPage>}></Route>
-            <Route path="/reset-password" element={<ResetPasswordPage></ResetPasswordPage>}></Route>
+            <Route
+              path="/login"
+              element={
+                <PrivateRoute onlyAnonymous={true}>
+                  <LogInPage></LogInPage>
+                </PrivateRoute>
+              }
+            ></Route>
+            <Route
+              path="/recover-password"
+              element={
+                <PrivateRoute>
+                  <RecoverPasswordPage></RecoverPasswordPage>
+                </PrivateRoute>
+              }
+            ></Route>
+            <Route
+              path="/reset-password"
+              element={
+                <PrivateRoute onlyAnonymous={true}>
+                  <ResetPasswordPage></ResetPasswordPage>
+                </PrivateRoute>
+              }
+            ></Route>
+            <Route
+              path="/delete-account"
+              element={
+                <PrivateRoute onlyUsers={true}>
+                  <DeleteAccountPage></DeleteAccountPage>
+                </PrivateRoute>
+              }
+            ></Route>
           </Route>
 
           <Route element={<WithNavDrawer></WithNavDrawer>}>
@@ -46,7 +77,14 @@ const App = () => {
             <Route path="/games" element={<GamesPageWRCR></GamesPageWRCR>}></Route>
             <Route path="/games/best-of-the-year" element={<BestOfTheYearPage></BestOfTheYearPage>}></Route>
             <Route path="/games/best-of-all-time" element={<BestOfAllTimePage></BestOfAllTimePage>}></Route>
-            <Route path="/favorites" element={<FavoritesPage></FavoritesPage>}></Route>
+            <Route
+              path="/favorites"
+              element={
+                <PrivateRoute onlyUsers={true}>
+                  <FavoritesPage></FavoritesPage>
+                </PrivateRoute>
+              }
+            ></Route>
             <Route path="game/:gameSlug" element={<GameDetailPage></GameDetailPage>}></Route>
             <Route path="/platforms" element={<PlatformsPage></PlatformsPage>}></Route>
             <Route path="/genres" element={<GenresPage></GenresPage>}></Route>
