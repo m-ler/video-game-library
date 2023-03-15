@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getGameDetail, getGameDetailScreenshots } from "../../utils/apiRequests";
+import { getGameDetail, getGameDetailScreenshots } from "../../api/apiRequests";
 import useApiRequest from "../../hooks/useApiRequest";
 import { useParams } from "react-router-dom";
 import PlatformsSection from "./PlatformsSection";

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import SpinnerA from "../../components/loading-animations/SpinnerA";
 import RequestError from "../../components/state-messages/RequestError";
 import useApiRequest from "../../hooks/useApiRequest";
-import { getGenreList } from "../../utils/apiRequests";
+import { getGenreList } from "../../api/apiRequests";
 import GenreList from "./GenreList";
 
 const GenresPage = () => {

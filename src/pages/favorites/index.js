@@ -10,7 +10,7 @@ import NoMoreResults from "../../components/state-messages/NoMoreResults";
 import NoResultsFound from "../../components/state-messages/NoResultsFound";
 import RequestError from "../../components/state-messages/RequestError";
 import useApiRequest from "../../hooks/useApiRequest";
-import { getUserFavoriteGames } from "../../utils/apiRequests";
+import { getUserFavoriteGames } from "../../api/apiRequests";
 
 const FavoritesPage = () => {
   const currentUser = useSelector(state => state.firebase.currentUser);

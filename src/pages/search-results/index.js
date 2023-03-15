@@ -9,7 +9,7 @@ import NoMoreResults from "../../components/state-messages/NoMoreResults";
 import NoResultsFound from "../../components/state-messages/NoResultsFound";
 import RequestError from "../../components/state-messages/RequestError";
 import useApiRequest from "../../hooks/useApiRequest";
-import { getGameSearchList } from "../../utils/apiRequests";
+import { getGameSearchList } from "../../api/apiRequests";
 
 const SearchResultsPage = () => {
   const queryParam = useParams()["query"];

@@ -4,7 +4,7 @@ import SpinnerA from "../../components/loading-animations/SpinnerA";
 import NoMoreResults from "../../components/state-messages/NoMoreResults";
 import RequestError from "../../components/state-messages/RequestError";
 import useApiRequest from "../../hooks/useApiRequest";
-import { getPlatformList } from "../../utils/apiRequests";
+import { getPlatformList } from "../../api/apiRequests";
 import PlatformList from "./PlatformList";
 
 const PlatformsPage = () => {

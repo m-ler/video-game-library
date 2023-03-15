@@ -5,7 +5,7 @@ import SpinnerA from "../../components/loading-animations/SpinnerA";
 import NoMoreResults from "../../components/state-messages/NoMoreResults";
 import RequestError from "../../components/state-messages/RequestError";
 import useApiRequest from "../../hooks/useApiRequest";
-import { getDeveloperList } from "../../utils/apiRequests";
+import { getDeveloperList } from "../../api/apiRequests";
 import DeveloperCard from "./DeveloperCard";
 
 const getHeader = () => {

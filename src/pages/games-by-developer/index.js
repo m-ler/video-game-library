@@ -7,7 +7,7 @@ import SpinnerB from "../../components/loading-animations/SpinnerB";
 import RequestError from "../../components/state-messages/RequestError";
 import withRouteChangeRemounting from "../../hoc/withRouteChangeRemounting";
 import useApiRequest from "../../hooks/useApiRequest";
-import { getDeveloperDetail } from "../../utils/apiRequests";
+import { getDeveloperDetail } from "../../api/apiRequests";
 
 const GamesByDeveloperPage = () => {
   const developerParam = useParams()["developer"];

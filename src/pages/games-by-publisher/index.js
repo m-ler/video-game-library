@@ -5,7 +5,7 @@ import SpinnerB from "../../components/loading-animations/SpinnerB";
 import RequestError from "../../components/state-messages/RequestError";
 import withRouteChangeRemounting from "../../hoc/withRouteChangeRemounting";
 import useApiRequest from "../../hooks/useApiRequest";
-import { getPublisherDetail } from "../../utils/apiRequests";
+import { getPublisherDetail } from "../../api/apiRequests";
 
 const GamesByPublisherPage = () => {
   const publisherParam = useParams()["publisher"];

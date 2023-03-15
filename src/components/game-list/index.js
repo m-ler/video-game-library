@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import GameCard from "../game-card";
 import VirtualizedGrid from "../virtualized-grid";
-import { getGameList } from "../../utils/apiRequests";
+import { getGameList } from "../../api/apiRequests";
 import useApiRequest from "../../hooks/useApiRequest";
 import GamesOrderDropdown from "./GamesOrderDropdown";
 import GamesPlatformFilterDrowdown from "./GamesPlatformFilterDrowdown";

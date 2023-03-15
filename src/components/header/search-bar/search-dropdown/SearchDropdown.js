@@ -1,7 +1,7 @@
 import { useRef, useEffect, useMemo, useState } from "react";
 import { debounce } from "lodash";
 import useApiRequest from "../../../../hooks/useApiRequest";
-import { getGameSearchList } from "../../../../utils/apiRequests";
+import { getGameSearchList } from "../../../../api/apiRequests";
 import regularExpressions from "../../../../utils/regularExpressions";
 import SpinnerB from "../../../loading-animations/SpinnerB";
 import SearchDropdownResultList from "./SearchDropdownResultList";

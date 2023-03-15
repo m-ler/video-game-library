@@ -5,7 +5,7 @@ import SpinnerB from "../../components/loading-animations/SpinnerB";
 import RequestError from "../../components/state-messages/RequestError";
 import withRouteChangeRemounting from "../../hoc/withRouteChangeRemounting";
 import useApiRequest from "../../hooks/useApiRequest";
-import { getGenreDetail } from "../../utils/apiRequests";
+import { getGenreDetail } from "../../api/apiRequests";
 
 const GamesByGenrePage = () => {
   const genreParam = useParams()["genre"];
