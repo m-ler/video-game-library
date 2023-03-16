@@ -44,14 +44,14 @@ npm run start
 ## Screenshots
 
 <p align="center">
-  <img src=".github/assets/screenshots/1.png" width="500"></img>
-  <img src=".github/assets/screenshots/2.png" width="500"></img>
+  <img src=".github/assets/screenshots/1.png" width="410"></img>
+  <img src=".github/assets/screenshots/2.png" width="410"></img>
 </p>
 
 <p align="center">
-  <img src=".github/assets/screenshots/3.png" width="332"></img>
-  <img src=".github/assets/screenshots/4.png" width="332"></img>
-  <img src=".github/assets/screenshots/5.png" width="332"></img>
+  <img src=".github/assets/screenshots/3.png" width="272"></img>
+  <img src=".github/assets/screenshots/4.png" width="272"></img>
+  <img src=".github/assets/screenshots/5.png" width="272"></img>
 </p>
 
 
