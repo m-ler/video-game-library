@@ -5,7 +5,7 @@
 
 module.exports = {
 	// All imported modules in your tests should be mocked automatically
-	// automock: false,
+	automock: false,
 
 	// Stop running tests after `n` failures
 	// bail: 0,
@@ -20,7 +20,6 @@ module.exports = {
 
 	// An array of glob patterns indicating a set of files for which coverage information should be collected
 	// collectCoverageFrom: undefined,
-
 
 	// An array of regexp pattern strings used to skip coverage collection
 	// coveragePathIgnorePatterns: [
@@ -174,13 +173,11 @@ module.exports = {
 	// transform: undefined,
 	'transform': {
 		'^.+\\.(js|jsx)$': 'babel-jest',
+		'.+\\.(css|scss|png|jpg|svg)$': 'jest-transform-stub',
 	},
 
 	// An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-	// transformIgnorePatterns: [
-	//   "\\\\node_modules\\\\",
-	//   "\\.pnp\\.[^\\\\]+$"
-	// ],
+	transformIgnorePatterns: ['node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)'],
 
 	// An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
 	// unmockedModulePathPatterns: undefined,

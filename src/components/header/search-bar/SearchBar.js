@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useState, useRef } from "react";
 import { MdSearch } from "react-icons/md";
-import regularExpressions from "../../../utils/regularExpressions";
 import SearchBarHotkey from "./SearchBarHotkey";
 import SearchDropdown from "./search-dropdown/SearchDropdown";
 
@@ -32,7 +31,7 @@ const SearchBar = () => {
   };
 
   const onKeyDown = e => {
-    if (e.ctrlKey && e.key == "k") {
+    if (e.ctrlKey && e.key === "k") {
       e.preventDefault();
       searchInputElementRef.current.focus();
     }

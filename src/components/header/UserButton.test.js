@@ -11,6 +11,7 @@ jest.mock('react-router-dom', () => ({
 
 it('Should navigate to login page on button click', () => {
 	render(<UserButton />);
-	userEvent.click(screen.getByRole('button'));
+	const button = screen.getByRole('button');
+	userEvent.click(button);
 	expect(mockUseNavigate).toBeCalledTimes(1);
 });
