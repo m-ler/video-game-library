@@ -8,3 +8,5 @@ global.matchMedia = jest.fn().mockImplementation(query => ({
 	removeEventListener: jest.fn(),
 	dispatchEvent: jest.fn(),
 }));
+
+global.HTMLElement.prototype.scrollIntoView = jest.fn();

@@ -45,6 +45,7 @@ const FullScreenImageSlideshow = props => {
         <button
           className="absolute top-[10px] right-[10px] rounded-full hover:bg-accent3 p-[5px] duration-200"
           onClick={() => !!props.onHide && props.onHide()}
+					data-testid="slideshow-close-button"
         >
           <MdClose className="text-white" size={30}></MdClose>
         </button>
