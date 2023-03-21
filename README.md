@@ -1,4 +1,4 @@
-![](https://github.com/m-ler/video-game-library/blob/main/.github/assets/vgl-banner.png)
+![](.github/assets/vgl-banner.png)
 
 <h1 align="center">
   Video Game Library
