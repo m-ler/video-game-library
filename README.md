@@ -19,6 +19,9 @@
   <img src="https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black"/>
 </p>
 
+## Live demo
+🔗 https://vglibrary.web.app
+
 ## Running Locally
 
 You'll need Git and Node.js installed on your computer.
