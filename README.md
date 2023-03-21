@@ -1,7 +1,7 @@
 ![](.github/assets/vgl-banner.png)
 
 <h1 align="center">
-  Video Game Library
+  🎮 Video Game Library
 </h1>
 
 <h5 align="center">
@@ -19,10 +19,10 @@
   <img src="https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black"/>
 </p>
 
-## Live demo
+## 🚀 Live demo
 🔗 https://vglibrary.web.app
 
-## Running Locally
+## ⌨️ Running Locally
 
 You'll need Git and Node.js installed on your computer.
 
@@ -44,7 +44,7 @@ After that, you'll need to create a .env file with the same variables as [`.env.
 npm run start
 ```
 
-## Screenshots
+## 📸 Screenshots
 
 <p align="center">
   <img src=".github/assets/screenshots/1.png" width="410"></img>
