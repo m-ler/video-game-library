@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
-import { gamesLinks, platformLinks, browseLinks, favoritesLink } from "../../data/navDrawerLinks";
+import { gamesLinks, platformLinks, browseLinks, favoritesLink } from "./navDrawerLinks";
 import { toggleNavMenu } from "../../slices/nav-menu/navMenuSlice";
 import { isScreenMobile } from "../../utils/environment";
 import LoggedUserButton from "../header/LoggedUserButton";

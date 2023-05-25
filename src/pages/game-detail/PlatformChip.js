@@ -1,7 +1,7 @@
 import { cloneElement } from "react";
 import { Link } from "react-router-dom";
-import platformColors from "../../data/platformColors";
-import platformIcons from "../../data/platformIcons";
+import platformColors from "./platformColors";
+import platformIcons from "../../constants/platformIcons";
 
 export default props => {
   const platformColor = platformColors[props.plaformName] || "#000";

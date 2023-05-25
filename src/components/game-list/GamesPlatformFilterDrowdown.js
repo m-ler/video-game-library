@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import GamesPlatformFilterDropdownMenu from "./GamesPlatformFilterDropdownMenu";
-import { platformList } from "../../data/platformList";
+import { platformList } from "../../constants/platformList";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import Popup from "reactjs-popup";
 

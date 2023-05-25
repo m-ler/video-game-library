@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import GameCard from '.';
-import { store } from '../../app/store';
+import { store } from '../../store';
 import mockGameData from './mocks/gameData';
 
 const mockGameCard = (

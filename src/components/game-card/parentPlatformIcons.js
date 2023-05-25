@@ -2,11 +2,11 @@ import { FaWindows, FaLinux, FaPlaystation, FaXbox, FaApple } from "react-icons/
 import { SiAtari, SiIos, SiSega } from "react-icons/si";
 import { DiAndroid } from "react-icons/di";
 
-import NintendoIcon from "./../assets/svgr/platform-icons/NintendoIcon";
-import CommodoreAmigaIcon from "./../assets/svgr/platform-icons/CommodoreAmigaIcon";
-import Console3DOIcon from "./../assets/svgr/platform-icons/Console3DOIcon";
-import NeoGeoIcon from "./../assets/svgr/platform-icons/NeoGeoIcon";
-import BrowserIcon1 from "../assets/svgr/platform-icons/BrowserIcon1";
+import NintendoIcon from "../../assets/svgr/platform-icons/NintendoIcon";
+import CommodoreAmigaIcon from "../../assets/svgr/platform-icons/CommodoreAmigaIcon";
+import Console3DOIcon from "../../assets/svgr/platform-icons/Console3DOIcon";
+import NeoGeoIcon from "../../assets/svgr/platform-icons/NeoGeoIcon";
+import BrowserIcon1 from "../../assets/svgr/platform-icons/BrowserIcon1";
 
 export default {
   "PC": <FaWindows></FaWindows>,

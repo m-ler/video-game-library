@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { getMidCompressedImageURL } from '../../utils/compressedImageURLS';
 import GameCardSlideshow from './GameCardSlideshow';
 import { Link } from 'react-router-dom';
-import parentPlatformIcons from '../../data/parentPlatformIcons';
+import parentPlatformIcons from './parentPlatformIcons';
 import GameCardLikeButton from './GameCardLikeButton';
 import { isMobile } from '../../utils/environment';
 
