@@ -8,9 +8,6 @@ import { useState } from "react";
 import createUser from "../../firebase/auth/createUser";
 import { useNavigate } from "react-router-dom";
 import SpinnerC from "../../components/loading-animations/SpinnerC";
-import { setCurrentUser } from "../../features/firebase/firebaseSlice";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import { emailExists, usernameExists } from "../../firebase/fireStore/firestoreQueries";
 import signIn from "../../firebase/auth/signIn";
 
@@ -28,7 +25,6 @@ const validatePassword = async value => {
 };
 
 const SignUpForm = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formComplete, setFormComplete] = useState(false);
   const [creatingUser, setCreatingUser] = useState(false);

@@ -1,6 +1,6 @@
 import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleTheme } from '../../features/theme/themeSlice';
+import { toggleTheme } from '../../slices/theme/themeSlice';
 import { Tooltip } from 'react-tippy';
 
 const ThemeButton = () => {

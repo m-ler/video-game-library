@@ -1,6 +1,6 @@
 import { MdMenu } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleNavMenu } from "../../features/nav-menu/navMenuSlice";
+import { toggleNavMenu } from "../../slices/nav-menu/navMenuSlice";
 import IconButton from "../buttons/IconButton";
 
 const NavMenuButton = () => {

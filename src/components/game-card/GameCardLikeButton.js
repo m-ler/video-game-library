@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { MdOutlineThumbUp, MdThumbUp } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { setCurrentUserLikes } from '../../features/firebase/firebaseSlice';
+import { setCurrentUserLikes } from '../../slices/firebase/firebaseSlice';
 import saveGame from '../../firebase/fireStore/games/saveVideoGame';
 import updateVideoGameLikes from '../../firebase/fireStore/games/updateVideoGameLikes';
 import updateUserLikes from '../../firebase/fireStore/users/updateUserLikes';

@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setCurrentUser, setCurrentUserLikes } from "../../features/firebase/firebaseSlice";
+import { setCurrentUser, setCurrentUserLikes } from "../../slices/firebase/firebaseSlice";
 import { auth } from "../../firebase/firebase";
 import { getUserDocumentById } from "../../firebase/fireStore/firestoreQueries";
 
