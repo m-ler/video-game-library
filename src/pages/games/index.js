@@ -1,11 +1,7 @@
-import { useMemo } from "react";
-import GameList from "../../components/game-list";
-import withRouteChangeRemounting from "../../hoc/withRouteChangeRemounting";
+import GameList from '../../components/game-list';
 
 const GamesPage = () => {
-  const GameListWithRouteChangeRemounting = useMemo(() => withRouteChangeRemounting(GameList), []);
-
-  return <GameListWithRouteChangeRemounting></GameListWithRouteChangeRemounting>;
+	return <GameList></GameList>;
 };
 
 export default GamesPage;

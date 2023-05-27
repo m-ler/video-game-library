@@ -1,11 +1,9 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import GameList from "../../components/game-list";
 import SpinnerB from "../../components/loading-animations/SpinnerB";
 import RequestError from "../../components/state-messages/RequestError";
-import withRouteChangeRemounting from "../../hoc/withRouteChangeRemounting";
 import useApiRequest from "../../hooks/useApiRequest";
 import { getDeveloperDetail } from "../../api/apiRequests";
 
@@ -22,17 +20,15 @@ const GamesByDeveloperPage = () => {
     !!developerRequest.data && setDeveloperDetail(developerRequest.data);
   }, [developerRequest.data]);
 
-  const GameListWithRouteChangeRemounting = useMemo(() => withRouteChangeRemounting(GameList), []);
-
   return developerRequest.error ? (
-    <RequestError></RequestError>
-  ) : developerRequest.loading ? (
-    <SpinnerB className="w-full flex justify-center m-[20px] px-[20px]"></SpinnerB>
-  ) : !!developerDetail ? (
-    <GameListWithRouteChangeRemounting developer={developerDetail}></GameListWithRouteChangeRemounting>
-  ) : (
-    ""
-  );
+		<RequestError></RequestError>
+	) : developerRequest.loading ? (
+		<SpinnerB className="w-full flex justify-center m-[20px] px-[20px]"></SpinnerB>
+	) : !!developerDetail ? (
+		<GameList developer={developerDetail}></GameList>
+	) : (
+		''
+	);
 };
 
 export default GamesByDeveloperPage;

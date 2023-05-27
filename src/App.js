@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import withRouteChangeRemounting from './hoc/withRouteChangeRemounting';
 import GamesPage from './pages/games';
 import GameDetailPage from './pages/game-detail';
 import GenresPage from './pages/genres';
@@ -12,7 +11,6 @@ import PublishersPage from './pages/publishers';
 import GamesByPublisherPage from './pages/games-by-publisher';
 import PlatformsPage from './pages/platforms';
 import SearchResultsPage from './pages/search-results';
-import { useMemo } from 'react';
 import NotFound404Page from './pages/not-found-404';
 import LogInPage from './pages/log-in';
 import WithNavigation from './layouts/WithNavigation';
@@ -27,9 +25,6 @@ import DeleteAccountPage from './pages/delete-account';
 import PrivateRoute from './components/react-router/PrivateRoute';
 
 const App = () => {
-	const GamesPageWRCR = useMemo(() => withRouteChangeRemounting(GamesPage), []);
-	const SearchResultsPageWRCR = useMemo(() => withRouteChangeRemounting(SearchResultsPage), []);
-
 	return (
 		<div id="app" className="z-0">
 			<ScrollBodyToTop></ScrollBodyToTop>
@@ -74,7 +69,7 @@ const App = () => {
 
 					<Route element={<WithNavigation></WithNavigation>}>
 						<Route path="/" element={<Navigate replace to="/games"></Navigate>}></Route>
-						<Route path="/games" element={<GamesPageWRCR></GamesPageWRCR>}></Route>
+						<Route path="/games" element={<GamesPage></GamesPage>}></Route>
 						<Route path="/games/best-of-the-year" element={<BestOfTheYearPage></BestOfTheYearPage>}></Route>
 						<Route path="/games/best-of-all-time" element={<BestOfAllTimePage></BestOfAllTimePage>}></Route>
 						<Route
@@ -93,7 +88,7 @@ const App = () => {
 						<Route path="/developers/:developer" element={<GamesByDeveloperPage></GamesByDeveloperPage>}></Route>
 						<Route path="/publishers" element={<PublishersPage></PublishersPage>}></Route>
 						<Route path="/publishers/:publisher" element={<GamesByPublisherPage></GamesByPublisherPage>}></Route>
-						<Route path="/search/:query" element={<SearchResultsPageWRCR></SearchResultsPageWRCR>}></Route>
+						<Route path="/search/:query" element={<SearchResultsPage></SearchResultsPage>}></Route>
 					</Route>
 				</Routes>
 			</div>

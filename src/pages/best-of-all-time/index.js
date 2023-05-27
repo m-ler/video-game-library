@@ -1,11 +1,7 @@
-import { useMemo } from "react";
-import GameList from "../../components/game-list";
-import withRouteChangeRemounting from "../../hoc/withRouteChangeRemounting";
+import GameList from '../../components/game-list';
 
 const BestOfAllTimePage = () => {
-  const GameListWithRouteChangeRemounting = useMemo(() => withRouteChangeRemounting(GameList), []);
-
-  return <GameListWithRouteChangeRemounting title="Best of All Time" category="/lists/popular"></GameListWithRouteChangeRemounting>;
+	return <GameList title="Best of All Time" category="/lists/popular"></GameList>;
 };
 
 export default BestOfAllTimePage;
